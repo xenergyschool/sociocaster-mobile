@@ -11,7 +11,6 @@ try {
 
   var autoprefixer = require(path.join(cordovaNodeModules, 'autoprefixer'));
   var precss = require(path.join(cordovaNodeModules, 'precss'));
-
 } catch (e) {
   throw new Error('Missing Webpack Build Dependencies. ');
 }
@@ -130,7 +129,11 @@ module.exports = {
       from: path.join(__dirname, 'src', 'public'),
       ignore: ['index.html.ejs']
     }]),
-    new ProgressBarPlugin()
+    new ProgressBarPlugin(),
+    new webpack.DefinePlugin({
+      SC_HOST: JSON.stringify('https://sociocaster.com'),
+      SC_API: JSON.stringify('http://api.sociocaster.com')
+    })
   ],
 
   resolveLoader: {

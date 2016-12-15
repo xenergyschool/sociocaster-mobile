@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {Page, Toolbar} from 'react-onsenui';
+
+import { Page, Toolbar } from 'react-onsenui';
 
 export default class SettingsPage extends React.Component {
   render() {
@@ -11,7 +11,7 @@ export default class SettingsPage extends React.Component {
             <div className='center'>Title</div>
           </Toolbar>
         }
-      >
+        >
         <div>
           Settings Page
         </div>
