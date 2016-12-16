@@ -1,5 +1,4 @@
 import * as api from '../api'
-import request from '../api/request'
 import { notification } from 'onsenui'
 
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
@@ -33,7 +32,8 @@ export const login = (data) => {
         api.post('/app/mobilelogin', data, config).then((response) => {
             console.log(response)
             localStorage.setItem('sc-auth', JSON.stringify(response.data))
-            request.defaults.headers.common['Authorization'] = `Bearer ${response.data.jwt}`;
+            api.setting()
+
             dispatch(init())
         }).catch((error) => {
             console.log(error)
