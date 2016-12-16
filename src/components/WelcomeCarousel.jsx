@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Carousel, CarouselItem } from 'react-onsenui';
+import { Carousel, CarouselItem, Button } from 'react-onsenui';
 
 export default class WelcomeCarousel extends React.Component {
 
     render() {
-        const {messages} = this.props;
+        const {messages, openLoginPage} = this.props;
 
         return (
             <div>
@@ -18,6 +18,11 @@ export default class WelcomeCarousel extends React.Component {
                             </div>
                         </CarouselItem>
                     ))}
+                    <CarouselItem key={messages.length} >
+                        <div style={{ marginTop: '50%', textAlign: 'center' }}>
+                            <Button onClick={openLoginPage}>Sign in</Button>
+                        </div>
+                    </CarouselItem>
                 </Carousel>
                 <div style={{
                     textAlign: 'center',
