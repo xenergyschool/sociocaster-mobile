@@ -7,12 +7,15 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import reducers from './reducers';
+
+
 // Onsen UI Styling and Icons
 // require('onsenui/stylus/blue-basic-theme.styl');
 require('onsenui/css/onsenui.css');
 require('./stylus/index.styl');
 
 import App from './containers/App';
+import * as authActions from './actions/auth';
 
 const logger = createLogger();
 
@@ -22,6 +25,10 @@ const store = createStore(reducers,
     ? applyMiddleware(thunk)
     : applyMiddleware(thunk, logger)
 );
+
+
+store.dispatch(authActions.init())
+
 
 const rootElement = document.getElementById('app');
 ReactDOM.render(

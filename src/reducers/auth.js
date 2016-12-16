@@ -1,3 +1,6 @@
+import {
+  AUTH_SUCCESS
+} from '../actions/auth'
 const defaultState = {
   isLoggedIn: false,
   jwt: '',
@@ -5,8 +8,14 @@ const defaultState = {
 };
 
 const auth = (state = defaultState, action) => {
+
   switch (action.type) {
-    default: return state;
+    case AUTH_SUCCESS:
+      return {
+        ...state,
+        ...action.data
+      }
+    default:return state
   }
 };
 

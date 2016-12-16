@@ -10,7 +10,7 @@ class App extends React.Component {
     return <route.component key={route.key} navigator={navigator} />
   }
   render() {
-    console.log(this.props.auth)
+
     const {isLoggedIn} = this.props.auth
 
     let initialRoute = { component: WelcomePage, key: 'WELCOME_PAGE' }

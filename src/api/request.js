@@ -9,6 +9,5 @@ if (typeof (Storage) !== 'undefined') {
 
 export default axios.create({
     baseURL: SC_API,
-    timeout: 1000,
     headers: { 'Authorization': `Bearer ${authdata.jwt}` }
 });
