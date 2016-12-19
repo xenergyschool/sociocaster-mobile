@@ -14,11 +14,19 @@ export const init = () => {
                 type: AUTH_SUCCESS,
                 data: {
                     user: response.data,
-                    isLoggedIn: response.success
+                    isLoggedIn: response.success,
+                    isChecking: false
                 }
             })
-        }).catch((error) => {
-            console.log(error)
+        }).catch((response) => {
+            dispatch({
+                type: AUTH_SUCCESS,
+                data: {
+                    user: response.data,
+                    isLoggedIn: response.success,
+                    isChecking: false
+                }
+            })
         })
     }
 }

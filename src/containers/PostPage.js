@@ -34,7 +34,7 @@ class PostPage extends Component {
         return (
             <Toolbar>
                 <div className='left'>
-                    <ToolbarButton onClick={this.show}>
+                    <ToolbarButton onClick={this.showMenu}>
                         <Icon icon='ion-navicon, material:md-menu' />
                     </ToolbarButton>
                 </div>

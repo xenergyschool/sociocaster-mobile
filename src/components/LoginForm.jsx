@@ -18,6 +18,7 @@ export default class LoginForm extends Component {
                         placeholder='Username'
                         autofocus
                         required
+
                         />
                 </p>
                 <p>

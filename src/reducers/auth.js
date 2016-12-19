@@ -2,6 +2,7 @@ import {
   AUTH_SUCCESS
 } from '../actions/auth'
 const defaultState = {
+  isChecking: true,
   isLoggedIn: false,
   jwt: '',
   user: {}
@@ -15,7 +16,7 @@ const auth = (state = defaultState, action) => {
         ...state,
         ...action.data
       }
-    default:return state
+    default: return state
   }
 };
 

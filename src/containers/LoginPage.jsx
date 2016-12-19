@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Page } from 'react-onsenui'
+import { notification } from 'onsenui'
 import LoginForm from '../components/LoginForm'
 import * as authActions from '../actions/auth'
 import { bindActionCreators } from 'redux';
@@ -15,15 +16,36 @@ class LoginPage extends Component {
     handleClickLogin(e) {
 
         const {authActions} = this.props
+        let isError = false
+        let errors = []
+        if (this.state.username.length < 6) {
+            isError = true
+            errors = ['Username']
+        }
+        if (this.state.password.length < 6) {
+            isError = true
+            errors = [...errors, 'Password']
+        }
 
-        authActions.login(this.state)
+        if (isError) {
+            let errorMessage = ''
+            if (errors.length > 1) {
+                errorMessage = `${errors.join(' and ')} are required`
+            } else {
+                errorMessage = `${errors[0]} is required`
+            }
+            notification.alert(errorMessage, { title: 'Ups!' })
+        } else {
+            authActions.login(this.state)
+        }
+
     }
     handleChange(e) {
 
         if (e.target.id == 'username')
-            this.setState({ username: e.target.value })
+            this.setState({ username: e.target.value.trim() })
         else if (e.target.id == 'password')
-            this.setState({ password: e.target.value })
+            this.setState({ password: e.target.value.trim() })
     }
     render() {
 
@@ -43,3 +65,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+
+

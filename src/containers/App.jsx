@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Tabbar, Tab, Navigator } from 'react-onsenui';
-
 import WelcomePage from './WelcomePage';
 import PostPage from './PostPage'
+import PreLoad from '../components/PreLoad'
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -30,24 +31,36 @@ class App extends React.Component {
   }
   render() {
 
-    const {isLoggedIn} = this.props.auth
+    const {isLoggedIn, isChecking} = this.props.auth
 
-    let initialRoute = { component: WelcomePage, key: 'WELCOME_PAGE' }
+
     if (isLoggedIn) {
-      console.log('update render')
-      return (<Tabbar
-        index={this.state.index}
-        onPreChange={this.onPreChange}
-        renderTabs={this.renderTabs}
-        />);
-    } else {
-      return (
 
-        <Navigator
-          renderPage={this.renderPage}
-          initialRoute={initialRoute}
+      return (
+        <Tabbar
+          index={this.state.index}
+          onPreChange={this.onPreChange}
+          renderTabs={this.renderTabs}
           />
-      );
+      )
+    } else {
+
+      if (isChecking) {
+        return (
+          <PreLoad />
+        )
+
+      } else {
+        let initialRoute = { component: WelcomePage, key: 'WELCOME_PAGE' }
+        return (
+
+          <Navigator
+            renderPage={this.renderPage}
+            initialRoute={initialRoute}
+            />
+        );
+      }
+
     }
   }
 }
