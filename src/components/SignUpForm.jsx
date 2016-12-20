@@ -4,14 +4,15 @@ import { Input, Button } from 'react-onsenui'
 export default class LoginForm extends Component {
 
     render() {
-        const {handleClickLogin, handleChange, username, password} = this.props
+        const {handleClickSignUp, handleChange, username, email, password} = this.props
         return (
             <section style={{ textAlign: 'center' }}>
-                <form onSubmit={handleClickLogin}>
+                <form onSubmit={handleClickSignUp}>
                     <p>
                         <input
                             value={username}
                             onChange={handleChange}
+
                             id='username'
                             type='text'
                             placeholder='Username'
@@ -22,17 +23,32 @@ export default class LoginForm extends Component {
                     </p>
                     <p>
                         <input
+                            value={email}
+                            onChange={handleChange}
+
+                            id='email'
+                            type='email'
+                            placeholder='Email'
+
+                            required
+
+                            />
+                    </p>
+                    <p>
+                        <input
                             value={password}
                             onChange={handleChange}
+
                             id='password'
                             type='password'
+
                             placeholder='Password'
                             required
 
                             />
                     </p>
                     <p>
-                        <button type='submit'>Sign In</button>
+                        <button type='submit'>Sign Up</button>
                     </p>
                 </form>
             </section>

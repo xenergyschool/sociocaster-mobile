@@ -5,7 +5,7 @@ import { Carousel, CarouselItem, Button } from 'react-onsenui';
 export default class WelcomeCarousel extends React.Component {
 
     render() {
-        const {messages, openLoginPage, setIndex, activeIndex} = this.props;
+        const {messages, openLoginPage, openSignUpPage, setIndex, activeIndex} = this.props;
         console.log(activeIndex)
         return (
             <div>
@@ -21,7 +21,11 @@ export default class WelcomeCarousel extends React.Component {
                     <CarouselItem key={messages.length} >
                         <div style={{ marginTop: '50%', textAlign: 'center' }}>
                             <Button onClick={openLoginPage}>Sign in</Button>
+                            <p>or</p>
+                            <Button onClick={openSignUpPage}>Sign Up</Button>
                         </div>
+
+
                     </CarouselItem>
                 </Carousel>
                 {activeIndex < messages.length &&
