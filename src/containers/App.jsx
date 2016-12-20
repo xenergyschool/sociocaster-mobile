@@ -22,7 +22,7 @@ class App extends React.Component {
     return [
       {
         content: <PostPage title='Posts' key={1} />,
-        tab: <Tab label='Posts' icon='md-home' key={1} />,
+        tab: <Tab label='Posts' icon='ion-home,material:md-home' key={1} />,
       }
     ];
   }
@@ -35,14 +35,19 @@ class App extends React.Component {
 
 
     if (isLoggedIn) {
-
-      return (
-        <Tabbar
-          index={this.state.index}
-          onPreChange={this.onPreChange}
-          renderTabs={this.renderTabs}
-          />
-      )
+      if (this.props.socialaccount.isFetching) {
+        return (
+          <PreLoad />
+        )
+      } else {
+        return (
+          <Tabbar
+            index={this.state.index}
+            onPreChange={this.onPreChange}
+            renderTabs={this.renderTabs}
+            />
+        )
+      }
     } else {
 
       if (isChecking) {
@@ -66,6 +71,6 @@ class App extends React.Component {
 }
 
 
-const mapStateToProps = (state, ownProps) => ({ auth: state.auth })
+const mapStateToProps = (state, ownProps) => ({ auth: state.auth, socialaccount: state.socialaccount })
 
 export default connect(mapStateToProps)(App)

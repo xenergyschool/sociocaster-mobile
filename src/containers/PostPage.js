@@ -1,34 +1,33 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Page, Toolbar, ToolbarButton, Icon, Splitter, SplitterContent, SplitterSide, List, ListItem } from 'react-onsenui'
+import { Page, Toolbar, ToolbarButton, Icon, Navigator } from 'react-onsenui'
 
 import * as authActions from '../actions/auth'
+import * as socialaccountActions from '../actions/socialaccount'
 import { bindActionCreators } from 'redux';
+import Menu from '../components/Menu'
+import Post from '../components/Post'
 
 class PostPage extends Component {
     constructor(props) {
         super(props)
-        this.handleChange = this.handleChange.bind(this)
-        this.handleClickLogin = this.handleClickLogin.bind(this)
+
         this.showMenu = this.showMenu.bind(this)
         this.hideMenu = this.hideMenu.bind(this)
         this.renderToolbar = this.renderToolbar.bind(this)
-        this.state = { isOpen: false }
-    }
-    handleClickLogin(e) {
-
-        const {authActions} = this.props
-
-        authActions.login(this.state)
-    }
-    handleChange(e) {
-
-        if (e.target.id == 'username')
-            this.setState({ username: e.target.value })
-        else if (e.target.id == 'password')
-            this.setState({ password: e.target.value })
+        this.renderPage = this.renderPage.bind(this)
+        this.handleMenuPullChange = this.handleMenuPullChange.bind(this)
+        this.handleMenuPullLoad = this.handleMenuPullLoad.bind(this)
+        this.getMenuPullContent = this.getMenuPullContent.bind(this)
+        this.state = {
+            isMenuOpen: false,
+            menuPullState: 'initial'
+        }
     }
 
+    renderPage(route, navigator) {
+        return <route.component key={route.key} navigator={navigator} renderToolbar={this.renderToolbar} />
+    }
     renderToolbar() {
         const {title } = this.props
         return (
@@ -44,58 +43,62 @@ class PostPage extends Component {
     }
 
     hideMenu() {
-        this.setState({ isOpen: false })
+        this.setState({ isMenuOpen: false })
     }
     showMenu() {
-        this.setState({ isOpen: true })
+        this.setState({ isMenuOpen: true })
+    }
+    handleMenuPullChange(e) {
+        this.setState({ menuPullState: e.state })
+    }
+    handleMenuPullLoad(done) {
+
+        const {socialaccountActions} = this.props
+
+        socialaccountActions.get('refresh').then(() => {
+            this.setState(done)
+        })
+    }
+    getMenuPullContent() {
+
+        switch (this.state.menuPullState) {
+            case 'action':
+                return (
+                    <span><Icon spin icon='ion-ios-loop-strong' /> Reloading...</span>
+                )
+        }
     }
 
     render() {
 
         return (
-            <Splitter>
-                <SplitterSide
-                    style={{
-                        boxShadow: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)'
-                    }}
-                    side='left'
-                    width={200}
-                    collapse={true}
-                    isSwipeable={true}
-                    isOpen={this.state.isOpen}
-                    onClose={this.hideMenu}
-                    onOpen={this.showMenu}
-                    >
-                    <Page>
-                        <List
-                            dataSource={['Profile', 'Followers', 'Settings']}
-                            renderRow={(title) => (
-                                <ListItem key={title} onClick={this.hide} tappable>{title}</ListItem>
-                            )}
-                            />
-                    </Page>
-                </SplitterSide>
-                <SplitterContent>
-                    <Page renderToolbar={this.renderToolbar}>
-                        <section style={{ margin: '16px' }}>
-                            <p>
-                                Swipe right to open the menu.
-                            </p>
-                        </section>
-                    </Page>
-                </SplitterContent>
-            </Splitter>
+            <Menu
+                hideMenu={this.hideMenu}
+                showMenu={this.showMenu}
+                isMenuOpen={this.state.isMenuOpen}
+                socialaccount={this.props.socialaccount}
+                getMenuPullContent={this.getMenuPullContent}
+                handleMenuPullLoad={this.handleMenuPullLoad}
+                handleMenuPullChange={this.handleMenuPullChange}
+                >
+                <Navigator
+                    renderPage={this.renderPage}
+                    initialRoute={{ component: Post, key: 'POSTS_PAGE' }}
+                    />
+            </Menu>
         )
     }
 
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    auth: state.auth
+    auth: state.auth,
+    socialaccount: state.socialaccount
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    authActions: bindActionCreators(authActions, dispatch)
+    authActions: bindActionCreators(authActions, dispatch),
+    socialaccountActions: bindActionCreators(socialaccountActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostPage);
