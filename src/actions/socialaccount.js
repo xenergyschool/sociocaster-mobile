@@ -8,12 +8,14 @@ export const SOCIAL_ACCOUNTS_LOADED = 'SOCIAL_ACCOUNTS_LOADED';
 export const get = (mode = 'normal') => {
 
     return (dispatch, getState) => {
-        dispatch({
-            type: SOCIAL_ACCOUNTS_LOADED,
-            data: {
-                isFetching: mode == 'normal' ? true : false
-            }
-        })
+        if (mode == 'normal') {
+            dispatch({
+                type: SOCIAL_ACCOUNTS_LOADED,
+                data: {
+                    isFetching: true
+                }
+            })
+        }
         return api.get('/socialaccounts').then((response) => {
             dispatch({
                 type: SOCIAL_ACCOUNTS_LOADED,
