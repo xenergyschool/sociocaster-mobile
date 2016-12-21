@@ -24,8 +24,6 @@ export default class WelcomeCarousel extends React.Component {
                             <p>or</p>
                             <Button onClick={openSignUpPage}>Sign Up</Button>
                         </div>
-
-
                     </CarouselItem>
                 </Carousel>
                 {activeIndex < messages.length &&

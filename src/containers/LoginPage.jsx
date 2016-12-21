@@ -14,7 +14,7 @@ class LoginPage extends Component {
         this.state = { username: '', password: '' }
     }
     handleClickLogin(e) {
-
+        e.preventDefault()
         const {authActions} = this.props
         let isError = false
         let errors = []
@@ -49,9 +49,11 @@ class LoginPage extends Component {
     }
     render() {
 
-        return (<Page>
-            <LoginForm handleClickLogin={this.handleClickLogin} handleChange={this.handleChange} username={this.state.username} password={this.state.password} />
-        </Page>)
+        return (
+            <Page>
+                <LoginForm handleClickLogin={this.handleClickLogin} handleChange={this.handleChange} username={this.state.username} password={this.state.password} />
+            </Page>
+        )
     }
 
 }

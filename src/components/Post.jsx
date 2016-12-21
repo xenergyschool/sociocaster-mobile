@@ -7,6 +7,7 @@ export default class Post extends Component {
 
     render() {
         const {renderToolbar} = this.props
+
         return (
 
 

@@ -12,22 +12,15 @@ import MenuContainer from './MenuContainer'
 class PostPage extends Component {
     constructor(props) {
         super(props)
-
         this.renderToolbar = this.renderToolbar.bind(this)
-        this.renderPage = this.renderPage.bind(this)
 
-
-    }
-
-    renderPage(route, navigator) {
-        return <route.component key={route.key} navigator={navigator} renderToolbar={this.renderToolbar} />
     }
     renderToolbar() {
-        const {title } = this.props
+        const {title, showMenu} = this.props
         return (
             <Toolbar>
                 <div className='left'>
-                    <ToolbarButton onClick={this.showMenu}>
+                    <ToolbarButton onClick={showMenu}>
                         <Icon icon='ion-navicon, material:md-menu' />
                     </ToolbarButton>
                 </div>
@@ -38,15 +31,12 @@ class PostPage extends Component {
 
 
 
+
     render() {
+        const {navigator} = this.props
 
         return (
-            <MenuContainer>
-                <Navigator
-                    renderPage={this.renderPage}
-                    initialRoute={{ component: Post, key: 'POSTS_PAGE' }}
-                    />
-            </MenuContainer>
+            <Post navigator={navigator} renderToolbar={this.renderToolbar} />
         )
     }
 

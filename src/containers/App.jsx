@@ -4,6 +4,7 @@ import { Tabbar, Tab, Navigator } from 'react-onsenui';
 import WelcomePage from './WelcomePage';
 import PostPage from './PostPage'
 import PreLoad from '../components/PreLoad'
+import MenuCotainer from './MenuContainer'
 
 class App extends React.Component {
   constructor(props) {
@@ -21,8 +22,8 @@ class App extends React.Component {
   renderTabs() {
     return [
       {
-        content: <PostPage title='Posts' key={1} />,
-        tab: <Tab label='Posts' icon='ion-home,material:md-home' key={1} />,
+        content: <PostPage title='Posts' key={0} />,
+        tab: <Tab icon='ion-home,material:md-home' key={0} />,
       }
     ];
   }
@@ -40,11 +41,19 @@ class App extends React.Component {
           <PreLoad />
         )
       } else {
-        return (
-          <Tabbar
+        /*
+         <Tabbar
             index={this.state.index}
             onPreChange={this.onPreChange}
             renderTabs={this.renderTabs}
+            position='bottom'
+            />
+        */
+        return (
+
+          <Navigator
+            renderPage={this.renderPage}
+            initialRoute={{ component: MenuCotainer, key: 'MENU_CONTAINER' }}
             />
         )
       }
