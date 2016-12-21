@@ -11,10 +11,13 @@ export default class WelcomeCarousel extends React.Component {
             
             <div className='welcome-wrap'>
                 <Carousel onPostChange={setIndex} index={activeIndex} fullscreen swipeable autoScroll overscrollable>
-                    <a href='#'>Skip</a>
+                    <div className='skipme'>
+                        <a className='skipme__link' href='#'>Skip</a>
+                    </div>
                     {messages.map((message, index) => (
                         <CarouselItem key={index}>
                             <div className='welcomeMsg'>
+                                <img className='welcomeMsg__img' src={message.picture} alt='' />
                                 <h3 className='welcomeMsg__heading'>{message.title}</h3>
                                 <p className='welcomeMsg__desc'>{message.description}</p>
                             </div>
