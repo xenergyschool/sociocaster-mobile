@@ -48,7 +48,7 @@ class MenuContainer extends Component {
         switch (this.state.menuPullState) {
             case 'action':
                 return (
-                    <span><Icon spin icon='ion-ios-loop-strong' /> Reloading...</span>
+                    <span><Icon spin icon='fa-refresh' /> Reloading...</span>
                 )
         }
     }
