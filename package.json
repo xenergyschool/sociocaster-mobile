@@ -4,6 +4,8 @@
   "description": "Sociocaster Hybrid App for IOS and Android",
   "dependencies": {
     "axios": "^0.15.3",
+    "moment": "^2.17.1",
+    "moment-timezone": "^0.5.10",
     "onsenui": "^2.0.0-rc.5",
     "promise": "^7.1.1",
     "qs": "^6.3.0",
@@ -19,6 +21,7 @@
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-react": "^6.8.0",
     "eslint-plugin-standard": "^2.0.1",
+    "json-loader": "^0.5.4",
     "redux-logger": "^2.7.4"
   }
 }

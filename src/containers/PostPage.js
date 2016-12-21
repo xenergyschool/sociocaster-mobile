@@ -4,6 +4,7 @@ import { Page, Toolbar, ToolbarButton, Icon, Navigator } from 'react-onsenui'
 
 import * as authActions from '../actions/auth'
 import * as socialaccountActions from '../actions/socialaccount'
+import * as postActions from '../actions/post'
 import { bindActionCreators } from 'redux';
 import Menu from '../components/Menu'
 import Post from '../components/Post'
@@ -30,13 +31,23 @@ class PostPage extends Component {
     }
 
 
+    componentWillMount() {
+        console.log('here')
 
+        const {postActions, socialaccount} = this.props
+        if (socialaccount.activeIndex > -1) {
+            console.log('righ here')
+            postActions.get()
+        }
+
+
+    }
 
     render() {
-        const {navigator} = this.props
+        const {navigator, post, socialaccount, postActions} = this.props
 
         return (
-            <Post navigator={navigator} renderToolbar={this.renderToolbar} />
+            <Post navigator={navigator} post={post} socialaccount={socialaccount} postActions={postActions} renderToolbar={this.renderToolbar} />
         )
     }
 
@@ -44,12 +55,14 @@ class PostPage extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
     auth: state.auth,
-    socialaccount: state.socialaccount
+    socialaccount: state.socialaccount,
+    post: state.post
 });
 
 const mapDispatchToProps = (dispatch) => ({
     authActions: bindActionCreators(authActions, dispatch),
-    socialaccountActions: bindActionCreators(socialaccountActions, dispatch)
+    socialaccountActions: bindActionCreators(socialaccountActions, dispatch),
+    postActions: bindActionCreators(postActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostPage);

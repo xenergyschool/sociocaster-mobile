@@ -16,7 +16,7 @@ export const get = (mode = 'normal') => {
                 }
             })
         }
-        return api.get('/socialaccounts').then((response) => {
+        return api.get('/socialaccounts?expand=scheduleTime').then((response) => {
             dispatch({
                 type: SOCIAL_ACCOUNTS_LOADED,
                 data: {
