@@ -1,20 +1,21 @@
+// import pic1 from '../images/'
 const defaultState = {
   messages: [
       {
-        title: 'Welcome 1',
-        description: 'Welcome 1 description',
+        title: 'DISCOVER AMAZING CONTENT AND STOP THE GUESS WORK',
+        description: 'Proudly managed 4,421,664 posts from 38,263 social media accounts worldwide.',
         picture: '',
         backgroundColour: '#85C1E9'
       },
       {
-        title: 'Welcome 2',
-        description: 'Welcome 2 description',
+        title: 'Sociocaster is the easiest way to FIND, PLAN and POST',
+        description: 'content that is proven to increase social media engagement on Facebook, Twitter, LinkedIn, Pinterest and Instagram.',
         picture: '',
         backgroundColour: '#73C6B6'
       },
       {
-        title: 'Welcome 3',
-        description: 'Welcome 3 description',
+        title: 'Learn How Sociocaster Can Help Your Business',
+        description: 'Power of Viral Content,Social Media Traffic,Social Media Engagement',
         picture: '',
         backgroundColour: '#F1948A'
       }
