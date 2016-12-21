@@ -8,13 +8,15 @@ export default class WelcomeCarousel extends React.Component {
         const {messages, openLoginPage, openSignUpPage, setIndex, activeIndex} = this.props;
         console.log(activeIndex)
         return (
-            <div>
+            
+            <div className='welcome-wrap'>
                 <Carousel onPostChange={setIndex} index={activeIndex} fullscreen swipeable autoScroll overscrollable>
+                    <a href='#'>Skip</a>
                     {messages.map((message, index) => (
-                        <CarouselItem key={index} style={{ backgroundColor: message.backgroundColour }}>
-                            <div style={{ marginTop: '50%', textAlign: 'center' }}>
-                                <h3>{message.title}</h3>
-                                <p>{message.description}</p>
+                        <CarouselItem key={index}>
+                            <div className='welcomeMsg'>
+                                <h3 className='welcomeMsg__heading'>{message.title}</h3>
+                                <p className='welcomeMsg__desc'>{message.description}</p>
                             </div>
                         </CarouselItem>
                     ))}
@@ -36,7 +38,7 @@ export default class WelcomeCarousel extends React.Component {
                         right: '0px'
                     }}>
                         {messages.map((message, index) => (
-                            <span key={index} style={{ cursor: 'pointer' }} data-index={index} onClick={setIndex}>
+                            <span className='welcome-bullets' key={index} data-index={index} onClick={setIndex}>
                                 {activeIndex === index ? '\u25CF' : '\u25CB'}
                             </span>
                         ))}
