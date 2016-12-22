@@ -4,7 +4,7 @@ import * as socialaccountActions from './socialaccount'
 
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAILED = 'AUTH_FAILED';
-
+export const AUTH_SIGNUP_SUCCESS = 'AUTH_SIGNUP_SUCCESS'
 
 export const init = () => {
 
@@ -59,6 +59,30 @@ export const login = (data) => {
                     isChecking: false
                 }
             })
+            if (error.data.message.username)
+                notification.alert(error.data.message.username[0], { title: 'Ups!' })
+            else
+                notification.alert(error.data.message, { title: 'Ups!' })
+        })
+    }
+}
+
+export const signup = (data) => {
+    return (dispatch, getState) => {
+
+
+        dispatch({
+            type: AUTH_SUCCESS,
+            data: {
+                isChecking: true
+            }
+        })
+
+        api.post('/users', data).then((response) => {
+            console.log(response)
+
+        }).catch((error) => {
+
             if (error.data.message.username)
                 notification.alert(error.data.message.username[0], { title: 'Ups!' })
             else

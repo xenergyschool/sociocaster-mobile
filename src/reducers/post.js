@@ -6,12 +6,12 @@ import {
 const defaultState = {
     filter: 'scheduled',
     data: {},
-    isFetching: false,
+    isFetching: 'false',
     isFetchingMore: false
 };
 
 const post = (state = defaultState, action) => {
-    let data
+    let data, items, _links, _meta
     switch (action.type) {
         case POST_LOADED:
             return {
@@ -19,12 +19,19 @@ const post = (state = defaultState, action) => {
                 ...action.data
             }
         case POST_MORE_LOADED:
+
+            items = [
+                ...state.data.items,
+                ...action.data.data.items
+            ]
+
             data = {
-                items: [...state.data.items, ...action.data.items],
-                _links: action.data._links,
-                _meta: action.data._meta
+                items: items,
+                _links: action.data.data._links,
+                _meta: action.data.data._meta
 
             }
+
             return {
                 ...state,
                 ...{ data: data },

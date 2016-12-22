@@ -19,13 +19,17 @@ class MenuContainer extends Component {
         this.getMenuPullContent = this.getMenuPullContent.bind(this)
         this.renderTabs = this.renderTabs.bind(this)
         this.onPreChange = this.onPreChange.bind(this)
+        this.switchSocialaccount = this.switchSocialaccount.bind(this)
         this.state = {
             isMenuOpen: false,
             menuPullState: 'initial',
             index: 3
         }
     }
-
+    switchSocialaccount(e) {
+        const {socialaccountActions} = this.props
+        console.log(e, e.index, e.activeIndex, e.key, e.item, e.target.className)
+    }
     hideMenu() {
         this.setState({ isMenuOpen: false })
     }
@@ -101,6 +105,7 @@ class MenuContainer extends Component {
                 getMenuPullContent={this.getMenuPullContent}
                 handleMenuPullLoad={this.handleMenuPullLoad}
                 handleMenuPullChange={this.handleMenuPullChange}
+                switchSocialaccount={this.switchSocialaccount}
                 >
                 <Page>
                     <Tabbar

@@ -6,18 +6,13 @@ import { Page } from 'react-onsenui'
 export default class PostDateRow extends Component {
 
     render() {
-        const {renderToolbar} = this.props
-
+        const {dateRowContent } = this.props
         return (
 
+            <div >
+                <h4>{dateRowContent}</h4>
+            </div >
 
-            <Page renderToolbar={renderToolbar}>
-                <section style={{ margin: '16px' }}>
-                    <p>
-                        Swipe right to open the menu.
-                            </p>
-                </section>
-            </Page>
         )
     }
 

@@ -9,7 +9,6 @@ export default class WelcomeCarousel extends React.Component {
 
     render() {
         const {messages, openLoginPage, openSignUpPage, setIndex, activeIndex} = this.props;
-        console.log(activeIndex)
 
 
         return (

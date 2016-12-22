@@ -14,7 +14,7 @@ class PostPage extends Component {
     constructor(props) {
         super(props)
         this.renderToolbar = this.renderToolbar.bind(this)
-
+        this.loadMorePosts = this.loadMorePosts.bind(this)
     }
     renderToolbar() {
         const {title, showMenu} = this.props
@@ -32,7 +32,7 @@ class PostPage extends Component {
 
 
     componentWillMount() {
-        console.log('here')
+
 
         const {postActions, socialaccount} = this.props
         if (socialaccount.activeIndex > -1) {
@@ -42,12 +42,26 @@ class PostPage extends Component {
 
 
     }
+    loadMorePosts() {
+        const {post, postActions} = this.props
+        console.log('here')
+        if (!post.isFetchingMore && typeof post.data._links.next !== 'undefined') {
+            console.log('inside')
+            postActions.getMore()
+        }
+    }
 
     render() {
-        const {navigator, post, socialaccount, postActions} = this.props
+        const {navigator, post, socialaccount} = this.props
 
         return (
-            <Post navigator={navigator} post={post} socialaccount={socialaccount} postActions={postActions} renderToolbar={this.renderToolbar} />
+            <Post
+                navigator={navigator}
+                post={post}
+                socialaccount={socialaccount}
+                renderToolbar={this.renderToolbar}
+                loadMorePosts={this.loadMorePosts}
+                />
         )
     }
 

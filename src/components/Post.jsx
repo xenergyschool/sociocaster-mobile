@@ -1,103 +1,111 @@
 import React, { Component } from 'react'
 import { platform } from 'onsenui'
 import { Page, LazyList, ListItem, ProgressCircular } from 'react-onsenui'
-
 import moment from 'moment-timezone'
+import PostDateRow from './PostDateRow'
+import PostItem from './PostItem'
+import Waypoint from 'react-waypoint'
 
 let currentDate = '1970-01-01'
+let itemHeights = []
+
 
 export default class Post extends Component {
     constructor(props) {
         super(props)
 
-        this.renderRow = this.renderRow.bind(this)
+        this.renderItems = this.renderItems.bind(this)
 
     }
-    renderRow(index) {
+    renderItems() {
 
         const {post, socialaccount, auth, postActions} = this.props
-        let content = (
-            <ListItem key={index}>
-                {'Fetching..'}
-            </ListItem>
-        )
-        if (index <= post.data.items.length - 1) {
+
+        let items = []
+        itemHeights = []
+        if (socialaccount.activeIndex > -1) {
             const socialaccountTimeZone = socialaccount.data.items[socialaccount.activeIndex].scheduleTime.timezone
-            const postItem = post.data.items[index]
-            const m = moment.unix(postItem.utc_datetime_int).tz(socialaccountTimeZone)
+            const postItems = post.data.items
 
-            const dateString = m.format('YYYY-MM-DD')
+            postItems.forEach((postItem, index) => {
 
-            let renderDateRow = true
-            if (moment(dateString).isSame(currentDate)) {
-                renderDateRow = false
-            }
-            currentDate = dateString
-            let dateRowContent = m.calendar(null, {
-                sameDay: '[Today], MMMM Do, YYYY',
-                nextDay: '[Tomorrow], MMMM Do, YYYY',
-                nextWeek: '[Next] dddd, MMMM Do, YYYY',
-                lastDay: '[Yesterday], MMMM Do, YYYY',
-                lastWeek: '[Last] dddd, MMMM Do, YYYY',
-                sameElse: 'dddd, MMMM Do, YYYY',
+
+                const m = moment.unix(postItem.utc_datetime_int).tz(socialaccountTimeZone)
+
+                const dateString = m.format('YYYY-MM-DD')
+
+                let renderDateRow = true
+                if (moment(dateString).isSame(currentDate)) {
+                    renderDateRow = false
+                }
+                currentDate = dateString
+                let dateRowContent = m.calendar(null, {
+                    sameDay: '[Today], MMMM Do, YYYY',
+                    nextDay: '[Tomorrow], MMMM Do, YYYY',
+                    nextWeek: '[Next] dddd, MMMM Do, YYYY',
+                    lastDay: '[Yesterday], MMMM Do, YYYY',
+                    lastWeek: '[Last] dddd, MMMM Do, YYYY',
+                    sameElse: 'dddd, MMMM Do, YYYY',
+                })
+
+                console.log(dateString, renderDateRow)
+
+
+                if (renderDateRow) {
+
+                    items.push(
+                        <PostDateRow key={dateString} dateRowContent={dateRowContent} />
+                    )
+                    itemHeights.push(31)
+                    items.push(
+                        <PostItem key={index} postItem={postItem} />
+                    )
+                    itemHeights.push(51)
+                } else {
+                    items.push(
+                        <PostItem key={index} postItem={postItem} />
+                    )
+                    itemHeights.push(51)
+
+                }
+
             })
-
-            console.log(dateString, renderDateRow)
-
-            content = (
-
-                <ListItem key={index} >
-                    <div>
-                        <p> {postItem.message}</p>
-                    </div>
-                </ListItem>
-
-            )
-            if (renderDateRow) {
-                content = (
-                    <ListItem key={index}>
-                        <div>
-                            <h4>{dateRowContent}</h4>
-                            <p>{postItem.message}</p>
-                        </div>
-                    </ListItem>
-
-                )
-            }
         }
 
-        console.log(index)
-
-
-        if (post.data._links.next && index >= (post.data.items.length - 1) && !post.data.isFetchingMore) {
-            console.log('fetch new')
-            //postActions.getMore()
-        }
-
-        return content
+        return items
 
     }
+
+    handleScroll(e) {
+        console.log(e)
+    }
     render() {
-        const {renderToolbar, post} = this.props
+        const {renderToolbar, post, loadMorePosts} = this.props
+
 
 
         if (!post.isFetching) {
             let listLength = post.data._meta ? post.data._meta.totalCount : 0
+            const items = this.renderItems()
+            console.log(window.innerHeight)
+
             return (
                 <Page renderToolbar={renderToolbar}>
                     <section style={{ margin: '16px' }}>
-                        <LazyList
-                            length={listLength}
-                            renderRow={this.renderRow}
-                            calculateItemHeight={() => platform.isAndroid() ? 100 : 96}
-                            />
+
+                        {items}
+                        <div style={{ height: 20, textAlign: 'center' }}>
+                            {!post.isFetchingMore && <Waypoint onEnter={loadMorePosts} />}
+                            {post.isFetchingMore && <ProgressCircular indeterminate />}
+                        </div>
+
                     </section>
                 </Page>
             )
         } else {
             return (
                 <Page renderToolbar={renderToolbar}>
-                    <section style={{ margin: '16px' }}>
+                    <section style={{ margin: '16px', textAlign: 'center' }}>
                         <ProgressCircular indeterminate />
                     </section>
                 </Page>
