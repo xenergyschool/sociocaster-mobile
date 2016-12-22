@@ -18,7 +18,7 @@ class WelcomePage extends Component {
     }
 
     setIndex(e) {
-        console.log(e.target.dataset.index)
+
         this.setState({
             index: typeof e.activeIndex !== 'undefined' ? e.activeIndex : parseInt(e.target.dataset.index)
         })

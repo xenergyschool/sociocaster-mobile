@@ -9,8 +9,11 @@ const menuDataSource = [{
 export default class Menu extends Component {
 
     render() {
-        const {children, isMenuOpen, hideMenu, showMenu, socialaccount, getMenuPullContent, handleMenuPullChange, handleMenuPullLoad} = this.props
-
+        const {children, isMenuOpen, hideMenu, showMenu, socialaccount, getMenuPullContent, handleMenuPullChange, handleMenuPullLoad, switchSocialaccount} = this.props
+        let activeSocialaccount = { photoUrl: '', displayName: '' }
+        if (socialaccount.activeIndex > -1) {
+            activeSocialaccount = socialaccount.data.items[socialaccount.activeIndex]
+        }
         return (
             <Splitter>
                 <SplitterSide
@@ -36,7 +39,7 @@ export default class Menu extends Component {
                             dataSource={socialaccount.data.items}
                             renderRow={(data) => (
 
-                                <ListItem key={data.id} tappable>
+                                <ListItem key={data.id} onClick={switchSocialaccount} tappable>
                                     <div className='left'>
                                         <img src={data.photoUrl} className='list__item__thumbnail' />
                                     </div>
@@ -46,7 +49,14 @@ export default class Menu extends Component {
                                 </ListItem>
                             )}
                             renderHeader={() => (
-                                <ListHeader > <h1> Menu </h1></ListHeader>
+                                <ListHeader >
+                                    <div className='left'>
+                                        <img src={activeSocialaccount.photoUrl} className='list__item__thumbnail' />
+                                    </div>
+                                    <div className='center'>
+                                        {activeSocialaccount.displayName}
+                                    </div>
+                                </ListHeader>
                             )}
                             />
                     </Page>
