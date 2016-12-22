@@ -43,8 +43,8 @@ export default class WelcomeCarousel extends React.Component {
                         right: '0px'
                     }}>
                         {messages.map((message, index) => (
-                            <span className='welcome-bullets' key={index} data-index={index} onClick={setIndex}>
-                                {activeIndex === index ? <Icon icon='fa-circle' /> : <Icon icon='fa-circle-o' />}
+                            <span className='welcome-bullets' key={index} >
+                                {activeIndex === index ? <Icon icon='fa-circle' data-index={index} onClick={setIndex} /> : <Icon icon='fa-circle-o' data-index={index} onClick={setIndex} />}
                             </span>
                         ))}
                     </div>
