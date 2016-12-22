@@ -1,25 +1,20 @@
-import pic1 from '../images/viral.png'
-import pic2 from '../images/social.png'
+import pic1 from '../images/social.png'
+import pic2 from '../images/viral.png'
 import pic3 from '../images/dashboard.png'
+
 const defaultState = {
   messages: [
       {
-        title: 'DISCOVER AMAZING CONTENT AND STOP THE GUESS WORK',
-        description: 'Proudly managed 4,421,664 posts from 38,263 social media accounts worldwide.',
+        title: 'Thanks for downloading!',
+        description: 'Sociocaster is the easiest way to build your business by using social media. Proudly managed 4,421,664 posts from 38,263 social media accounts worldwide.',
         picture: pic1,
         backgroundColour: '#85C1E9'
       },
       {
-        title: 'Sociocaster is the easiest way to FIND, PLAN and POST',
-        description: 'content that is proven to increase social media engagement on Facebook, Twitter, LinkedIn, Pinterest and Instagram.',
+        title: 'Easily Manage & Schedule Multiple Social Media Accounts',
+        description: 'Managing multiple Facebook, Twitter, LinkedIn, Instagram, Pinterest and VK accounts through one simple and easy interface',
         picture: pic2,
         backgroundColour: '#73C6B6'
-      },
-      {
-        title: 'Learn How Sociocaster Can Help Your Business',
-        description: 'Power of Viral Content,Social Media Traffic,Social Media Engagement',
-        picture: pic3,
-        backgroundColour: '#F1948A'
       }
     ]
 };

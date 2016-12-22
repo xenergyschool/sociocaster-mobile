@@ -2,7 +2,9 @@ import React from 'react';
 
 import { Carousel, CarouselItem, Button, Icon } from 'react-onsenui';
 
+
 export default class WelcomeCarousel extends React.Component {
+
 
     render() {
         const {messages, openLoginPage, openSignUpPage, setIndex, activeIndex} = this.props;
