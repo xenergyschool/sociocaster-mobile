@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input, Button } from 'react-onsenui'
+import { Input, Button, Icon } from 'react-onsenui'
 
 export default class LoginForm extends Component {
 
