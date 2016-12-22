@@ -1,14 +1,16 @@
 import React from 'react';
 
-import { Carousel, CarouselItem, Button } from 'react-onsenui';
+import { Carousel, CarouselItem, Button, Icon } from 'react-onsenui';
 
 export default class WelcomeCarousel extends React.Component {
 
     render() {
         const {messages, openLoginPage, openSignUpPage, setIndex, activeIndex} = this.props;
         console.log(activeIndex)
+
+
         return (
-            
+
             <div className='welcome-wrap'>
                 <Carousel onPostChange={setIndex} index={activeIndex} fullscreen swipeable autoScroll overscrollable>
                     <div className='skipme'>
@@ -42,7 +44,7 @@ export default class WelcomeCarousel extends React.Component {
                     }}>
                         {messages.map((message, index) => (
                             <span className='welcome-bullets' key={index} data-index={index} onClick={setIndex}>
-                                {activeIndex === index ? '\u25CF' : '\u25CB'}
+                                {activeIndex === index ? <Icon icon='fa-circle' /> : <Icon icon='fa-circle' />}
                             </span>
                         ))}
                     </div>
