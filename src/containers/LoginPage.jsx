@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Page } from 'react-onsenui'
+import { Page,Icon } from 'react-onsenui'
 import { notification } from 'onsenui'
 import LoginForm from '../components/LoginForm'
 import * as authActions from '../actions/auth'
@@ -51,6 +51,7 @@ class LoginPage extends Component {
 
         return (
             <Page>
+                <a className='goback' onClick=''><Icon icon='fa-times' /></a>
                 <LoginForm handleClickLogin={this.handleClickLogin} handleChange={this.handleChange} username={this.state.username} password={this.state.password} />
             </Page>
         )

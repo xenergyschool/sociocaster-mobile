@@ -57,6 +57,7 @@ class LoginPage extends Component {
     render() {
 
         return (<Page>
+            <a className='goback' onClick=''><Icon icon='fa-times' /></a>
             <SignUpForm handleClickSignUp={this.handleClickSignUp} handleChange={this.handleChange} username={this.state.username} email={this.state.email} password={this.state.password} />
         </Page>)
     }
