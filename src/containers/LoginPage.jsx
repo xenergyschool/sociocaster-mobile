@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Page,Icon } from 'react-onsenui'
+import { Page, Icon } from 'react-onsenui'
 import { notification } from 'onsenui'
 import LoginForm from '../components/LoginForm'
 import * as authActions from '../actions/auth'
@@ -11,6 +11,7 @@ class LoginPage extends Component {
         super(props)
         this.handleChange = this.handleChange.bind(this)
         this.handleClickLogin = this.handleClickLogin.bind(this)
+        this.popPage = this.popPage.bind(this)
         this.state = { username: '', password: '' }
     }
     handleClickLogin(e) {
@@ -47,11 +48,16 @@ class LoginPage extends Component {
         else if (e.target.id == 'password')
             this.setState({ password: e.target.value.trim() })
     }
+
+    popPage() {
+        const {navigator} = this.props
+        navigator.popPage()
+    }
     render() {
 
         return (
             <Page>
-                <a className='goback' onClick=''><Icon icon='fa-times' /></a>
+                <a className='goback' onClick={this.popPage}><Icon icon='fa-times' /></a>
                 <LoginForm handleClickLogin={this.handleClickLogin} handleChange={this.handleChange} username={this.state.username} password={this.state.password} />
             </Page>
         )
