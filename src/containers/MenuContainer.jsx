@@ -7,7 +7,7 @@ import * as socialaccountActions from '../actions/socialaccount'
 import { bindActionCreators } from 'redux';
 import Menu from '../components/Menu'
 import PostPage from './PostPage'
-
+import DateTimePicker from '../components/DateTimePicker'
 class MenuContainer extends Component {
     constructor(props) {
         super(props)
@@ -83,7 +83,7 @@ class MenuContainer extends Component {
                 tab: <Tab icon='fa-feed' key={1} />,
             },
             {
-                content: <Page key={2} />,
+                content: <DateTimePicker key={2} />,
                 tab: <Tab icon='fa-plus' onClick={openPostCreator} key={2} />
             },
             {

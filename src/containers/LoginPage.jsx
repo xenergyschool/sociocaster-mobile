@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Page, Icon } from 'react-onsenui'
 import { notification } from 'onsenui'
 import LoginForm from '../components/LoginForm'
+import PreLoad from '../components/PreLoad'
 import * as authActions from '../actions/auth'
 import { bindActionCreators } from 'redux'
 import * as images from '../images'
@@ -55,14 +56,18 @@ class LoginPage extends Component {
         navigator.popPage()
     }
     render() {
-
-        return (
-            <Page>
-                <a className='goback' onClick={this.popPage}><Icon icon='fa-times' /></a>
-                <img src={images.logoBlue} alt="" />
-                <LoginForm handleClickLogin={this.handleClickLogin} handleChange={this.handleChange} username={this.state.username} password={this.state.password} />
-            </Page>
-        )
+        const {auth } = this.props
+        if (auth.isLoggingIn) {
+            return (<PreLoad />)
+        } else {
+            return (
+                <Page>
+                    <a className='goback' onClick={this.popPage}><Icon icon='fa-times' /></a>
+                    <img src={images.logoBlue} alt="" />
+                    <LoginForm handleClickLogin={this.handleClickLogin} handleChange={this.handleChange} username={this.state.username} password={this.state.password} />
+                </Page>
+            )
+        }
     }
 
 }

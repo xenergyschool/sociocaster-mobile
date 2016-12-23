@@ -4,6 +4,8 @@ import {
 const defaultState = {
   isChecking: true,
   isLoggedIn: false,
+  isRegistering: false,
+  isLoggingIn: false,
   jwt: '',
   user: {}
 };

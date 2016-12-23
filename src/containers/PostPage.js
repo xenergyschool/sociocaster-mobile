@@ -15,6 +15,7 @@ class PostPage extends Component {
         super(props)
         this.renderToolbar = this.renderToolbar.bind(this)
         this.loadMorePosts = this.loadMorePosts.bind(this)
+        this.logout = this.logout.bind(this)
     }
     renderToolbar() {
         const {title, showMenu} = this.props
@@ -26,9 +27,22 @@ class PostPage extends Component {
                     </ToolbarButton>
                 </div>
                 <div className='center'>{title}</div>
+                <div className='right'>
+                    <ToolbarButton onClick={this.logout}>
+                        <Icon icon='fa-sign-out'></Icon>
+                    </ToolbarButton>
+                </div>
             </Toolbar>
         )
     }
+    logout() {
+
+        const {authActions, navigator} = this.props
+
+        authActions.logout(navigator)
+    }
+
+
 
 
     componentWillMount() {

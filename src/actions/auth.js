@@ -1,6 +1,7 @@
 import * as api from '../api'
 import { notification } from 'onsenui'
 import * as socialaccountActions from './socialaccount'
+import WelcomPage from '../containers/WelcomePage'
 
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAILED = 'AUTH_FAILED';
@@ -16,7 +17,8 @@ export const init = () => {
                 data: {
                     user: response.data,
                     isLoggedIn: response.success,
-                    isChecking: false
+                    isChecking: false,
+                    isLoggingIn: false
                 }
             })
             dispatch(socialaccountActions.get())
@@ -24,9 +26,9 @@ export const init = () => {
             dispatch({
                 type: AUTH_SUCCESS,
                 data: {
-                    user: response.data,
                     isLoggedIn: response.success,
-                    isChecking: false
+                    isChecking: false,
+                    isLoggingIn: false
                 }
             })
         })
@@ -42,7 +44,8 @@ export const login = (data) => {
         dispatch({
             type: AUTH_SUCCESS,
             data: {
-                isChecking: true
+                isLoggingIn: true
+
             }
         })
 
@@ -50,13 +53,13 @@ export const login = (data) => {
             console.log(response)
             localStorage.setItem('sc-auth', JSON.stringify(response.data))
             api.setting()
-
             dispatch(init())
         }).catch((error) => {
             dispatch({
                 type: AUTH_SUCCESS,
                 data: {
-                    isChecking: false
+                    isLoggedIn: false,
+                    isLoggingIn: false
                 }
             })
             if (error.data.message.username)
@@ -74,13 +77,18 @@ export const signup = (data) => {
         dispatch({
             type: AUTH_SUCCESS,
             data: {
-                isChecking: true
+                isRegistering: true
             }
         })
 
         api.post('/users', data).then((response) => {
             console.log(response)
-
+            dispatch({
+                type: AUTH_SUCCESS,
+                data: {
+                    isRegistering: true
+                }
+            })
         }).catch((error) => {
 
             if (error.data.message.username)
@@ -88,5 +96,25 @@ export const signup = (data) => {
             else
                 notification.alert(error.data.message, { title: 'Ups!' })
         })
+    }
+}
+
+export const logout = (navigator) => {
+    return (dispatch, getState) => {
+        let c = notification.confirm('Are you sure want to sign out?', {
+            callback: (data) => {
+                if (data > 0) {
+                    localStorage.removeItem('sc-auth')
+                    navigator.pushPage({ component: WelcomPage, key: 'WELCOME_PAGE' })
+                    dispatch({
+                        type: AUTH_SUCCESS,
+                        data: {
+                            isLoggedIn: false
+                        }
+                    })
+                }
+            }
+        })
+
     }
 }

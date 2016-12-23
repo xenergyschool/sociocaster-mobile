@@ -34,7 +34,6 @@ class App extends React.Component {
 
     const {isLoggedIn, isChecking} = this.props.auth
 
-
     if (isLoggedIn) {
       if (this.props.socialaccount.isFetching) {
         return (
@@ -65,6 +64,7 @@ class App extends React.Component {
         )
 
       } else {
+
         let initialRoute = { component: WelcomePage, key: 'WELCOME_PAGE' }
         return (
 
