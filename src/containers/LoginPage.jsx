@@ -56,6 +56,7 @@ class LoginPage extends Component {
         navigator.popPage()
     }
     render() {
+<<<<<<< HEAD
         const {auth } = this.props
         if (auth.isLoggingIn) {
             return (<PreLoad />)
@@ -68,6 +69,21 @@ class LoginPage extends Component {
                 </Page>
             )
         }
+=======
+
+        return (
+            <Page>
+                <div className='page-wrapper'>
+                    <div className='page-inner'>
+                        <a className='goback' onClick={this.popPage}><Icon icon='fa-times' /></a>
+                        <img className='sclogo' src={images.logoBlue} alt="" />
+                        <LoginForm handleClickLogin={this.handleClickLogin} handleChange={this.handleChange} username={this.state.username} password={this.state.password} />
+                    </div>
+                </div>
+                
+            </Page>
+        )
+>>>>>>> dfeece578bab6319aa2322bc062ed71659f84c80
     }
 
 }

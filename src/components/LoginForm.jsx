@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input, Button } from 'react-onsenui'
+import { Input, Button, Icon } from 'react-onsenui'
 
 export default class LoginForm extends Component {
 
@@ -8,8 +8,10 @@ export default class LoginForm extends Component {
         return (
             <section style={{ textAlign: 'center' }}>
                 <form onSubmit={handleClickLogin}>
-                    <p>
-                        <input
+                    <div className='form-inputs'>
+                         <div className='input-block'>
+                             <input
+                            className='sc-inputs'
                             value={username}
                             onChange={handleChange}
                             id='username'
@@ -19,9 +21,11 @@ export default class LoginForm extends Component {
                             required
 
                             />
-                    </p>
-                    <p>
-                        <input
+                            <Icon className='input-icon' icon='fa-user' />
+                         </div>
+                         <div className='input-block'>
+                             <input
+                            className='sc-inputs'
                             value={password}
                             onChange={handleChange}
                             id='password'
@@ -30,10 +34,16 @@ export default class LoginForm extends Component {
                             required
 
                             />
-                    </p>
-                    <p>
-                        <button type='submit'>Sign In</button>
-                    </p>
+                            <Icon className='input-icon' icon='fa-lock' />
+                         </div>
+                         <div className='input-block'>
+                             <a className='iforgot' href="#">Lost Your Password?</a>
+                         </div>
+                         <div class='input-block'>
+                            <button type='submit' className='blueBtn'>Sign In</button>
+                        </div>
+                    </div>
+                    <p className='text-small letmein'>Don't have an Account? <a className='letmein__link' href="#">Sign up</a></p>
                 </form>
             </section>
         )

@@ -5,7 +5,8 @@ import { notification } from 'onsenui'
 import SignUpForm from '../components/SignUpForm'
 import PreLoad from '../components/PreLoad'
 import * as authActions from '../actions/auth'
-import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux'
+import * as images from '../images'
 
 class LoginPage extends Component {
     constructor(props) {
@@ -61,21 +62,28 @@ class LoginPage extends Component {
         navigator.popPage()
     }
     render() {
+
         const {auth } = this.props
         if (auth.isRegistering) {
             return (<PreLoad />)
         } else {
-            return (
-                <Page>
-                    <a className='goback' onClick={this.popPage}><Icon icon='fa-times' /></a>
-                    <SignUpForm handleClickSignUp={this.handleClickSignUp} handleChange={this.handleChange} username={this.state.username} email={this.state.email} password={this.state.password} />
-                </Page>
-            )
+
+
+            return (<Page>
+                <div className='page-wrapper'>
+                    <div className='page-inner'>
+                        <a className='goback' onClick={this.popPage}><Icon icon='fa-times' /></a>
+                        <img className='sclogo' src={images.logoBlue} alt="" />
+                        <SignUpForm handleClickSignUp={this.handleClickSignUp} handleChange={this.handleChange} username={this.state.username} email={this.state.email} password={this.state.password} />
+                    </div>
+
+                </div>
+
+            </Page>)
         }
+
     }
-
 }
-
 const mapStateToProps = (state, ownProps) => ({
     auth: state.auth
 });

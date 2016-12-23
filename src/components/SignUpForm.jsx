@@ -8,8 +8,10 @@ export default class LoginForm extends Component {
         return (
             <section style={{ textAlign: 'center' }}>
                 <form onSubmit={handleClickSignUp}>
-                    <p>
+                <div className='form-inputs'>
+                    <div className='input-block'>
                         <input
+                            className='sc-inputs'
                             value={username}
                             onChange={handleChange}
 
@@ -20,9 +22,11 @@ export default class LoginForm extends Component {
                             required
 
                             />
-                    </p>
-                    <p>
+                            <Icon className='input-icon' icon='fa-user' />
+                    </div>
+                    <div className='input-block'>
                         <input
+                            className='sc-inputs'
                             value={email}
                             onChange={handleChange}
 
@@ -33,9 +37,11 @@ export default class LoginForm extends Component {
                             required
 
                             />
-                    </p>
-                    <p>
+                            <Icon className='input-icon' icon='fa-envelope' />
+                    </div>
+                    <div className='input-block'>
                         <input
+                            className='sc-inputs'
                             value={password}
                             onChange={handleChange}
 
@@ -46,10 +52,12 @@ export default class LoginForm extends Component {
                             required
 
                             />
-                    </p>
-                    <p>
-                        <button type='submit'>Sign Up</button>
-                    </p>
+                            <Icon className='input-icon' icon='fa-lock' />
+                    </div>
+                    <div className='input-block'>
+                        <button className='blueBtn' type='submit'>Sign Up</button>
+                    </div>
+                    </div>
                 </form>
             </section>
         )

@@ -6,7 +6,7 @@ const defaultState = {
   messages: [
       {
         title: 'Thanks for downloading!',
-        description: 'Sociocaster is the easiest way to build your business by using social media. Proudly managed 4,421,664 posts from 38,263 social media accounts worldwide.',
+        description: 'Sociocaster is the easiest way to build your business by using social media.',
         picture: pic1,
         backgroundColour: '#85C1E9'
       },
