@@ -1,8 +1,9 @@
 import * as api from '../api'
 import { notification } from 'onsenui'
+import * as postActions from './post'
 
-export const SOCIAL_ACCOUNTS_LOADED = 'SOCIAL_ACCOUNTS_LOADED';
-
+export const SOCIAL_ACCOUNTS_LOADED = 'SOCIAL_ACCOUNTS_LOADED'
+export const SOCIAL_ACCOUNTS_SWITCH = 'SOCIAL_ACCOUNTS_SWITCH'
 
 
 export const get = (mode = 'normal') => {
@@ -33,5 +34,18 @@ export const get = (mode = 'normal') => {
                 }
             })
         })
+    }
+}
+
+export const switchSocialaccount = (index) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: SOCIAL_ACCOUNTS_LOADED,
+            data: {
+                activeIndex: index
+            }
+        })
+
+        return dispatch(postActions.get())
     }
 }

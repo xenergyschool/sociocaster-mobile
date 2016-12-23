@@ -27,8 +27,12 @@ class MenuContainer extends Component {
         }
     }
     switchSocialaccount(e) {
-        const {socialaccountActions} = this.props
-        console.log(e, e.index, e.activeIndex, e.key, e.item, e.target.className)
+        const {socialaccountActions, socialaccount} = this.props
+        const nextIndex = parseInt(e.currentTarget.dataset.index)
+        if (socialaccount.activeIndex !== nextIndex) {
+            socialaccountActions.switchSocialaccount(nextIndex)
+            this.setState({ isMenuOpen: false })
+        }
     }
     hideMenu() {
         this.setState({ isMenuOpen: false })

@@ -37,9 +37,9 @@ export default class Menu extends Component {
                         </PullHook>
                         <List
                             dataSource={socialaccount.data.items}
-                            renderRow={(data) => (
+                            renderRow={(data, index) => (
 
-                                <ListItem key={data.id} onClick={switchSocialaccount} tappable>
+                                <ListItem key={data.id} data-index={index} onClick={switchSocialaccount} tappable>
                                     <div className='left'>
                                         <img src={data.photoUrl} className='list__item__thumbnail' />
                                     </div>
