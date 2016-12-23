@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Carousel, CarouselItem, Button, Icon } from 'react-onsenui';
-import pic4 from '../images/sc-logo-blue.png'
+import * as images from '../images'
 
 
 export default class WelcomeCarousel extends React.Component {
@@ -29,7 +29,7 @@ export default class WelcomeCarousel extends React.Component {
                     ))}
                     <CarouselItem key={messages.length} >
                         <div className='sign-direction'>
-                            <img className='sclogo' src={pic4} alt='' />
+                            <img className='sclogo' src={images.logoBlue} alt='' />
                             <p>Sociocaster is the easiest way to FIND, PLAN and POST content that is proven to increase social media engagement on Facebook, Twitter, LinkedIn, Pinterest and Instagram.</p>
                             <p><Button className='signupbtn' onClick={openSignUpPage}>Get Started</Button></p>
                             <small className='text-center'>Already have an account? <Button className='signinbtn' onClick={openLoginPage}>Sign in</Button> </small>
