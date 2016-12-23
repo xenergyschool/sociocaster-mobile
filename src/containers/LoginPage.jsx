@@ -4,7 +4,8 @@ import { Page, Icon } from 'react-onsenui'
 import { notification } from 'onsenui'
 import LoginForm from '../components/LoginForm'
 import * as authActions from '../actions/auth'
-import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux'
+import * as images from '../images'
 
 class LoginPage extends Component {
     constructor(props) {
@@ -58,6 +59,7 @@ class LoginPage extends Component {
         return (
             <Page>
                 <a className='goback' onClick={this.popPage}><Icon icon='fa-times' /></a>
+                <img src={images.logoBlue} alt="" />
                 <LoginForm handleClickLogin={this.handleClickLogin} handleChange={this.handleChange} username={this.state.username} password={this.state.password} />
             </Page>
         )
