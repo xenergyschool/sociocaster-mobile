@@ -17,7 +17,7 @@ export default class WelcomeCarousel extends React.Component {
                 <Carousel onPostChange={setIndex} index={activeIndex} fullscreen swipeable autoScroll overscrollable>
                     <div className='skipme'>
                         {activeIndex < messages.length && <a className='skipme__link' href='#' data-index={messages.length} onClick={setIndex} >Skip</a>}
-                    </div>
+                    </div> 
                     {messages.map((message, index) => (
                         <CarouselItem key={index}>
                             <div className='welcomeMsg'>
