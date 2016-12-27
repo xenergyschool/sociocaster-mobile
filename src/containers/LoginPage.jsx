@@ -79,15 +79,15 @@ class LoginPage extends Component {
         }
 
     }
+}
+const mapStateToProps = (state, ownProps) => ({
+    auth: state.auth
+});
 
-    const mapStateToProps = (state, ownProps) => ({
-        auth: state.auth
-    });
+const mapDispatchToProps = (dispatch) => ({
+    authActions: bindActionCreators(authActions, dispatch)
+});
 
-    const mapDispatchToProps = (dispatch) => ({
-        authActions: bindActionCreators(authActions, dispatch)
-    });
-
-    export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
 
 
