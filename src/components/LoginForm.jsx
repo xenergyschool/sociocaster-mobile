@@ -4,7 +4,7 @@ import { Input, Button, Icon } from 'react-onsenui'
 export default class LoginForm extends Component {
 
     render() {
-        const {handleClickLogin, handleChange, username, password} = this.props
+        const {handleClickLogin, openSignUpPage, handleChange, username, password} = this.props
         return (
             <section style={{ textAlign: 'center' }}>
                 <form onSubmit={handleClickLogin}>
@@ -43,7 +43,7 @@ export default class LoginForm extends Component {
                             <button type='submit' className='blueBtn'>Sign In</button>
                         </div>
                     </div>
-                    <p className='text-small letmein'>Don't have an Account? <a className='letmein__link' href="#">Sign up</a></p>
+                    <p className='text-small letmein'>Don't have an Account? <a className='letmein__link' href="#"  onClick={openSignUpPage}>Sign up</a></p>
                 </form>
             </section>
         )
