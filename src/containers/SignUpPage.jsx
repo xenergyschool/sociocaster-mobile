@@ -4,6 +4,7 @@ import { Page, Icon } from 'react-onsenui'
 import { notification } from 'onsenui'
 import SignUpForm from '../components/SignUpForm'
 import PreLoad from '../components/PreLoad'
+import ThankYouPage from '../components/ThankYouPage'
 import * as authActions from '../actions/auth'
 import { bindActionCreators } from 'redux'
 import * as images from '../images'
@@ -18,7 +19,7 @@ class LoginPage extends Component {
     }
     handleClickSignUp(e) {
         e.preventDefault()
-        const {authActions} = this.props
+        const {authActions, navigator} = this.props
         let isError = false
         let errors = []
         if (this.state.username.length < 6) {
@@ -38,7 +39,11 @@ class LoginPage extends Component {
 
             notification.alert(errorMessage, { title: 'Ups!' })
         } else {
-            authActions.signup(this.state)
+            authActions.signup(this.state).then((response) => {
+                navigator.pushPage({ component: ThankYouPage, key: 'THANK_YOU_PAGE' })
+            }).catch((response) => {
+
+            })
         }
 
     }

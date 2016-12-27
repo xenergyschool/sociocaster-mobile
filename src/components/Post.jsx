@@ -24,52 +24,53 @@ export default class Post extends Component {
         let items = []
         itemHeights = []
         if (socialaccount.activeIndex > -1) {
-            const socialaccountTimeZone = socialaccount.data.items[socialaccount.activeIndex].scheduleTime.timezone
+            const socialaccountTimeZone = socialaccount.data.items[socialaccount.activeIndex].scheduleTime ? socialaccount.data.items[socialaccount.activeIndex].scheduleTime.timezone : auth.user.timezone
             const postItems = post.data.items
+            if (postItems) {
+                postItems.forEach((postItem, index) => {
 
-            postItems.forEach((postItem, index) => {
+
+                    const m = moment.unix(postItem.utc_datetime_int).tz(socialaccountTimeZone)
+
+                    const dateString = m.format('YYYY-MM-DD')
+
+                    let renderDateRow = true
+                    if (moment(dateString).isSame(currentDate)) {
+                        renderDateRow = false
+                    }
+                    currentDate = dateString
+                    let dateRowContent = m.calendar(null, {
+                        sameDay: '[Today], MMMM Do, YYYY',
+                        nextDay: '[Tomorrow], MMMM Do, YYYY',
+                        nextWeek: '[Next] dddd, MMMM Do, YYYY',
+                        lastDay: '[Yesterday], MMMM Do, YYYY',
+                        lastWeek: '[Last] dddd, MMMM Do, YYYY',
+                        sameElse: 'dddd, MMMM Do, YYYY',
+                    })
+
+                    console.log(dateString, renderDateRow)
 
 
-                const m = moment.unix(postItem.utc_datetime_int).tz(socialaccountTimeZone)
+                    if (renderDateRow) {
 
-                const dateString = m.format('YYYY-MM-DD')
+                        items.push(
+                            <PostDateRow key={dateString} dateRowContent={dateRowContent} />
+                        )
+                        itemHeights.push(31)
+                        items.push(
+                            <PostItem key={index} postItem={postItem} />
+                        )
+                        itemHeights.push(51)
+                    } else {
+                        items.push(
+                            <PostItem key={index} postItem={postItem} />
+                        )
+                        itemHeights.push(51)
 
-                let renderDateRow = true
-                if (moment(dateString).isSame(currentDate)) {
-                    renderDateRow = false
-                }
-                currentDate = dateString
-                let dateRowContent = m.calendar(null, {
-                    sameDay: '[Today], MMMM Do, YYYY',
-                    nextDay: '[Tomorrow], MMMM Do, YYYY',
-                    nextWeek: '[Next] dddd, MMMM Do, YYYY',
-                    lastDay: '[Yesterday], MMMM Do, YYYY',
-                    lastWeek: '[Last] dddd, MMMM Do, YYYY',
-                    sameElse: 'dddd, MMMM Do, YYYY',
+                    }
+
                 })
-
-                console.log(dateString, renderDateRow)
-
-
-                if (renderDateRow) {
-
-                    items.push(
-                        <PostDateRow key={dateString} dateRowContent={dateRowContent} />
-                    )
-                    itemHeights.push(31)
-                    items.push(
-                        <PostItem key={index} postItem={postItem} />
-                    )
-                    itemHeights.push(51)
-                } else {
-                    items.push(
-                        <PostItem key={index} postItem={postItem} />
-                    )
-                    itemHeights.push(51)
-
-                }
-
-            })
+            }
         }
 
         return items

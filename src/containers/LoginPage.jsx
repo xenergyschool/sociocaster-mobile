@@ -7,6 +7,7 @@ import PreLoad from '../components/PreLoad'
 import * as authActions from '../actions/auth'
 import { bindActionCreators } from 'redux'
 import * as images from '../images'
+import SignUpPage from './SignUpPage'
 
 class LoginPage extends Component {
     constructor(props) {
@@ -14,6 +15,7 @@ class LoginPage extends Component {
         this.handleChange = this.handleChange.bind(this)
         this.handleClickLogin = this.handleClickLogin.bind(this)
         this.popPage = this.popPage.bind(this)
+        this.openSignUpPage = this.openSignUpPage.bind(this)
         this.state = { username: '', password: '' }
     }
     handleClickLogin(e) {
@@ -55,6 +57,11 @@ class LoginPage extends Component {
         const {navigator} = this.props
         navigator.popPage()
     }
+    openSignUpPage(e) {
+
+        const {navigator} = this.props
+        navigator.pushPage({ component: SignUpPage, key: 'SIGNUP_PAGE' })
+    }
     render() {
 
         const {auth } = this.props
@@ -69,7 +76,7 @@ class LoginPage extends Component {
                         <div className='page-inner'>
                             <a className='goback' onClick={this.popPage}><Icon icon='fa-times' /></a>
                             <img className='sclogo' src={images.logoBlue} alt="" />
-                            <LoginForm handleClickLogin={this.handleClickLogin} handleChange={this.handleChange} username={this.state.username} password={this.state.password} />
+                            <LoginForm handleClickLogin={this.handleClickLogin} openSignUpPage={this.openSignUpPage} handleChange={this.handleChange} username={this.state.username} password={this.state.password} />
                         </div>
                     </div>
 

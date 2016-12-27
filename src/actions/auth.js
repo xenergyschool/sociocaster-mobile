@@ -2,6 +2,7 @@ import * as api from '../api'
 import { notification } from 'onsenui'
 import * as socialaccountActions from './socialaccount'
 import WelcomPage from '../containers/WelcomePage'
+import { Promise } from 'es6-promise'
 
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAILED = 'AUTH_FAILED';
@@ -81,20 +82,31 @@ export const signup = (data) => {
             }
         })
 
-        api.post('/users', data).then((response) => {
+        return api.post('/users', data).then((response) => {
             console.log(response)
             dispatch({
                 type: AUTH_SUCCESS,
                 data: {
-                    isRegistering: true
+                    isRegistering: false
                 }
             })
+
+            return response
         }).catch((error) => {
 
-            if (error.data.message.username)
-                notification.alert(error.data.message.username[0], { title: 'Ups!' })
+            if (error.data[0])
+                notification.alert(error.data[0].message, { title: 'Ups!' })
             else
                 notification.alert(error.data.message, { title: 'Ups!' })
+
+            dispatch({
+                type: AUTH_SUCCESS,
+                data: {
+                    isRegistering: false
+                }
+            })
+
+            return Promise.reject(error)
         })
     }
 }
