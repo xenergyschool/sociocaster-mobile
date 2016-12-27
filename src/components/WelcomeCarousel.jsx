@@ -31,7 +31,7 @@ export default class WelcomeCarousel extends React.Component {
                         <div className='sign-direction'>
                             <img className='sclogo' src={images.logoBlue} alt='' />
                             <p>Sociocaster is the easiest way to FIND, PLAN and POST content that is proven to increase social media engagement on Facebook, Twitter, LinkedIn, Pinterest and Instagram.</p>
-                            <p><Button className='signupbtn' onClick={openSignUpPage}>Get Started</Button></p>
+                            <p><Button className='blueBtn signupbtn' onClick={openSignUpPage}>Get Started</Button></p>
                             <small className='text-center'>Already have an account? <Button className='signinbtn' onClick={openLoginPage}>Sign in</Button> </small>
 
                         </div>
