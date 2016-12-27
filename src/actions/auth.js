@@ -87,7 +87,7 @@ export const signup = (data) => {
             dispatch({
                 type: AUTH_SUCCESS,
                 data: {
-                    isRegistering: true
+                    isRegistering: false
                 }
             })
 
