@@ -6,7 +6,7 @@ import {
 const defaultState = {
     filter: 'scheduled',
     data: {},
-    isFetching: 'false',
+    isFetching: false,
     isFetchingMore: false
 };
 

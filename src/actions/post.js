@@ -16,12 +16,19 @@ export const get = () => {
         let state = getState()
 
         let socialaccountId = state.socialaccount.data.items[state.socialaccount.activeIndex].id
+
+
+        if (state.post.isFetching) {
+            // console.log(source.token)
+            source.cancel('cancel-request')
+
+            source = CancelToken.source()
+            //console.log(source.token)
+        }
         let config = {
             cancelToken: source.token
         }
-        if (state.socialaccount.isFetching) {
-            source.cancel()
-        }
+
         dispatch({
             type: POST_LOADED,
             data: {
@@ -40,12 +47,25 @@ export const get = () => {
                 }
             })
         }).catch((response) => {
-            dispatch({
-                type: POST_LOADED,
-                data: {
-                    isFetching: false
-                }
-            })
+
+            if (axios.isCancel(response)) {
+
+                dispatch({
+                    type: POST_LOADED,
+                    data: {
+                        isFetching: true
+                    }
+                })
+            } else {
+                dispatch({
+                    type: POST_LOADED,
+                    data: {
+                        isFetching: false
+                    }
+                })
+            }
+
+
         })
 
     }
