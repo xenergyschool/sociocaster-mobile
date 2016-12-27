@@ -39,7 +39,7 @@ export default class LoginForm extends Component {
                          <div className='input-block'>
                              <a className='iforgot' href="#">Lost Your Password?</a>
                          </div>
-                         <div class='input-block'>
+                         <div className='input-block'>
                             <button type='submit' className='blueBtn'>Sign In</button>
                         </div>
                     </div>
