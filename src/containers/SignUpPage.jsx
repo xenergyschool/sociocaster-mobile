@@ -38,7 +38,11 @@ class LoginPage extends Component {
 
             notification.alert(errorMessage, { title: 'Ups!' })
         } else {
-            authActions.signup(this.state)
+            authActions.signup(this.state).then(() => {
+                console.log('boooom')
+            }).catch(() => {
+                console.log('catchboom')
+            })
         }
 
     }
