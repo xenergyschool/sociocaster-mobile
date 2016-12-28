@@ -1,8 +1,18 @@
+ons-pull-hook{
+    background-color: darken($color10,10%)
+    color: $color1
+}
+
 .left-menu, .left-menu .page--material__background
          background-color: $color8 !important
 
 .list, .list--material, .list__item, .list__header--material
     background-color: $color8
+
+.list__header--material
+    background: none
+    box-shadow: none
+    border-bottom: solid 1px $color10
 
 .left-menu__header
     position: relative
@@ -63,8 +73,8 @@
     height: 40px
 
 .list__item, .list__item--material
-    border-top: solid 1px $color10
-    border-bottom: solid 1px $color11
+    border-top: solid 1px $color11
+    border-bottom: solid 1px $color10
     &:last-child
         border-bottom: none
 
