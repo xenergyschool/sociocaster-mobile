@@ -84,7 +84,7 @@ class MenuContainer extends Component {
             },
             {
                 content: <DateTimePicker key={2} />,
-                tab: <Tab icon='fa-plus' onClick={openPostCreator} key={2} />
+                tab: <Tab icon='fa-plus-circle' onClick={openPostCreator} key={2} />
             },
             {
                 content: <PostPage title='Posts' showMenu={showMenu} navigator={navigator} key={3} />,
