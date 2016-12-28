@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.15.3",
     "es6-promise": "^4.0.5",
+    "jstz": "^1.0.7",
     "moment": "^2.17.1",
     "moment-timezone": "^0.5.10",
     "onsenui": "^2.0.5",
@@ -17,7 +18,8 @@
     "react-redux": "^4.4.6",
     "react-waypoint": "^4.1.0",
     "redux": "^3.6.0",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "tzdata": "^1.0.5"
   },
   "devDependencies": {
     "eslint": "^3.12.1",

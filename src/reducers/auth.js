@@ -7,6 +7,7 @@ const defaultState = {
   isRegistering: false,
   isLoggingIn: false,
   isResettingPassword: false,
+  isUpdating: false,
   jwt: '',
   user: {}
 };

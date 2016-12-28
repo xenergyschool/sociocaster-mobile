@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import Menu from '../components/Menu'
 import Post from '../components/Post'
 import MenuContainer from './MenuContainer'
+import TimeZoneSetting from './TimeZoneSetting'
+
 
 class PostPage extends Component {
     constructor(props) {
@@ -55,6 +57,13 @@ class PostPage extends Component {
         }
 
 
+    }
+    componentDidMount() {
+        const {auth, navigator} = this.props
+        if (!auth.user.timezone) {
+            navigator.pushPage({ component: TimeZoneSetting, key: 'SET_TIMEZONE' })
+            // console.log(auth.user.timezone)
+        }
     }
     loadMorePosts() {
         const {post, postActions} = this.props

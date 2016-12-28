@@ -4,7 +4,7 @@ import { Tabbar, Tab, Navigator } from 'react-onsenui';
 import WelcomePage from './WelcomePage';
 import PostPage from './PostPage'
 import PreLoad from '../components/PreLoad'
-import MenuCotainer from './MenuContainer'
+import MenuContainer from './MenuContainer'
 
 class App extends React.Component {
   constructor(props) {
@@ -32,7 +32,7 @@ class App extends React.Component {
   }
   render() {
 
-    const {isLoggedIn, isChecking} = this.props.auth
+    const {isLoggedIn, isChecking, user} = this.props.auth
 
     if (isLoggedIn) {
       if (this.props.socialaccount.isFetching) {
@@ -48,13 +48,15 @@ class App extends React.Component {
             position='bottom'
             />
         */
+
         return (
 
           <Navigator
             renderPage={this.renderPage}
-            initialRoute={{ component: MenuCotainer, key: 'MENU_CONTAINER' }}
+            initialRoute={{ component: MenuContainer, key: 'MENU_CONTAINER' }}
             />
         )
+
       }
     } else {
 

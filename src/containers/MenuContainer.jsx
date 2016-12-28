@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import Menu from '../components/Menu'
 import PostPage from './PostPage'
 import DateTimePicker from '../components/DateTimePicker'
+
 class MenuContainer extends Component {
     constructor(props) {
         super(props)
@@ -99,6 +100,7 @@ class MenuContainer extends Component {
 
 
     render() {
+
 
         return (
             <Menu

@@ -170,3 +170,35 @@ export const resetPassword = (data) => {
         })
     }
 }
+
+export const update = (data) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: AUTH_SUCCESS,
+            data: {
+                isUpdating: true
+            }
+        })
+
+        return api.patch('/users', data).then((response) => {
+            dispatch({
+                type: AUTH_SUCCESS,
+                data: {
+                    isUpdating: false,
+                    user: response.data
+                }
+            })
+            return response
+        }).catch((error) => {
+            dispatch({
+                type: AUTH_SUCCESS,
+                data: {
+                    isUpdating: false
+                }
+            })
+            return Promise.reject(error)
+        })
+
+
+    }
+}
