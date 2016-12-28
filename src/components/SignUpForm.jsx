@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input, Button, Icon } from 'react-onsenui'
+import { Icon } from 'react-onsenui'
 
 export default class LoginForm extends Component {
 
@@ -8,55 +8,55 @@ export default class LoginForm extends Component {
         return (
             <section style={{ textAlign: 'center' }}>
                 <form onSubmit={handleClickSignUp}>
-                <div className='form-inputs'>
-                    <div className='input-block'>
-                        <input
-                            className='sc-inputs'
-                            value={username}
-                            onChange={handleChange}
+                    <div className='form-inputs'>
+                        <div className='input-block'>
+                            <input
+                                className='sc-inputs'
+                                value={username}
+                                onChange={handleChange}
 
-                            id='username'
-                            type='text'
-                            placeholder='Username'
-                            autoFocus
-                            required
+                                id='username'
+                                type='text'
+                                placeholder='Username'
+                                autoFocus
+                                required
 
-                            />
+                                />
                             <Icon className='input-icon' icon='fa-user' />
-                    </div>
-                    <div className='input-block'>
-                        <input
-                            className='sc-inputs'
-                            value={email}
-                            onChange={handleChange}
+                        </div>
+                        <div className='input-block'>
+                            <input
+                                className='sc-inputs'
+                                value={email}
+                                onChange={handleChange}
 
-                            id='email'
-                            type='email'
-                            placeholder='Email'
+                                id='email'
+                                type='email'
+                                placeholder='Email'
 
-                            required
+                                required
 
-                            />
+                                />
                             <Icon className='input-icon' icon='fa-envelope' />
-                    </div>
-                    <div className='input-block'>
-                        <input
-                            className='sc-inputs'
-                            value={password}
-                            onChange={handleChange}
+                        </div>
+                        <div className='input-block'>
+                            <input
+                                className='sc-inputs'
+                                value={password}
+                                onChange={handleChange}
 
-                            id='password'
-                            type='password'
+                                id='password'
+                                type='password'
 
-                            placeholder='Password'
-                            required
+                                placeholder='Password'
+                                required
 
-                            />
+                                />
                             <Icon className='input-icon' icon='fa-lock' />
-                    </div>
-                    <div className='input-block'>
-                        <button className='blueBtn' type='submit'>Sign Up</button>
-                    </div>
+                        </div>
+                        <div className='input-block'>
+                            <button className='blueBtn' type='submit'>Sign Up</button>
+                        </div>
                     </div>
                 </form>
             </section>

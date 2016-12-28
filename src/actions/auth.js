@@ -130,3 +130,43 @@ export const logout = (navigator) => {
 
     }
 }
+
+export const resetPassword = (data) => {
+    return (dispatch, getState) => {
+
+
+        dispatch({
+            type: AUTH_SUCCESS,
+            data: {
+                isResettingPassword: true
+            }
+        })
+
+        return api.post('/users/sendresetpasswordlink', data).then((response) => {
+            console.log(response)
+            dispatch({
+                type: AUTH_SUCCESS,
+                data: {
+                    isResettingPassword: false
+                }
+            })
+            notification.alert(response.data.message, { title: 'Reset Password' })
+            return response
+        }).catch((error) => {
+
+            if (error.data[0])
+                notification.alert(error.data[0].message, { title: 'Ups!' })
+            else
+                notification.alert(error.data.message, { title: 'Ups!' })
+
+            dispatch({
+                type: AUTH_SUCCESS,
+                data: {
+                    isResettingPassword: false
+                }
+            })
+
+            return Promise.reject(error)
+        })
+    }
+}
