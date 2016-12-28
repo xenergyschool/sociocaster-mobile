@@ -1,8 +1,18 @@
+ons-pull-hook{
+    background-color: darken($color10,10%)
+    color: $color1
+}
+
 .left-menu, .left-menu .page--material__background
          background-color: $color8 !important
 
-.list, .list--material, .list__item, .list__header--material
+.left-menu__list, .left-menu__list-item, .left-menu__header, .left-menu__header-top
     background-color: $color8
+
+.list__header--material
+    background: none
+    box-shadow: none
+    border-bottom: solid 1px $color14
 
 .left-menu__header
     position: relative
@@ -11,7 +21,7 @@
 .left-menu__header-top
     @extend .list__item
     border: none
-    border-bottom: solid 1px $color11
+    border-bottom: solid 1px $color10
     box-shadow: none
     .left
         @extend .list__item__left
@@ -63,8 +73,8 @@
     height: 40px
 
 .list__item, .list__item--material
-    border-top: solid 1px $color10
-    border-bottom: solid 1px $color11
+    border-top: solid 1px $color11
+    border-bottom: solid 1px darken($color10,15%)
     &:last-child
         border-bottom: none
 
@@ -85,3 +95,15 @@
 .user__provider
     font-size: 13px
 
+.navigation-bar, .navigation-bar--material
+    background-color: $color2
+
+.tab-bar, .tab-bar--material
+    background-color: $color9
+    border-top: solid 1px $color5
+
+:checked + .tab-bar--material__button
+    color: $color1
+
+.tab-bar--material__button
+    color: $color13
