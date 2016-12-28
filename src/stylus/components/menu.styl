@@ -1,0 +1,87 @@
+.left-menu, .left-menu .page--material__background
+         background-color: $color8 !important
+
+.list, .list--material, .list__item, .list__header--material
+    background-color: $color8
+
+.left-menu__header
+    position: relative
+    padding:0
+
+.left-menu__header-top
+    @extend .list__item
+    border: none
+    border-bottom: solid 1px $color11
+    box-shadow: none
+    .left
+        @extend .list__item__left
+    .center
+        @extend .list__item__center
+        color: $color9
+        font-size: 20px
+        background: none !important
+    .user-displayname
+        color: $color1
+
+.left-menu__setting
+    position: absolute
+    top: 15px
+    right: 2px
+    width: 40px    
+    height: 40px
+    text-align: center
+    vertical-align: middle
+
+.left-menu__link
+    color: $color9 !important
+    font-size: 18px
+    display: inline-block
+    padding-top:7px
+
+.left-menu__searchbox
+    background: $color12
+    width:100%
+    height:50px
+    display: block
+    position: relative
+
+.search-input
+    width:100%
+    height:50px
+    background: transparent
+    border: none
+    border-radius: 0
+    color: $color9
+
+.search-btn
+    position: absolute
+    top: 5px
+    right: 3px
+    color: $color9
+    font-size: 16px
+    width: 40px
+    height: 40px
+
+.list__item, .list__item--material
+    border-top: solid 1px $color10
+    border-bottom: solid 1px $color11
+    &:last-child
+        border-bottom: none
+
+.list__item--material__left:empty, .list__item--material__center
+    background: none !important
+
+.list__item__center
+    color: $color9
+
+.user__displayname, .user__provider
+    display: block
+    width: 100%
+
+.user__displayname
+    font-size: 16px
+    font-weight: $bold
+
+.user__provider
+    font-size: 13px
+

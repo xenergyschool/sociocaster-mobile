@@ -28,7 +28,7 @@ export default class Menu extends Component {
                     onClose={hideMenu}
                     onOpen={showMenu}
                     >
-                    <Page>
+                    <Page className='left-menu'>
                         <PullHook
                             onChange={handleMenuPullChange}
                             onLoad={handleMenuPullLoad}
@@ -44,17 +44,28 @@ export default class Menu extends Component {
                                         <img src={data.photoUrl} className='list__item__thumbnail' />
                                     </div>
                                     <div className='center'>
-                                        {data.displayName}
+                                        <span className='user__displayname'>{data.displayName}</span>
+                                        <span className='user__provider'>{`${data.provider} ${data.type}`}</span>
                                     </div>
                                 </ListItem>
                             )}
                             renderHeader={() => (
-                                <ListHeader >
-                                    <div className='left'>
-                                        <img src={activeSocialaccount.photoUrl} className='list__item__thumbnail' />
+                                <ListHeader className='left-menu__header'>
+                                    <div className='left-menu__header-top'>
+                                        <div className='left'>
+                                            <img src={activeSocialaccount.photoUrl} className='list__item__thumbnail' />
+                                        </div>
+                                        <div className='center'>
+                                            <span className='user__displayname'>{activeSocialaccount.displayName}</span>
+                                            <span className='user__provider'>{`${activeSocialaccount.provider} ${activeSocialaccount.type}`}</span>
+                                        </div>
                                     </div>
-                                    <div className='center'>
-                                        {activeSocialaccount.displayName}
+                                    <div className='left-menu__setting'>
+                                        <a className='left-menu__link' href="#"><Icon icon='fa-cog' /></a>
+                                    </div>
+                                    <div className='left-menu__searchbox'>
+                                        <input className='search-input' type="text" name="search" placeholder="Search Account" />
+                                        <button className='search-btn' type="button"><Icon icon='fa-search' /></button>
                                     </div>
                                 </ListHeader>
                             )}
