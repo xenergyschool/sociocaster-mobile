@@ -35,11 +35,11 @@ export default class Menu extends Component {
                             >
                             {getMenuPullContent()}
                         </PullHook>
-                        <List
+                        <List className='left-menu__list'
                             dataSource={socialaccount.data.items}
                             renderRow={(data, index) => (
 
-                                <ListItem key={data.id} data-index={index} onClick={switchSocialaccount} tappable>
+                                <ListItem className='left-menu__list-item' key={data.id} data-index={index} onClick={switchSocialaccount} tappable>
                                     <div className='left'>
                                         <img src={data.photoUrl} className='list__item__thumbnail' />
                                     </div>
@@ -65,7 +65,6 @@ export default class Menu extends Component {
                                     </div>
                                     <div className='left-menu__searchbox'>
                                         <input className='search-input' type="text" name="search" placeholder="Search Account" />
-                                        <button className='search-btn' type="button"><Icon icon='fa-search' /></button>
                                     </div>
                                 </ListHeader>
                             )}

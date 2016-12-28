@@ -6,13 +6,13 @@ ons-pull-hook{
 .left-menu, .left-menu .page--material__background
          background-color: $color8 !important
 
-.list, .list--material, .list__item, .list__header--material
+.left-menu__list, .left-menu__list-item, .left-menu__header, .left-menu__header-top
     background-color: $color8
 
 .list__header--material
     background: none
     box-shadow: none
-    border-bottom: solid 1px $color10
+    border-bottom: solid 1px $color14
 
 .left-menu__header
     position: relative
@@ -21,7 +21,7 @@ ons-pull-hook{
 .left-menu__header-top
     @extend .list__item
     border: none
-    border-bottom: solid 1px $color11
+    border-bottom: solid 1px $color10
     box-shadow: none
     .left
         @extend .list__item__left
@@ -74,7 +74,7 @@ ons-pull-hook{
 
 .list__item, .list__item--material
     border-top: solid 1px $color11
-    border-bottom: solid 1px $color10
+    border-bottom: solid 1px darken($color10,15%)
     &:last-child
         border-bottom: none
 
