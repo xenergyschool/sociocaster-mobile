@@ -91,7 +91,7 @@ export default class Post extends Component {
             console.log(window.innerHeight)
 
             return (
-                <Page renderToolbar={renderToolbar}>
+                <Page className='post-page' renderToolbar={renderToolbar}>
                     <section className='post-wrap'>
                         <a href='#' className='post-wrap__switch-post'>Schedule <Icon icon='fa-caret-down' /></a>
                         {items}
