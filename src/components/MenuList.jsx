@@ -64,9 +64,10 @@ export default class MenuList extends Component {
                             <div className='left-menu__setting'>
                                 <a className='left-menu__link' href="#" onClick={this.changeMode}><Icon icon={this.state.mode == 'socialaccount' ? 'fa-cog' : 'fa-users'} /></a>
                             </div>
-                            <div className='left-menu__searchbox'>
-                                <input className='search-input' type="text" name="search" placeholder="Search Account" />
-                            </div>
+                            {this.state.mode == 'socialaccount' &&
+                                <div className='left-menu__searchbox'>
+                                    <input className='search-input' type="text" name="search" placeholder="Search Account" />
+                                </div>}
                         </ListHeader>
                     )}
                     />

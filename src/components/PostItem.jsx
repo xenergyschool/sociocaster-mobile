@@ -10,14 +10,6 @@ export default class PostItem extends Component {
         let itemContent
         let time = '09:02'
         switch (postItem.type) {
-            case 'text':
-                itemContent = (
-                    <div className='post-box'>
-                        <p className='post-box__msg'> {postItem.message}</p>
-                        <span className='post-box__time'>{time}</span>
-                    </div>
-                )
-            break 
             case 'picture':
                 itemContent = (
                     <div className='post-box'>
@@ -26,7 +18,7 @@ export default class PostItem extends Component {
                         <span className='post-box__time'>{time}</span>
                     </div>
                 )
-            break 
+                break
             case 'link':
                 itemContent = (
                     <div className='post-box'>
@@ -35,7 +27,7 @@ export default class PostItem extends Component {
                         <span className='post-box__time'>{time}</span>
                     </div>
                 )
-            break 
+                break
             case 'customlink':
                 itemContent = (
                     <div className='post-box'>
@@ -48,7 +40,7 @@ export default class PostItem extends Component {
                         <span className='post-box__time'>{time}</span>
                     </div>
                 )
-            break 
+                break
             case 'album':
                 itemContent = (
                     <div className='post-box'>
@@ -57,7 +49,16 @@ export default class PostItem extends Component {
                         <span className='post-box__time'>{time}</span>
                     </div>
                 )
-            break 
+                break
+            case 'text':
+            default:
+                itemContent = (
+                    <div className='post-box'>
+                        <p className='post-box__msg'> {postItem.message}</p>
+                        <span className='post-box__time'>{time}</span>
+                    </div>
+                )
+                break
 
         }
         return itemContent
