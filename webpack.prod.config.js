@@ -95,7 +95,7 @@ module.exports = {
     }]
   },
 
-  postcss: function() {
+  postcss: function () {
     return [precss, autoprefixer];
   },
 
@@ -132,7 +132,7 @@ module.exports = {
     new ProgressBarPlugin(),
     new webpack.DefinePlugin({
       SC_HOST: JSON.stringify('https://sociocaster.com'),
-      SC_API: JSON.stringify('http://api.sociocaster.com')
+      SC_API: JSON.stringify('https://api.sociocaster.com')
     })
   ],
 

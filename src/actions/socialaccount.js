@@ -18,12 +18,16 @@ export const get = (mode = 'normal') => {
             })
         }
         return api.get('/socialaccounts?expand=scheduleTime').then((response) => {
+            let activeIndex = response.data.items.length > 1 ? 0 : -1
+            if (mode == 'refresh') {
+                activeIndex = getState().socialaccount.activeIndex
+            }
             dispatch({
                 type: SOCIAL_ACCOUNTS_LOADED,
                 data: {
                     data: response.data,
                     isFetching: false,
-                    activeIndex: response.data.items.length > 1 ? 0 : -1
+                    activeIndex: activeIndex
                 }
             })
         }).catch((response) => {
