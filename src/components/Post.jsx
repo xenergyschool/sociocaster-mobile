@@ -105,6 +105,7 @@ export default class Post extends Component {
                 <Page className='post-page' renderToolbar={renderToolbar}>
                     <section className='post-wrap'>
                         <a href='#' className='post-wrap__switch-post' onClick={this.hideDialog}> {helpers.capitalizeFirstLetter(post.filter)} <Icon icon='fa-caret-down' /></a>
+
                         <Dialog
                             isOpen={this.state.dialogShown}
                             isCancelable={true}
@@ -124,7 +125,7 @@ export default class Post extends Component {
                                             {helpers.capitalizeFirstLetter(data)}
                                         </ListItem>
                                     )}
-                                    renerHeader={() => (
+                                    renderHeader={() => (
                                         <h3>Posts Filter</h3>
                                     )}
                                     />
