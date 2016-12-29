@@ -1,5 +1,6 @@
-.post-page
-    background-color: $color0
+.post-page 
+    .page__background
+        background-color: lighten($color0,20%)
 
 .post-wrap__switch-post
     font-size: 24px
@@ -19,16 +20,52 @@
     margin-top:-5px
 
 .post-box
+    background: $color9
     width: 80%
     margin: 0 auto 20px
     border: solid 1px
-    border-color: $color5 darken($color5,10%) #d0d1d5
+    border-color: darken($color5,5%) darken($color5,7%) darken($color5,13%)
     padding: 25px 15px
+    border-radius: 5px
 
 .post-box__msg
     color: darken($color3,10%)
-    margin: 0 0 5px
+    margin: 0 0 15px
+    border-bottom: solid 1px $color5
+    padding-bottom: 15px
 
 .post-box__time
     color: $color13
     font-size: 12px
+
+.post-box__link-wrap
+    width:100%
+    height:140px
+    display: block
+    overflow: hidden
+    position: relative
+    margin-bottom: 15px
+
+.post-box__link-picture
+    display: block
+    width: 100%
+    position: absolute
+    height: auto
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    margin: auto
+
+.post-box__link-caption, .post-box__link-description
+    display: block
+
+.post-box__link-caption
+    color: $color13
+    margin-bottom: 10px
+
+.post-box__link-description
+    color: $color3
+    margin: 0 0 15px
+    border-bottom: solid 1px $color5
+    padding-bottom: 15px
