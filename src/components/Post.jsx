@@ -102,7 +102,7 @@ export default class Post extends Component {
 
             let dataFilter = ['scheduled', 'published', 'failed', 'queue']
             return (
-                <Page renderToolbar={renderToolbar}>
+                <Page className='post-page' renderToolbar={renderToolbar}>
                     <section className='post-wrap'>
                         <a href='#' className='post-wrap__switch-post' onClick={this.hideDialog}> {helpers.capitalizeFirstLetter(post.filter)} <Icon icon='fa-caret-down' /></a>
                         <Dialog
