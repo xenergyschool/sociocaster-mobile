@@ -29,13 +29,10 @@ class TimeZoneSetting extends Component {
 
         e.preventDefault()
         const {authActions, navigator} = this.props
-        /*
-             authActions.update({ timezone: this.state.userTimezone }).then((response) => {
-     
-                 navigator.popPage()
-             })
-             */
-        navigator.resetPage({ component: MenuContainer, key: 'MENU_CONTAINER_2' })
+
+        authActions.update({ timezone: this.state.userTimezone })
+        // navigator.popPage()
+        //navigator.pushPage({ component: MenuContainer, key: 'MENU_CONTAINER_2' })
     }
     handleChange(e) {
         console.log(e.currentTarget.dataset.timezone)

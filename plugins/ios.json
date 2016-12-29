@@ -9,6 +9,9 @@
     "installed_plugins": {
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "com.sociocaster.app"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.sociocaster.app"
         }
     },
     "dependent_plugins": {}

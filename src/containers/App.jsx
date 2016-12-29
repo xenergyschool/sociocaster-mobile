@@ -5,6 +5,8 @@ import WelcomePage from './WelcomePage';
 import PostPage from './PostPage'
 import PreLoad from '../components/PreLoad'
 import MenuContainer from './MenuContainer'
+import TimeZoneSetting from './TimeZoneSetting'
+
 
 class App extends React.Component {
   constructor(props) {
@@ -48,14 +50,18 @@ class App extends React.Component {
             position='bottom'
             />
         */
+        if (!user.timezone) {
+          return <TimeZoneSetting />
+        } else {
 
-        return (
+          return (
 
-          <Navigator
-            renderPage={this.renderPage}
-            initialRoute={{ component: MenuContainer, key: 'MENU_CONTAINER' }}
-            />
-        )
+            <Navigator
+              renderPage={this.renderPage}
+              initialRoute={{ component: MenuContainer, key: 'MENU_CONTAINER' }}
+              />
+          )
+        }
 
       }
     } else {
