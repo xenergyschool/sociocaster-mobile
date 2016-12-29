@@ -29,7 +29,7 @@ export default class Menu extends Component {
                     onOpen={showMenu}
                     >
                     <Page className='left-menu'>
-                        <PullHook
+                        <PullHook className='pull-left-menu'
                             onChange={handleMenuPullChange}
                             onLoad={handleMenuPullLoad}
                             >
