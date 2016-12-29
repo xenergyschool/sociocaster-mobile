@@ -1,4 +1,4 @@
-ons-pull-hook{
+.pull-left-menu{
     background-color: darken($color10,10%)
     color: $color1
 }
@@ -72,16 +72,16 @@ ons-pull-hook{
     width: 40px
     height: 40px
 
-.list__item, .list__item--material
+.left-menu__list-item
     border-top: solid 1px $color11
     border-bottom: solid 1px darken($color10,15%)
     &:last-child
         border-bottom: none
 
-.list__item--material__left:empty, .list__item--material__center
+.left-menu__list-item .list__item--material__left:empty, .left-menu__list-item .list__item--material__center
     background: none !important
 
-.list__item__center
+.left-menu__list-item .list__item__center
     color: $color9
 
 .user__displayname, .user__provider
