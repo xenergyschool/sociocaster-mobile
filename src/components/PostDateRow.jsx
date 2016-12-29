@@ -9,8 +9,8 @@ export default class PostDateRow extends Component {
         const {dateRowContent } = this.props
         return (
 
-            <div >
-                <h4>{dateRowContent}</h4>
+            <div className='date-row'>
+                <h4 className='date-row__label'>{dateRowContent}</h4>
             </div >
 
         )

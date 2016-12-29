@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { platform } from 'onsenui'
-import { Page, LazyList, ListItem, ProgressCircular } from 'react-onsenui'
+import { Page, LazyList, ListItem, ProgressCircular, Icon } from 'react-onsenui'
 import moment from 'moment-timezone'
 import PostDateRow from './PostDateRow'
 import PostItem from './PostItem'
@@ -92,8 +92,8 @@ export default class Post extends Component {
 
             return (
                 <Page renderToolbar={renderToolbar}>
-                    <section style={{ margin: '16px' }}>
-
+                    <section className='post-wrap'>
+                        <a href='#' className='post-wrap__switch-post'>Schedule <Icon icon='fa-caret-down' /></a>
                         {items}
                         <div style={{ height: 20, textAlign: 'center' }}>
                             {!post.isFetchingMore && <Waypoint onEnter={loadMorePosts} />}
