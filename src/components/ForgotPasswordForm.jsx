@@ -19,7 +19,7 @@ export default class ForgotPasswordForm extends Component {
                                 id='email'
                                 type='email'
                                 placeholder='Email'
-
+                                autoFocus
                                 required
 
                                 />

@@ -30,6 +30,14 @@ export const post = (url, data = {}, config = {}) => {
     })
 }
 
+export const patch = (url, data = {}, config = {}) => {
+    return axios.patch(url, qs.stringify(data), config).then((response) => {
+        if (!response.data.success)
+            return Promise.reject(response.data)
+        return response.data
+    })
+}
+
 export const setting = () => {
 
     if (typeof (Storage) !== 'undefined') {

@@ -57,5 +57,5 @@ if (module.hot) {
 }
 
 document.addEventListener("deviceready", function () {
-  StatusBar.backgroundColorByHexString("#2EB2FF")
+  StatusBar.backgroundColorByHexString("#2980B9")
 }, false)

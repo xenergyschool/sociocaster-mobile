@@ -111,13 +111,15 @@ export const signup = (data) => {
     }
 }
 
-export const logout = (navigator) => {
+export const logout = (navigator = 'normal') => {
     return (dispatch, getState) => {
         let c = notification.confirm('Are you sure want to sign out?', {
             callback: (data) => {
                 if (data > 0) {
                     localStorage.removeItem('sc-auth')
-                    navigator.pushPage({ component: WelcomPage, key: 'WELCOME_PAGE' })
+                    if (navigator !== 'normal') {
+                        navigator.pushPage({ component: WelcomPage, key: 'WELCOME_PAGE' })
+                    }
                     dispatch({
                         type: AUTH_SUCCESS,
                         data: {
@@ -168,5 +170,37 @@ export const resetPassword = (data) => {
 
             return Promise.reject(error)
         })
+    }
+}
+
+export const update = (data) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: AUTH_SUCCESS,
+            data: {
+                isUpdating: true
+            }
+        })
+
+        return api.patch('/users', data).then((response) => {
+            dispatch({
+                type: AUTH_SUCCESS,
+                data: {
+                    isUpdating: false,
+                    user: response.data
+                }
+            })
+            return response
+        }).catch((error) => {
+            dispatch({
+                type: AUTH_SUCCESS,
+                data: {
+                    isUpdating: false
+                }
+            })
+            return Promise.reject(error)
+        })
+
+
     }
 }

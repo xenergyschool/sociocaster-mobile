@@ -4,7 +4,12 @@ import { Tabbar, Tab, Navigator } from 'react-onsenui';
 import WelcomePage from './WelcomePage';
 import PostPage from './PostPage'
 import PreLoad from '../components/PreLoad'
-import MenuCotainer from './MenuContainer'
+import MenuContainer from './MenuContainer'
+import TimeZoneSetting from './TimeZoneSetting'
+import NoSocialAccountsPage from '../components/NoSocialAccountsPage'
+import * as authActions from '../actions/auth'
+import * as socialaccountActions from '../actions/socialaccount'
+import { bindActionCreators } from 'redux'
 
 class App extends React.Component {
   constructor(props) {
@@ -14,11 +19,13 @@ class App extends React.Component {
       index: 0
     }
   }
+
   onPreChange(e) {
     if (e.index != this.state.index) {
       this.setState({ index: e.index });
     }
   }
+
   renderTabs() {
     return [
       {
@@ -27,15 +34,17 @@ class App extends React.Component {
       }
     ];
   }
+
   renderPage(route, navigator) {
     return <route.component key={route.key} navigator={navigator} />
   }
+
   render() {
 
-    const {isLoggedIn, isChecking} = this.props.auth
-
+    const {isLoggedIn, isChecking, user} = this.props.auth
+    const {socialaccount, socialaccountActions, authActions} = this.props
     if (isLoggedIn) {
-      if (this.props.socialaccount.isFetching) {
+      if (socialaccount.isFetching) {
         return (
           <PreLoad />
         )
@@ -48,13 +57,31 @@ class App extends React.Component {
             position='bottom'
             />
         */
-        return (
+        if (!user.timezone) {
+          return <TimeZoneSetting />
+        } else {
 
-          <Navigator
-            renderPage={this.renderPage}
-            initialRoute={{ component: MenuCotainer, key: 'MENU_CONTAINER' }}
-            />
-        )
+          if (socialaccount.data.items && socialaccount.data.items.length > 0) {
+            console.log('navigator', socialaccount)
+            return (
+
+              <Navigator
+                renderPage={this.renderPage}
+                initialRoute={{ component: MenuContainer, key: 'MENU_CONTAINER' }}
+                />
+            )
+          } else {
+            console.log('nosocial', socialaccount)
+            return (
+              <NoSocialAccountsPage
+                reloadSocialaccounts={(e) => { socialaccountActions.get() } }
+                logout={(e) => { authActions.logout() } }
+                user={user}
+                />
+            )
+          }
+        }
+
       }
     } else {
 
@@ -82,4 +109,9 @@ class App extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({ auth: state.auth, socialaccount: state.socialaccount })
 
-export default connect(mapStateToProps)(App)
+const mapDispatchToProps = (dispatch) => ({
+  authActions: bindActionCreators(authActions, dispatch),
+  socialaccountActions: bindActionCreators(socialaccountActions, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

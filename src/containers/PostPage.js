@@ -56,6 +56,7 @@ class PostPage extends Component {
 
 
     }
+
     loadMorePosts() {
         const {post, postActions} = this.props
         console.log('here')
