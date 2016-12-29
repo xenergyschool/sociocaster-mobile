@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { platform } from 'onsenui'
-import { Page, LazyList, ListItem, ProgressCircular, Icon } from 'react-onsenui'
+import { Page, List, ListItem, ListHeader, ProgressCircular, Icon, Dialog } from 'react-onsenui'
 import moment from 'moment-timezone'
 import PostDateRow from './PostDateRow'
 import PostItem from './PostItem'
 import Waypoint from 'react-waypoint'
+import * as helpers from '../helpers'
 
 let currentDate = '1970-01-01'
 let itemHeights = []
@@ -15,7 +16,12 @@ export default class Post extends Component {
         super(props)
 
         this.renderItems = this.renderItems.bind(this)
+        this.hideDialog = this.hideDialog.bind(this)
 
+        this.state = {
+            filter: 'scheduled',
+            dialogShown: false
+        }
     }
     renderItems() {
 
@@ -48,6 +54,8 @@ export default class Post extends Component {
                         sameElse: 'dddd, MMMM Do, YYYY',
                     })
 
+                    const timeString = m.format('HH:mm')
+
                     console.log(dateString, renderDateRow)
 
 
@@ -58,12 +66,12 @@ export default class Post extends Component {
                         )
                         itemHeights.push(31)
                         items.push(
-                            <PostItem key={index} postItem={postItem} />
+                            <PostItem key={index} time={timeString} postItem={postItem} />
                         )
                         itemHeights.push(51)
                     } else {
                         items.push(
-                            <PostItem key={index} postItem={postItem} />
+                            <PostItem key={index} time={timeString} postItem={postItem} />
                         )
                         itemHeights.push(51)
 
@@ -80,20 +88,49 @@ export default class Post extends Component {
     handleScroll(e) {
         console.log(e)
     }
+    hideDialog() {
+        this.setState({ dialogShown: !this.state.dialogShown })
+    }
     render() {
-        const {renderToolbar, post, loadMorePosts} = this.props
+        const {renderToolbar, post, loadMorePosts, changePostFilter} = this.props
 
 
 
         if (!post.isFetching) {
             let listLength = post.data._meta ? post.data._meta.totalCount : 0
             const items = this.renderItems()
-            console.log(window.innerHeight)
 
+            let dataFilter = ['scheduled', 'published', 'failed', 'queue']
             return (
                 <Page className='post-page' renderToolbar={renderToolbar}>
                     <section className='post-wrap'>
-                        <a href='#' className='post-wrap__switch-post'>Schedule <Icon icon='fa-caret-down' /></a>
+                        <a href='#' className='post-wrap__switch-post' onClick={this.hideDialog}> {helpers.capitalizeFirstLetter(post.filter)} <Icon icon='fa-caret-down' /></a>
+                        <Dialog
+                            isOpen={this.state.dialogShown}
+                            isCancelable={true}
+                            onCancel={this.hideDialog}>
+                            <div style={{ textAlign: 'center', margin: '20px' }}>
+                                <List
+                                    dataSource={dataFilter}
+                                    renderRow={(data, index) => (
+                                        <ListItem
+                                            key={data}
+                                            data-filter={data}
+                                            onClick={(e) => {
+                                                this.hideDialog()
+                                                changePostFilter(e.currentTarget.dataset.filter)
+                                            } }
+                                            tappable>
+                                            {helpers.capitalizeFirstLetter(data)}
+                                        </ListItem>
+                                    )}
+                                    renerHeader={() => (
+                                        <h3>Posts Filter</h3>
+                                    )}
+                                    />
+
+                            </div>
+                        </Dialog>
                         {items}
                         <div style={{ height: 20, textAlign: 'center' }}>
                             {!post.isFetchingMore && <Waypoint onEnter={loadMorePosts} />}

@@ -110,3 +110,13 @@ export const getMore = () => {
 
     }
 }
+
+export const switchFilter = (filter) => {
+
+    return {
+        type: POST_LOADED,
+        data: {
+            filter: filter
+        }
+    }
+}
