@@ -6,9 +6,9 @@ import { Page } from 'react-onsenui'
 export default class PostItem extends Component {
 
     render() {
-        const {postItem} = this.props
+        const {postItem, time} = this.props
         let itemContent
-        let time = '09:02'
+       
         switch (postItem.type) {
             case 'picture':
                 itemContent = (

@@ -10,13 +10,12 @@ import Menu from '../components/Menu'
 import Post from '../components/Post'
 import MenuContainer from './MenuContainer'
 
-class PostPage extends Component {
+class PostCreator extends Component {
     constructor(props) {
         super(props)
         this.renderToolbar = this.renderToolbar.bind(this)
         this.loadMorePosts = this.loadMorePosts.bind(this)
         this.logout = this.logout.bind(this)
-        this.changePostFilter = this.changePostFilter.bind(this)
     }
     renderToolbar() {
         const {title, showMenu} = this.props
@@ -66,26 +65,16 @@ class PostPage extends Component {
             postActions.getMore()
         }
     }
-    changePostFilter(filter) {
-        const {post, postActions, socialaccount} = this.props
-        if (socialaccount.activeIndex > -1) {
-            postActions.switchFilter(filter)
-            postActions.get()
-        }
-    }
 
     render() {
         const {navigator, post, socialaccount} = this.props
 
         return (
-            <Post
-                navigator={navigator}
-                post={post}
-                socialaccount={socialaccount}
-                renderToolbar={this.renderToolbar}
-                loadMorePosts={this.loadMorePosts}
-                changePostFilter={this.changePostFilter}
-                />
+           <Page>
+           <section>
+            Post Creator
+           </section>
+           </Page>
         )
     }
 
@@ -103,4 +92,4 @@ const mapDispatchToProps = (dispatch) => ({
     postActions: bindActionCreators(postActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PostCreator);

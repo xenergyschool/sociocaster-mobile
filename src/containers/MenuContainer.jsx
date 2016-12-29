@@ -8,6 +8,8 @@ import { bindActionCreators } from 'redux';
 import Menu from '../components/Menu'
 import PostPage from './PostPage'
 import DateTimePicker from '../components/DateTimePicker'
+import UnrealesedPage from '../components/UnrealesedPage'
+import PostCreator from './PostCreator'
 
 class MenuContainer extends Component {
     constructor(props) {
@@ -21,6 +23,7 @@ class MenuContainer extends Component {
         this.renderTabs = this.renderTabs.bind(this)
         this.onPreChange = this.onPreChange.bind(this)
         this.switchSocialaccount = this.switchSocialaccount.bind(this)
+        this.openPostCreator = this.openPostCreator.bind(this)
         this.state = {
             isMenuOpen: false,
             menuPullState: 'initial',
@@ -69,18 +72,21 @@ class MenuContainer extends Component {
     }
     openPostCreator(e) {
         console.log(e)
+        const {navigator} = this.props
+        navigator.pushPage({component:PostCreator,key:'POST_CREATOR'})
     }
     renderTabs() {
 
         const navigator = this.props.navigator
         const {openPostCreator, showMenu} = this
+        const {authActions} = this.props
         return [
             {
-                content: <Page key={0} />,
+                content: <UnrealesedPage title='Top Content' authActions={authActions} showMenu={showMenu} navigator={navigator} key={0} />,
                 tab: <Tab icon='fa-newspaper-o' key={0} />,
             },
             {
-                content: <Page key={1} />,
+                content: <UnrealesedPage title='Feeds' authActions={authActions} showMenu={showMenu} navigator={navigator} key={1} />,
                 tab: <Tab icon='fa-feed' key={1} />,
             },
             {
@@ -92,7 +98,7 @@ class MenuContainer extends Component {
                 tab: <Tab icon='fa-paper-plane' key={3} />,
             },
             {
-                content: <Page key={4} />,
+                content: <UnrealesedPage title='Content Boxes' authActions={authActions} showMenu={showMenu} navigator={navigator} key={4} />,
                 tab: <Tab icon='fa-cloud-download' key={4} />,
             }
         ];
