@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import { Page, Toolbar, ToolbarButton, Icon, Navigator } from 'react-onsenui'
-
+import * as images from '../images'
 
 export default class UnreleasedPage extends Component {
     constructor(props) {

@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import Menu from '../components/Menu'
 import PostPage from './PostPage'
 import DateTimePicker from '../components/DateTimePicker'
-import UnreleasedPage from '../components/UnrealesedPage'
+import UnreleasedPage from '../components/UnreleasedPage'
 import PostCreator from './PostCreator'
 
 class MenuContainer extends Component {
