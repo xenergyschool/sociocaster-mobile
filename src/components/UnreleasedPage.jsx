@@ -3,14 +3,14 @@ import React, { Component } from 'react'
 import { Page, Toolbar, ToolbarButton, Icon, Navigator } from 'react-onsenui'
 
 
-export default class UnrealesedPage extends Component {
+export default class UnreleasedPage extends Component {
     constructor(props) {
         super(props)
         this.renderToolbar = this.renderToolbar.bind(this)
-    
+
         this.logout = this.logout.bind(this)
     }
-    
+
     logout() {
 
         const {authActions, navigator} = this.props
@@ -38,18 +38,18 @@ export default class UnrealesedPage extends Component {
             </Toolbar>
         )
     }
- 
 
 
 
-    
+
+
 
     render() {
         const {navigator, post, socialaccount} = this.props
 
         return (
             <Page
-            
+
                 renderToolbar={this.renderToolbar}
                 >
                 <section>
