@@ -7,7 +7,8 @@ const defaultState = {
     filter: 'scheduled',
     data: {},
     isFetching: false,
-    isFetchingMore: false
+    isFetchingMore: false,
+    activeIndex: -1
 };
 
 const post = (state = defaultState, action) => {

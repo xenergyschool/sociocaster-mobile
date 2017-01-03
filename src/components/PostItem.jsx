@@ -6,7 +6,7 @@ import { Page } from 'react-onsenui'
 export default class PostItem extends Component {
 
     render() {
-        const {postItem, time} = this.props
+        const {postItem, time,openActions, currentIndex} = this.props
         let itemContent
        
         switch (postItem.type) {
@@ -57,7 +57,7 @@ export default class PostItem extends Component {
             case 'text':
             default:
                 itemContent = (
-                    <div className='post-box'>
+                    <div className='post-box' data-index={currentIndex} onClick={openActions}>
                         <p className='post-box__msg'> {postItem.message}</p>
                         <span className='post-box__time'>{time}</span>
                     </div>

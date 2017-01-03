@@ -120,3 +120,13 @@ export const switchFilter = (filter) => {
         }
     }
 }
+
+export const switchIndex = (index) => {
+
+    return {
+        type: POST_LOADED,
+        data: {
+            activeIndex: index
+        }
+    }
+}

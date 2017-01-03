@@ -17,10 +17,12 @@ export default class Post extends Component {
 
         this.renderItems = this.renderItems.bind(this)
         this.hideDialog = this.hideDialog.bind(this)
-
+        this.hideDialogPost = this.hideDialogPost.bind(this)
+        this.openActions = this.openActions.bind(this)
         this.state = {
             filter: 'scheduled',
-            dialogShown: false
+            dialogShown: false,
+            dialogPostShown: false
         }
     }
     renderItems() {
@@ -66,12 +68,12 @@ export default class Post extends Component {
                         )
                         itemHeights.push(31)
                         items.push(
-                            <PostItem key={index} time={timeString} postItem={postItem} />
+                            <PostItem key={index} currentIndex={index} time={timeString} postItem={postItem} openActions={this.openActions} />
                         )
                         itemHeights.push(51)
                     } else {
                         items.push(
-                            <PostItem key={index} time={timeString} postItem={postItem} />
+                            <PostItem key={index} currentIndex={index} time={timeString} postItem={postItem} openActions={this.openActions} />
                         )
                         itemHeights.push(51)
 
@@ -85,11 +87,21 @@ export default class Post extends Component {
 
     }
 
+    openActions(e) {
+        const {postActions} = this.props
+        postActions.switchIndex(parseInt(e.currentTarget.dataset.index)) 
+        this.hideDialogPost()
+
+    }
+
     handleScroll(e) {
         console.log(e)
     }
     hideDialog() {
         this.setState({ dialogShown: !this.state.dialogShown })
+    }
+    hideDialogPost() {
+        this.setState({ dialogPostShown: !this.state.dialogPostShown })
     }
     render() {
         const {renderToolbar, post, loadMorePosts, changePostFilter} = this.props
@@ -101,6 +113,7 @@ export default class Post extends Component {
             const items = this.renderItems()
 
             let dataFilter = ['scheduled', 'published', 'failed', 'queue']
+            let postItemActions = ['edit', 'delete']
             return (
                 <Page className='post-page' renderToolbar={renderToolbar}>
                     <section className='post-wrap'>
@@ -127,6 +140,32 @@ export default class Post extends Component {
                                     )}
                                     renderHeader={() => (
                                         <h3>Posts Filter</h3>
+                                    )}
+                                    />
+
+                            </div>
+                        </Dialog>
+                        <Dialog
+                            isOpen={this.state.dialogPostShown}
+                            isCancelable={true}
+                            onCancel={this.hideDialogPost}>
+                            <div style={{ textAlign: 'center', margin: '20px' }}>
+                                <List
+                                    dataSource={postItemActions}
+                                    renderRow={(data, index) => (
+                                        <ListItem
+                                            key={data}
+                                            data-filter={data}
+                                            onClick={(e) => {
+                                                this.hideDialogPost()
+
+                                            } }
+                                            tappable>
+                                            {helpers.capitalizeFirstLetter(data)}
+                                        </ListItem>
+                                    )}
+                                    renderHeader={() => (
+                                        <h3>Actions</h3>
                                     )}
                                     />
 

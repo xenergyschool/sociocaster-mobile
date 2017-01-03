@@ -75,7 +75,7 @@ class PostPage extends Component {
     }
 
     render() {
-        const {navigator, post, socialaccount} = this.props
+        const {navigator, post, socialaccount,postActions} = this.props
 
         return (
             <Post
@@ -85,6 +85,7 @@ class PostPage extends Component {
                 renderToolbar={this.renderToolbar}
                 loadMorePosts={this.loadMorePosts}
                 changePostFilter={this.changePostFilter}
+                postActions={postActions}
                 />
         )
     }
