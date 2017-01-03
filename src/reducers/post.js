@@ -1,6 +1,7 @@
 import {
     POST_LOADED,
-    POST_MORE_LOADED
+    POST_MORE_LOADED,
+    POST_DELETED
 } from '../actions/post'
 
 const defaultState = {
@@ -37,6 +38,20 @@ const post = (state = defaultState, action) => {
                 ...state,
                 ...{ data: data },
                 ...{ isFetchingMore: action.data.isFetchingMore }
+            }
+        case POST_DELETED:
+            items = [
+                ...state.data.items.slice(0, state.activeIndex),
+                ...state.data.items.slice(state.activeIndex + 1)
+            ]
+
+            data = {
+                ...state.data,
+                ...{items : items}
+            }
+            return {
+                ...state,
+                ...{data : data}
             }
         default: return state
     }

@@ -38,6 +38,18 @@ export const patch = (url, data = {}, config = {}) => {
     })
 }
 
+export const remove = (url, config={})=>{
+    return axios.delete(url,config).then((response) => {
+        if(response.status == 204){
+            return {success:true}
+        }else{
+            if (!response.data.success)
+                return Promise.reject(response.data)
+            return response.data
+        }
+    })
+}
+
 export const setting = () => {
 
     if (typeof (Storage) !== 'undefined') {
