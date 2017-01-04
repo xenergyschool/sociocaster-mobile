@@ -19,7 +19,7 @@ export default class ThankYouPage extends Component {
     }
     openLoginPage() {
         const {navigator} = this.props
-        navigator.pushPage({ component: LoginPage, key: 'LOGIN_PAGE' })
+        navigator.pushPage({ component: LoginPage, key: 'LOGIN_PAGE_2' })
     }
     render() {
 
