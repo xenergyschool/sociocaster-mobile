@@ -157,7 +157,7 @@ export default class Post extends Component {
                         </Modal>
                     )}
                     >
-                    <PullHook
+                    <PullHook className='pull-post'
                         onChange={this.handleMenuPullChange}
                         onLoad={this.handleMenuPullLoad}
                         >
@@ -170,7 +170,7 @@ export default class Post extends Component {
                             isOpen={this.state.dialogShown}
                             isCancelable={true}
                             onCancel={this.hideDialog}>
-                            <div style={{ textAlign: 'center', margin: '20px' }}>
+                            <div className='post-filter'>
                                 <List
                                     dataSource={dataFilter}
                                     renderRow={(data, index) => (
