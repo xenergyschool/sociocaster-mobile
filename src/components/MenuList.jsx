@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { List, ListItem, ListHeader, Icon } from 'react-onsenui'
 import * as images from '../images'
-
+import SocialAccountTZ from '../containers/SocialAccountTZ'
 export default class MenuList extends Component {
     constructor(props) {
         super(props)
@@ -11,6 +11,7 @@ export default class MenuList extends Component {
         this.renderSettings = this.renderSettings.bind(this)
         this.filterSocialaccounts = this.filterSocialaccounts.bind(this)
         this.changeKeyword = this.changeKeyword.bind(this)
+        this.openSocialAccountSetting = this.openSocialAccountSetting.bind(this)
         this.state = {
             mode: 'socialaccount',
             searchKeyword: '',
@@ -61,9 +62,26 @@ export default class MenuList extends Component {
         )
     }
 
+    openSocialAccountSetting(e) {
+        const {navigator} = this.props
+        let pushPage
+        switch (e.currentTarget.dataset.menu) {
+            case 'Schedule Times':
+                break
+            case 'Time Zone':
+                pushPage = { component: SocialAccountTZ, key: 'SOCIAL_ACCOUNT_TZ' }
+                break
+            case 'Refresh Profile Info':
+                break
+            case 'Delete':
+                break
+        }
+        navigator.pushPage(pushPage)
+    }
+
     renderSettings(data, index) {
         return (
-            <ListItem className='left-menu__list-item' key={index} data-index={index} tappable>
+            <ListItem className='left-menu__list-item' key={index} data-index={index} data-menu={data} onClick={this.openSocialAccountSetting} tappable>
                 {data}
             </ListItem>
         )

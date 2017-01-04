@@ -1,15 +1,16 @@
 import axios from 'axios'
 import * as api from '../api'
 import { notification } from 'onsenui'
+import { Promise } from 'es6-promise'
 
 export const POST_LOADED = 'POST_LOADED';
 export const POST_MORE_LOADED = 'POST_MORE_LOADED'
-
+export const POST_DELETED = 'POST_DELETED'
 
 let CancelToken = axios.CancelToken;
 let source = CancelToken.source();
 
-export const get = () => {
+export const get = (mode = 'normal') => {
 
     return (dispatch, getState) => {
 
@@ -28,13 +29,15 @@ export const get = () => {
         let config = {
             cancelToken: source.token
         }
+        if (mode == 'normal') {
 
-        dispatch({
-            type: POST_LOADED,
-            data: {
-                isFetching: true
-            }
-        })
+            dispatch({
+                type: POST_LOADED,
+                data: {
+                    isFetching: true
+                }
+            })
+        }
 
         return api.get(`/posts?status=${state.post.filter}&socialaccount=${socialaccountId}`, config).then((response) => {
 
@@ -108,6 +111,24 @@ export const getMore = () => {
             })
         })
 
+    }
+}
+
+export const remove = () => {
+
+    return (dispatch, getState) => {
+        let state = getState()
+        let activeItem = state.post.data.items[state.post.activeIndex]
+        return api.remove(`/posts/${activeItem.id}`).then((response) => {
+            console.log(response)
+            dispatch({
+                type: POST_DELETED
+            })
+            return response
+        }).catch((response) => {
+            console.log(response)
+            Promise.reject(response)
+        })
     }
 }
 

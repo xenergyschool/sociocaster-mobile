@@ -9,7 +9,7 @@ const menuDataSource = [{
 export default class Menu extends Component {
 
     render() {
-        const {children, isMenuOpen, hideMenu, showMenu, socialaccount, getMenuPullContent, handleMenuPullChange, handleMenuPullLoad, switchSocialaccount} = this.props
+        const {children, isMenuOpen, hideMenu, showMenu, socialaccount, getMenuPullContent, handleMenuPullChange, handleMenuPullLoad, switchSocialaccount, navigator} = this.props
         let activeSocialaccount = { photoUrl: '', displayName: '' }
         if (socialaccount.activeIndex > -1) {
             activeSocialaccount = socialaccount.data.items[socialaccount.activeIndex]
@@ -39,6 +39,7 @@ export default class Menu extends Component {
                             socialaccount={socialaccount}
                             switchSocialaccount={switchSocialaccount}
                             activeSocialaccount={activeSocialaccount}
+                            navigator={navigator}
                             />
                     </Page>
                 </SplitterSide>

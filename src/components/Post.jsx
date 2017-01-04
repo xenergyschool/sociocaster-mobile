@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { platform } from 'onsenui'
-import { Page, List, ListItem, ListHeader, ProgressCircular, Icon, Dialog } from 'react-onsenui'
+import { Page, List, ListItem, ListHeader, ProgressCircular, Icon, Dialog, Modal, PullHook } from 'react-onsenui'
 import moment from 'moment-timezone'
 import PostDateRow from './PostDateRow'
 import PostItem from './PostItem'
@@ -19,10 +19,16 @@ export default class Post extends Component {
         this.hideDialog = this.hideDialog.bind(this)
         this.hideDialogPost = this.hideDialogPost.bind(this)
         this.openActions = this.openActions.bind(this)
+        this.handleMenuPullChange = this.handleMenuPullChange.bind(this)
+        this.handleMenuPullLoad = this.handleMenuPullLoad.bind(this)
+        this.getMenuPullContent = this.getMenuPullContent.bind(this)
+
         this.state = {
             filter: 'scheduled',
             dialogShown: false,
-            dialogPostShown: false
+            dialogPostShown: false,
+            modalShown: false,
+            modalMessage: ''
         }
     }
     renderItems() {
@@ -89,7 +95,7 @@ export default class Post extends Component {
 
     openActions(e) {
         const {postActions} = this.props
-        postActions.switchIndex(parseInt(e.currentTarget.dataset.index)) 
+        postActions.switchIndex(parseInt(e.currentTarget.dataset.index))
         this.hideDialogPost()
 
     }
@@ -103,8 +109,29 @@ export default class Post extends Component {
     hideDialogPost() {
         this.setState({ dialogPostShown: !this.state.dialogPostShown })
     }
+
+    handleMenuPullChange(e) {
+        this.setState({ postPullState: e.state })
+    }
+    handleMenuPullLoad(done) {
+
+        const {postActions} = this.props
+
+        postActions.get('refresh').then(() => {
+            this.setState(done)
+        })
+    }
+    getMenuPullContent() {
+
+        switch (this.state.postPullState) {
+            case 'action':
+                return (
+                    <span><Icon spin icon='fa-refresh' /> Reloading...</span>
+                )
+        }
+    }
     render() {
-        const {renderToolbar, post, loadMorePosts, changePostFilter} = this.props
+        const {renderToolbar, post, loadMorePosts, changePostFilter, postActions} = this.props
 
 
 
@@ -115,7 +142,27 @@ export default class Post extends Component {
             let dataFilter = ['scheduled', 'published', 'failed', 'queue']
             let postItemActions = ['edit', 'delete']
             return (
-                <Page className='post-page' renderToolbar={renderToolbar}>
+                <Page
+                    className='post-page'
+                    renderToolbar={renderToolbar}
+                    renderModal={() => (
+                        <Modal
+                            isOpen={this.state.modalShown}
+                            >
+                            <section style={{ margin: '16px' }}>
+                                <p style={{ opacity: 0.6 }}>
+                                    {this.state.modalMessage}
+                                </p>
+                            </section>
+                        </Modal>
+                    )}
+                    >
+                    <PullHook className='pull-post'
+                        onChange={this.handleMenuPullChange}
+                        onLoad={this.handleMenuPullLoad}
+                        >
+                        {this.getMenuPullContent()}
+                    </PullHook>
                     <section className='post-wrap'>
                         <a href='#' className='post-wrap__switch-post' onClick={this.hideDialog}> {helpers.capitalizeFirstLetter(post.filter)} <Icon icon='fa-caret-down' /></a>
 
@@ -123,7 +170,7 @@ export default class Post extends Component {
                             isOpen={this.state.dialogShown}
                             isCancelable={true}
                             onCancel={this.hideDialog}>
-                            <div style={{ textAlign: 'center', margin: '20px' }}>
+                            <div className='post-filter'>
                                 <List
                                     dataSource={dataFilter}
                                     renderRow={(data, index) => (
@@ -158,6 +205,14 @@ export default class Post extends Component {
                                             data-filter={data}
                                             onClick={(e) => {
                                                 this.hideDialogPost()
+                                                switch (data) {
+                                                    case 'delete':
+                                                        this.setState({ modalShown: true, modalMessage: 'Deleting...' })
+                                                        postActions.remove().then((response) => {
+                                                            this.setState({ modalShown: false, modalMessage: '' })
+                                                        })
+                                                        break
+                                                }
 
                                             } }
                                             tappable>

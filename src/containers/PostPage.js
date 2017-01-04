@@ -51,7 +51,7 @@ class PostPage extends Component {
 
         const {postActions, socialaccount} = this.props
         if (socialaccount.activeIndex > -1) {
-            console.log('righ here')
+
             postActions.get()
         }
 
@@ -60,9 +60,9 @@ class PostPage extends Component {
 
     loadMorePosts() {
         const {post, postActions} = this.props
-        console.log('here')
+
         if (!post.isFetchingMore && typeof post.data._links.next !== 'undefined') {
-            console.log('inside')
+
             postActions.getMore()
         }
     }
@@ -75,12 +75,13 @@ class PostPage extends Component {
     }
 
     render() {
-        const {navigator, post, socialaccount,postActions} = this.props
+        const {navigator, post, socialaccount, postActions, auth} = this.props
 
         return (
             <Post
                 navigator={navigator}
                 post={post}
+                auth={auth}
                 socialaccount={socialaccount}
                 renderToolbar={this.renderToolbar}
                 loadMorePosts={this.loadMorePosts}
