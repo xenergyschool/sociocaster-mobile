@@ -72,7 +72,21 @@ class PostCreator extends Component {
         return (
            <Page>
            <section>
-            Post Creator
+                <div className='post-creator'>
+                    <div className='post-creator__header'>
+                        <h3 className='post-creator__label'>Create Post</h3>
+                        <a href="#" className='post-creator__close'><Icon icon='fa-times' /></a>
+                    </div>
+                    <div className='post-creator__account-list'>
+                        
+                    </div>
+                    <div className='post-creator__search-account'>
+                        <input type="text" name="Search Accounts" placeholder="Search Accounts.." />
+                    </div>
+                    <div className='post-creator__content'>
+                        <textarea rows="5" className='post-creator__textarea'></textarea>
+                    </div>
+                </div>
            </section>
            </Page>
         )
