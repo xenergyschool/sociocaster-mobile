@@ -1,15 +1,25 @@
 import React, { Component } from 'react'
 import { platform } from 'onsenui'
-import { Page, Toolbar, ToolbarButton, Icon, Splitter, SplitterContent, SplitterSide, List, ListItem, ListHeader, PullHook } from 'react-onsenui'
+import { Page, Toolbar, ToolbarButton, Icon, Splitter, SplitterContent, SplitterSide, List, ListItem, ListHeader, PullHook, Modal } from 'react-onsenui'
 import MenuList from './MenuList'
 const menuDataSource = [{
     title: 'Settings',
     icon: 'ion-ios-settings, material:md-settings'
 }]
 export default class Menu extends Component {
-
+    constructor(props) {
+        super(props)
+        this.setModal = this.setModal.bind(this)
+        this.state = {
+            modalShown: false,
+            modalMessage: ''
+        }
+    }
+    setModal(data) {
+        this.setState(data)
+    }
     render() {
-        const {children, isMenuOpen, hideMenu, showMenu, socialaccount, getMenuPullContent, handleMenuPullChange, handleMenuPullLoad, switchSocialaccount, navigator} = this.props
+        const {children, isMenuOpen, hideMenu, showMenu, socialaccount, getMenuPullContent, handleMenuPullChange, handleMenuPullLoad, switchSocialaccount, navigator, socialaccountActions} = this.props
         let activeSocialaccount = { photoUrl: '', displayName: '' }
         if (socialaccount.activeIndex > -1) {
             activeSocialaccount = socialaccount.data.items[socialaccount.activeIndex]
@@ -28,7 +38,20 @@ export default class Menu extends Component {
                     onClose={hideMenu}
                     onOpen={showMenu}
                     >
-                    <Page className='left-menu'>
+                    <Page
+                        lassName='left-menu'
+                        renderModal={() => (
+                            <Modal
+                                isOpen={this.state.modalShown}
+                                >
+                                <section style={{ margin: '16px' }}>
+                                    <p style={{ opacity: 0.6 }}>
+                                        {this.state.modalMessage}
+                                    </p>
+                                </section>
+                            </Modal>
+                        )}
+                        >
                         <PullHook className='pull-left-menu'
                             onChange={handleMenuPullChange}
                             onLoad={handleMenuPullLoad}
@@ -40,6 +63,8 @@ export default class Menu extends Component {
                             switchSocialaccount={switchSocialaccount}
                             activeSocialaccount={activeSocialaccount}
                             navigator={navigator}
+                            socialaccountActions={socialaccountActions}
+                            setModal={this.setModal}
                             />
                     </Page>
                 </SplitterSide>

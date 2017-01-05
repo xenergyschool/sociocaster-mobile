@@ -50,7 +50,7 @@ const socialaccount = (state = defaultState, action) => {
             }
             return {
                 ...state,
-                ...{ data: data }
+                ...{ data: data, activeIndex: items.length > 0 ? 0 : -1 }
             }
         default: return state
     }

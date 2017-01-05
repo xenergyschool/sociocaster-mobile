@@ -93,7 +93,7 @@ export const remove = () => {
     return (dispatch, getState) => {
         let state = getState()
         let activeItem = state.socialaccount.data.items[state.socialaccount.activeIndex]
-        notification.confirm(`Are you sure want to delete ${activeItem.displayName} (${activeItem.provider} ${activeItem.type}) from Sociocaster?`).then((response) => {
+        return notification.confirm(`Are you sure want to delete ${activeItem.displayName} (${activeItem.provider} ${activeItem.type}) from Sociocaster?`).then((response) => {
             if (response > 0) {
                 return api.remove(`/socialaccounts/${activeItem.id}`).then((response) => {
                     console.log(response)
@@ -103,11 +103,14 @@ export const remove = () => {
                     return response
                 }).catch((response) => {
                     console.log(response)
-                    Promise.reject(response)
+                    return Promise.reject(response)
                 })
             } else {
                 return Promise.reject('cancel')
             }
+        }).catch((error) => {
+            console.log(error)
+            return Promise.reject(error)
         })
     }
 }

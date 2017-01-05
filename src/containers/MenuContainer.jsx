@@ -107,7 +107,7 @@ class MenuContainer extends Component {
 
     render() {
 
-        const {navigator} = this.props
+        const {navigator, socialaccountActions} = this.props
         return (
             <Menu
                 hideMenu={this.hideMenu}
@@ -119,6 +119,7 @@ class MenuContainer extends Component {
                 handleMenuPullChange={this.handleMenuPullChange}
                 switchSocialaccount={this.switchSocialaccount}
                 navigator={navigator}
+                socialaccountActions={socialaccountActions}
                 >
                 <Page>
                     <Tabbar

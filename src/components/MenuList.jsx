@@ -63,20 +63,30 @@ export default class MenuList extends Component {
     }
 
     openSocialAccountSetting(e) {
-        const {navigator} = this.props
+        const {navigator, socialaccountActions, setModal} = this.props
         let pushPage
         switch (e.currentTarget.dataset.menu) {
             case 'Schedule Times':
                 break
             case 'Time Zone':
                 pushPage = { component: SocialAccountTZ, key: 'SOCIAL_ACCOUNT_TZ' }
+                navigator.pushPage(pushPage)
                 break
             case 'Refresh Profile Info':
                 break
             case 'Delete':
+                setModal({ modalShown: true, modalMessage: 'Deleting Socialaccount...' })
+                socialaccountActions.remove().then((response) => {
+                    console.log(response)
+                    this.setState({ mode: 'socialaccount' })
+                    setModal({ modalShown: false, modalMessage: '' })
+                }).catch((error) => {
+
+                    setModal({ modalShown: false, modalMessage: '' })
+                })
                 break
         }
-        navigator.pushPage(pushPage)
+
     }
 
     renderSettings(data, index) {
@@ -89,7 +99,7 @@ export default class MenuList extends Component {
     render() {
         const {socialaccount, switchSocialaccount, activeSocialaccount} = this.props
         if (socialaccount.data.items && socialaccount.data.items.length > 0) {
-            const settings = ['Schedule Times', 'Time Zone', 'Refresh Profile Info', 'Delete']
+            const settings = ['Time Zone', 'Delete']
             let dataSource = this.state.mode == 'socialaccount' ? socialaccount.data.items.filter(this.filterSocialaccounts) : settings
             let renderRow = this.state.mode == 'socialaccount' ? this.renderSocialAccounts : this.renderSettings
             return (
