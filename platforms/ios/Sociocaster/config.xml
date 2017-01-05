@@ -13,6 +13,10 @@
     <feature name="InAppBrowser">
         <param name="ios-package" value="CDVInAppBrowser" />
     </feature>
+    <feature name="Camera">
+        <param name="ios-package" value="CDVCamera" />
+    </feature>
+    <preference name="CameraUsesGeolocation" value="false" />
     <icon height="57" src="/res/ios/icon/icon.png" width="57" />
     <icon height="114" src="/res/ios/icon/icon@2x.png" width="114" />
     <icon height="72" src="/res/ios/icon/icon-72.png" width="72" />

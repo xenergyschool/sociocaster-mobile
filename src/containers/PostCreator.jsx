@@ -65,30 +65,44 @@ class PostCreator extends Component {
             postActions.getMore()
         }
     }
+    snapPicture() {
+        navigator.camera.getPicture(
+            (imageData) => {
+                console.log(imageData);
+            },
+            (message) => {
+                console.log(message)
+            },
+            {
+                quality: 50,
+                destinationType: Camera.DestinationType.DATA_URL
+            })
+
+    }
 
     render() {
         const {navigator, post, socialaccount} = this.props
 
         return (
-           <Page>
-           <section>
-                <div className='post-creator'>
-                    <div className='post-creator__header'>
-                        <h3 className='post-creator__label'>Create Post</h3>
-                        <a href="#" className='post-creator__close'><Icon icon='fa-times' /></a>
+            <Page>
+                <section>
+                    <div className='post-creator'>
+                        <div className='post-creator__header'>
+                            <h3 className='post-creator__label'>Create Post</h3>
+                            <a href="#" className='post-creator__close' onClick={this.snapPicture}><Icon icon='fa-times' /></a>
+                        </div>
+                        <div className='post-creator__account-list'>
+
+                        </div>
+                        <div className='post-creator__search-account'>
+                            <input type="text" name="Search Accounts" placeholder="Search Accounts.." />
+                        </div>
+                        <div className='post-creator__content'>
+                            <textarea rows="5" className='post-creator__textarea'></textarea>
+                        </div>
                     </div>
-                    <div className='post-creator__account-list'>
-                        
-                    </div>
-                    <div className='post-creator__search-account'>
-                        <input type="text" name="Search Accounts" placeholder="Search Accounts.." />
-                    </div>
-                    <div className='post-creator__content'>
-                        <textarea rows="5" className='post-creator__textarea'></textarea>
-                    </div>
-                </div>
-           </section>
-           </Page>
+                </section>
+            </Page>
         )
     }
 

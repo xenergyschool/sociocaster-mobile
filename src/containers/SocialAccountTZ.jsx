@@ -81,7 +81,7 @@ class SocialAccountTZ extends Component {
                         <Icon icon='fa-arrow-left'></Icon>
                     </ToolbarButton>
                 </div>
-                <div className='center'>Set Your Timezone</div>
+                <div className='center'>Set Time Zone</div>
                 <div className='right'>
                     <ToolbarButton onClick={this.handleClick}>
                         <Icon icon='fa-check'></Icon>
@@ -103,6 +103,7 @@ class SocialAccountTZ extends Component {
 
             return (
                 <Page
+                    className='page-timezone'
                     renderToolbar={this.renderToolbar}
                     >
                     <div className='page-wrapper'>

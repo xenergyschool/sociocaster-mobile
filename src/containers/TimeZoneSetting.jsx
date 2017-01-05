@@ -67,7 +67,7 @@ class TimeZoneSetting extends Component {
         return (
             <Toolbar>
 
-                <div className='center'>Set Your Timezone</div>
+                <div className='center'>Set Your Time Zone</div>
                 <div className='right'>
                     <ToolbarButton onClick={this.handleClick}>
                         <Icon icon='fa-check'></Icon>
