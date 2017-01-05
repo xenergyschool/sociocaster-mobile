@@ -40,7 +40,8 @@ export default class Post extends Component {
         if (socialaccount.activeIndex > -1) {
             const socialaccountTimeZone = socialaccount.data.items[socialaccount.activeIndex].scheduleTime ? socialaccount.data.items[socialaccount.activeIndex].scheduleTime.timezone : auth.user.timezone
             const postItems = post.data.items
-            if (postItems) {
+
+            if (postItems && postItems.lenght > 0) {
                 postItems.forEach((postItem, index) => {
 
 
@@ -86,6 +87,13 @@ export default class Post extends Component {
                     }
 
                 })
+            }
+            else{
+                items.push(
+                    <div key='nopost' className='no-post'>
+                        <p className='no-post__msg'>You do not have any {post.filter} post yet.</p>
+                    </div>
+                )
             }
         }
 

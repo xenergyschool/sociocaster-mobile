@@ -84,25 +84,38 @@ class PostCreator extends Component {
         const {navigator, post, socialaccount} = this.props
 
         return (
+
             <Page>
                 <section>
                     <div className='post-creator'>
                         <div className='post-creator__header'>
                             <h3 className='post-creator__label'>Create Post</h3>
-                            <a href="#" className='post-creator__close' onClick={this.snapPicture}><Icon icon='fa-times' /></a>
+                            <a href="#" className='post-creator__close'><Icon icon='fa-times' /></a>
                         </div>
                         <div className='post-creator__account-list'>
-
-                        </div>
-                        <div className='post-creator__search-account'>
-                            <input type="text" name="Search Accounts" placeholder="Search Accounts.." />
+                            <div className='account-list__item'>
+                                <img src="https://dev.sociocaster.com/posts/safeimage?url=http://pbs.twimg.com/profile_images/378800000583415956/c34e0b405d00ad786a342e88abb664ca.jpeg" className='account-list__image' alt="" />
+                                <Icon className='account-list__icon icon-twitter' icon='fa-twitter' />
+                            </div>
+                            <div className='account-list__item account-list__add-account'>
+                                <Icon className='add-account__icon' icon='fa-plus' />
+                            </div>
                         </div>
                         <div className='post-creator__content'>
-                            <textarea rows="5" className='post-creator__textarea'></textarea>
+                            <textarea rows="5" className='post-creator__textarea'>Write any description or URL here</textarea>
+                        </div>
+                        <div className='post-creator__footer'>
+                            <a href="#" className='post-creator__link'><Icon icon='fa-camera' /></a>
+                            <a href="#" className='post-creator__link'><Icon icon='fa-link' /></a>
+                            <span className='text-right'>
+                                <a className='post-creator__link' href="#">Schedule</a>
+                                <a className='post-creator__link' href="#">Post Now</a>
+                            </span>
                         </div>
                     </div>
                 </section>
             </Page>
+
         )
     }
 
