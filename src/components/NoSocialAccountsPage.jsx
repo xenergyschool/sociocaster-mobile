@@ -11,38 +11,35 @@ export default class NoSocialAccountsPage extends Component {
 
         const {reloadSocialaccounts, logout, user} = this.props
         return (
-            <Page className='thank-you'>
+            <Page className='no-account'>
                 <div className='page-wrapper'>
                     <div className='page-inner'>
                         <a className='goback' onClick={logout}><Icon icon='fa-sign-out' /></a>
                         <img className='sclogo' src={images.logoBlue} alt="" />
-                        <h3 className='thank-you__title'>You do not have any connected social accounts yet.</h3>
-                        <p className='thank-you__msg'>  You can add your social accounts to Sociocaster on web version.</p>
+                        <h3 className='no-account__title'>You do not have any connected social accounts yet.</h3>
+                        <p className='no-account__msg'>  You can add your social accounts to Sociocaster on web version.</p>
 
                         <a
-                            className='thank-you__link'
                             href='#'
                             onClick={(e) => {
                                 window.open('https://sociocaster.com/posts/connect', '_system', '')
                             }
                             }
-                            className='blueBtn'
+                            className='blueBtn no-account__link'
                             >
                             Connect Social Accounts
                              </a>
                         <a
-                            className='thank-you__link'
                             href='#'
                             onClick={reloadSocialaccounts}
-                            className='blueBtn'
+                            className='blueBtn no-account__link'
                             >
                             Reload Social Accounts
                              </a>
-                        <a
-                            className='thank-you__link'
+                        <a 
                             href='#'
                             onClick={logout}
-                            className='blueBtn'
+                            className='blueBtn no-account__link'
                             >
                             {`Sign Out (${user.username})`}
                         </a>
