@@ -66,15 +66,17 @@ class SocialAccountTZ extends Component {
     popPage(e) {
         const {navigator} = this.props
 
-        navigator.popPage()
+        navigator.resetPage({ component: MenuContainer, key: 'MENU_CONTAINER' })
     }
     renderToolbar() {
 
         return (
             <Toolbar>
                 <div className='left'>
-                    <BackButton onClick={this.popPage}>
-                    </BackButton>
+
+                    <ToolbarButton onClick={this.popPage}>
+                        <Icon icon='fa-arrow-left'></Icon>
+                    </ToolbarButton>
                 </div>
                 <div className='center'>Set Your Timezone</div>
                 <div className='right'>
