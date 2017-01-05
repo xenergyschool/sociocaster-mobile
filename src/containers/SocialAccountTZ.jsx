@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Page, Icon, Toolbar, ToolbarButton } from 'react-onsenui'
+import { Page, Icon, Toolbar, ToolbarButton, BackButton } from 'react-onsenui'
 import { notification } from 'onsenui'
 import * as authActions from '../actions/auth'
 import { bindActionCreators } from 'redux'
@@ -18,7 +18,7 @@ class SocialAccountTZ extends Component {
         this.handleSearch = this.handleSearch.bind(this)
         this.filterTimezones = this.filterTimezones.bind(this)
         this.renderToolbar = this.renderToolbar.bind(this)
-
+        this.popPage = this.popPage.bind(this)
         const timezone = props.socialaccount.data.items[props.socialaccount.activeIndex].scheduleTime.timezone
         this.state = {
             userTimezone: timezone,
@@ -62,11 +62,20 @@ class SocialAccountTZ extends Component {
         }
 
     }
+
+    popPage(e) {
+        const {navigator} = this.props
+
+        navigator.popPage()
+    }
     renderToolbar() {
 
         return (
             <Toolbar>
-
+                <div className='left'>
+                    <BackButton onClick={this.popPage}>
+                    </BackButton>
+                </div>
                 <div className='center'>Set Your Timezone</div>
                 <div className='right'>
                     <ToolbarButton onClick={this.handleClick}>
