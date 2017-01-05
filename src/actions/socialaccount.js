@@ -5,6 +5,7 @@ import * as postActions from './post'
 export const SOCIAL_ACCOUNTS_LOADED = 'SOCIAL_ACCOUNTS_LOADED'
 export const SOCIAL_ACCOUNTS_SWITCH = 'SOCIAL_ACCOUNTS_SWITCH'
 export const SOCIAL_SCHEDULETIME_UPDATED = 'SOCIAL_SCHEDULETIME_UPDATED'
+export const SOCIAL_ACCOUNT_DELETED = 'SOCIAL_ACCOUNT_DELETED'
 
 export const get = (mode = 'normal') => {
 
@@ -83,6 +84,30 @@ export const updateScheduleTimes = (data) => {
                 }
             })
             return Promise.reject(error)
+        })
+    }
+}
+
+export const remove = () => {
+
+    return (dispatch, getState) => {
+        let state = getState()
+        let activeItem = state.socialaccount.data.items[state.socialaccount.activeIndex]
+        notification.confirm(`Are you sure want to delete ${activeItem.displayName} (${activeItem.provider} ${activeItem.type}) from Sociocaster?`).then((response) => {
+            if (response > 0) {
+                return api.remove(`/socialaccounts/${activeItem.id}`).then((response) => {
+                    console.log(response)
+                    dispatch({
+                        type: SOCIAL_ACCOUNT_DELETED
+                    })
+                    return response
+                }).catch((response) => {
+                    console.log(response)
+                    Promise.reject(response)
+                })
+            } else {
+                return Promise.reject('cancel')
+            }
         })
     }
 }

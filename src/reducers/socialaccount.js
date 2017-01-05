@@ -1,12 +1,14 @@
 import {
     SOCIAL_ACCOUNTS_LOADED,
-    SOCIAL_SCHEDULETIME_UPDATED
+    SOCIAL_SCHEDULETIME_UPDATED,
+    SOCIAL_ACCOUNT_DELETED
 } from '../actions/socialaccount'
 
 const defaultState = {
     isFetching: false,
     data: {},
-    activeIndex: -1
+    activeIndex: -1,
+    isUpdating: false
 };
 
 const socialaccount = (state = defaultState, action) => {
@@ -22,11 +24,25 @@ const socialaccount = (state = defaultState, action) => {
                 if (index == state.activeIndex) {
                     return {
                         ...item,
-                        ...{ scheduleTime: action.scheduleTime }
+                        ...{ scheduleTime: action.data.scheduleTime }
                     }
                 }
                 return item
             })
+
+            data = {
+                ...state.data,
+                ...{ items: items }
+            }
+            return {
+                ...state,
+                ...{ data: data, isUpdating: action.data.isUpdating }
+            }
+        case SOCIAL_ACCOUNT_DELETED:
+            items = [
+                ...state.data.items.slice(0, state.activeIndex),
+                ...state.data.items.slice(state.activeIndex + 1)
+            ]
 
             data = {
                 ...state.data,

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Page, Icon, Toolbar, ToolbarButton, BackButton } from 'react-onsenui'
 import { notification } from 'onsenui'
 import * as authActions from '../actions/auth'
+import * as socialaccountActions from '../actions/socialaccount'
 import { bindActionCreators } from 'redux'
 
 import TimeZoneList from '../components/TimeZoneList'
@@ -28,9 +29,11 @@ class SocialAccountTZ extends Component {
     handleClick(e) {
 
         e.preventDefault()
-        const {authActions, navigator} = this.props
+        const {socialaccountActions, navigator} = this.props
 
-        authActions.update({ timezone: this.state.userTimezone })
+        socialaccountActions.updateScheduleTimes({ timezone: this.state.userTimezone }).then((response) => {
+            navigator.resetPage({ component: MenuContainer, key: 'MENU_CONTAINER' })
+        })
         // navigator.popPage()
         //navigator.pushPage({ component: MenuContainer, key: 'MENU_CONTAINER_2' })
     }
@@ -90,8 +93,8 @@ class SocialAccountTZ extends Component {
 
     render() {
 
-        const {auth, timezone } = this.props
-        if (auth.isUpdating) {
+        const {socialaccount, timezone } = this.props
+        if (socialaccount.isUpdating) {
             return (
                 <PreLoad />
             )
@@ -122,7 +125,8 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    authActions: bindActionCreators(authActions, dispatch)
+    authActions: bindActionCreators(authActions, dispatch),
+    socialaccountActions: bindActionCreators(socialaccountActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SocialAccountTZ);
