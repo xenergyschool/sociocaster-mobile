@@ -88,7 +88,7 @@ class TimeZoneSetting extends Component {
 
 
             return (
-                <Page
+                <Page className='page-timezone'
                     renderToolbar={this.renderToolbar}
                     >
                     <div className='page-wrapper'>
