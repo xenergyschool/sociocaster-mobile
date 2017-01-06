@@ -32,6 +32,7 @@ export default class Menu extends Component {
                     }}
                     side='left'
                     width={280}
+                    swipeTargetWidth={280}
                     collapse={true}
                     isSwipeable={true}
                     isOpen={isMenuOpen}

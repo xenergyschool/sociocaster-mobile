@@ -15,6 +15,7 @@ class PostCreator extends Component {
         super(props)
         this.renderToolbar = this.renderToolbar.bind(this)
         this.loadMorePosts = this.loadMorePosts.bind(this)
+        this.popPage = this.popPage.bind(this)
         this.logout = this.logout.bind(this)
     }
     renderToolbar() {
@@ -40,6 +41,11 @@ class PostCreator extends Component {
         const {authActions, navigator} = this.props
 
         authActions.logout(navigator)
+    }
+    popPage() {
+        const {navigator} = this.props
+
+        navigator.resetPage({ component: MenuContainer, key: 'MENU_CONTAINER' })
     }
 
 
@@ -90,7 +96,7 @@ class PostCreator extends Component {
                     <div className='post-creator'>
                         <div className='post-creator__header'>
                             <h3 className='post-creator__label'>Create Post</h3>
-                            <a href="#" className='post-creator__close'><Icon icon='fa-times' /></a>
+                            <a href="#" className='post-creator__close' onClick={this.popPage}><Icon icon='fa-times' /></a>
                         </div>
                         <div className='post-creator__account-list'>
                             <div className='account-list__item'>
@@ -102,7 +108,7 @@ class PostCreator extends Component {
                             </div>
                         </div>
                         <div className='post-creator__content'>
-                            <textarea rows="5" className='post-creator__textarea'>Write any description or URL here</textarea>
+                            <textarea rows="5" className='post-creator__textarea' value='Write any description or URL here'></textarea>
                         </div>
                         <div className='post-creator__footer'>
                             <a href="#" className='post-creator__link'><Icon icon='fa-camera' /></a>

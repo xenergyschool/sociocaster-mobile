@@ -151,3 +151,10 @@ export const switchIndex = (index) => {
         }
     }
 }
+
+export const uploadFile = () => {
+
+    return (dispatch, getState) => {
+
+    }
+}
