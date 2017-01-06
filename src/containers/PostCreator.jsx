@@ -92,25 +92,49 @@ class PostCreator extends Component {
                             <h3 className='post-creator__label'>Create Post</h3>
                             <a href="#" className='post-creator__close'><Icon icon='fa-times' /></a>
                         </div>
-                        <div className='post-creator__account-list'>
-                            <div className='account-list__item'>
-                                <img src="https://dev.sociocaster.com/posts/safeimage?url=http://pbs.twimg.com/profile_images/378800000583415956/c34e0b405d00ad786a342e88abb664ca.jpeg" className='account-list__image' alt="" />
-                                <Icon className='account-list__icon icon-twitter' icon='fa-twitter' />
-                            </div>
-                            <div className='account-list__item account-list__add-account'>
-                                <Icon className='add-account__icon' icon='fa-plus' />
+                        <div className='post-creator__account-wrapper'>
+                            <div className='post-creator__account-list'>
+                                <div className='account-list__item icon__twitter'>
+                                    <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-1/p160x160/13932920_822573197842425_2459145338769991302_n.jpg?oh=2d157a08dfbc98aabbff29c4e7ed707a&oe=58DC42A7" className='account-list__image' alt="" />
+                                    <Icon className='account-list__icon' icon='fa-twitter' />
+                                </div>
+                                <div className='account-list__item icon__facebook'>
+                                    <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-1/p160x160/13932920_822573197842425_2459145338769991302_n.jpg?oh=2d157a08dfbc98aabbff29c4e7ed707a&oe=58DC42A7" className='account-list__image' alt="" />
+                                    <Icon className='account-list__icon' icon='fa-facebook-official' />
+                                </div>
+                                <div className='account-list__item  icon__googleplus'>
+                                    <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-1/p160x160/13932920_822573197842425_2459145338769991302_n.jpg?oh=2d157a08dfbc98aabbff29c4e7ed707a&oe=58DC42A7" className='account-list__image' alt="" />
+                                    <Icon className='account-list__icon' icon='fa-google-plus' />
+                                </div>
+                                <div className='account-list__item icon__pinterest'>
+                                    <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-1/p160x160/13932920_822573197842425_2459145338769991302_n.jpg?oh=2d157a08dfbc98aabbff29c4e7ed707a&oe=58DC42A7" className='account-list__image' alt="" />
+                                    <Icon className='account-list__icon' icon='fa-pinterest' />
+                                </div>
+                                <div className='account-list__item icon__linkedin'>
+                                    <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-1/p160x160/13932920_822573197842425_2459145338769991302_n.jpg?oh=2d157a08dfbc98aabbff29c4e7ed707a&oe=58DC42A7" className='account-list__image' alt="" />
+                                    <Icon className='account-list__icon' icon='fa-linkedin' />
+                                </div>
+                                <div className='account-list__item icon__instagram'>
+                                    <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-1/p160x160/13932920_822573197842425_2459145338769991302_n.jpg?oh=2d157a08dfbc98aabbff29c4e7ed707a&oe=58DC42A7" className='account-list__image' alt="" />
+                                    <Icon className='account-list__icon' icon='fa-instagram' />
+                                </div>
                             </div>
                         </div>
+                        <div className='account-list__add-account'>
+                                    <Icon className='add-account__icon' icon='fa-plus' />
+                                </div>
                         <div className='post-creator__content'>
-                            <textarea rows="5" className='post-creator__textarea'>Write any description or URL here</textarea>
+                            <div className='post-creator__textarea' contentEditable></div>
                         </div>
                         <div className='post-creator__footer'>
                             <a href="#" className='post-creator__link'><Icon icon='fa-camera' /></a>
                             <a href="#" className='post-creator__link'><Icon icon='fa-link' /></a>
-                            <span className='text-right'>
+                            <span className='pull-right'>
                                 <a className='post-creator__link' href="#">Schedule</a>
                                 <a className='post-creator__link' href="#">Post Now</a>
                             </span>
+                            <div className='clearfix'>
+                            </div>
                         </div>
                     </div>
                 </section>

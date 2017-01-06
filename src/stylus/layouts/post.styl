@@ -103,13 +103,17 @@
     text-align:center
 
 .account-list__item
-    width: 40px
-    height: 40px
+    width: 45px
+    height: 45px
     display: inline-block
     overflow: hidden
     border-radius: 100%
     position: relative
-    margin: 0 5px
+    margin: 0 4px
+    border:solid 3px transparent
+
+.account-list__item:last-child
+    margin-right: 15px !important
 
 .account-list__image
     width:100%
@@ -120,33 +124,59 @@
     right:0
     bottom: 0
     margin: auto
-    border:solid 1px $color5
+    border-radius: 100%
 
 .account-list__icon
     position: absolute
+    border-bottom-right-radius: 100%;
+    font-size: 15px;
+    padding: 5px 8px 5px 5px;
+    right: -4px;
+    bottom: -2px;
+
+.account-list__add-account 
+    padding: 10px 0
+    background: $color9
+    width: 70px
+    height:50px
+    position: absolute
+    top: 53px
     right: 0
-    bottom: 0
-
-.account-list__add-account
-    font-size: 20px
-    color:$color1
-    text-align: center
-    border:solid 1px $color1
-
+    
 .add-account__icon
-    padding:10px 0
-
-.icon-twitter
+    width: 44px
+    padding: 6px 0px 3px 0
+    border-radius: 100%
+    border: solid 1px $color1
+    margin: auto
+    font-size: 33px
     color: $color1
+    text-align: center
+    display: block
 
 .post-creator__header
     position: relative
-    padding:10px 15px
+    padding: 10px 15px
 
 .post-creator__close
     position: absolute
     top: 5px
     right: 5px
+
+.post-creator__account-wrapper
+    position: relative
+    width:84%
+    height:50px
+    overflow-y: hidden
+    overflow-x: auto
+
+.post-creator__account-list
+    position: absolute
+    top:0
+    left:10px
+    width:100%
+    height:50px
+    white-space: nowrap
 
 .post-creator__textarea
     border: none
@@ -163,7 +193,7 @@
 .post-creator__link
     display: inline-block
     margin: 0 7px
-    padding:13px 0
+    padding:13px 7px
 
 .post-creator__footer
     position: absolute
@@ -172,3 +202,39 @@
     width:100%
     height:50px
     border-top: solid 1px $color5
+
+.icon__twitter
+    border-color: $tw-color
+    .account-list__icon
+        background-color: $tw-color
+        color: $color9
+
+.icon__facebook
+    border-color: $fb-color
+    .account-list__icon
+        background-color: $fb-color
+        color: $color9
+
+.icon__googleplus
+    border-color: $gp-color
+    .account-list__icon
+        background-color: $gp-color
+        color: $color9
+
+.icon__pinterest
+    border-color: $pi-color
+    .account-list__icon
+        background-color: $pi-color
+        color: $color9
+
+.icon__linkedin
+    border-color: $li-color
+    .account-list__icon
+        background-color: $li-color
+        color: $color9
+
+.icon__instagram
+    border-color: $ig-color
+    .account-list__icon
+        background-color: $ig-color
+        color: $color9
