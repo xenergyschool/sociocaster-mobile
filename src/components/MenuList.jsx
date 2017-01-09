@@ -107,7 +107,7 @@ export default class MenuList extends Component {
                         <ListHeader className='left-menu__header'>
                             <div className='left-menu__header-top'>
                                 <div className='left'>
-                                    <img src={activeSocialaccount.photoUrl} onError={this.imageError} className='list__item__thumbnail' />
+                                    <img src={activeSocialaccount.photoUrl} onError={helpers.avatarError} className='list__item__thumbnail' />
                                 </div>
                                 <div className='center'>
                                     <span className='user__displayname'>{activeSocialaccount.displayName}</span>

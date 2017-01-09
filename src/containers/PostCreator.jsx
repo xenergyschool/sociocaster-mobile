@@ -123,7 +123,7 @@ class PostCreator extends Component {
                                 {onlySelected.map((data, index) => {
                                     return (
 
-                                        <div key={data.id} className={`account-list__item icon__${data.provider.toLowerCase()}`} >
+                                        <div key={data.id} className={`account-list__item icon__${data.provider.toLowerCase()}`} onClick={this.openSocialAccountSelector}>
                                             <img src={data.photoUrl} onError={helpers.avatarError} className='account-list__image' alt={data.displayName} />
                                             <Icon className='account-list__icon' icon={`fa-${data.provider.toLowerCase()}`} />
                                         </div>
