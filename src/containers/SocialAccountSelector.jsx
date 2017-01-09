@@ -15,7 +15,6 @@ class SocialAccountSelector extends Component {
     constructor(props) {
         super(props)
         this.handleChange = this.handleChange.bind(this)
-        this.handleClick = this.handleClick.bind(this)
         this.handleSearch = this.handleSearch.bind(this)
         this.filterSocialAccounts = this.filterSocialAccounts.bind(this)
         this.renderToolbar = this.renderToolbar.bind(this)
