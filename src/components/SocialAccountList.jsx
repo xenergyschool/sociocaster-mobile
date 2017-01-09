@@ -22,9 +22,9 @@ export default class SocialAccountList extends Component {
                     <span className='user__displayname'>{renderedSocialAccount.displayName}</span>
                     <span className='user__provider'>{`${renderedSocialAccount.provider} ${renderedSocialAccount.type}`}</span>
                 </div>
-                <div className='right'>
+                {socialaccount.selectedSocialaccounts.indexOf(renderedSocialAccount.id) > -1 && <div className='right'>
                     <Icon icon='fa-check' />
-                </div>
+                </div>}
 
             </ListItem>
         )

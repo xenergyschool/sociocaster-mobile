@@ -8,6 +8,7 @@ export const SOCIAL_SCHEDULETIME_UPDATED = 'SOCIAL_SCHEDULETIME_UPDATED'
 export const SOCIAL_ACCOUNT_DELETED = 'SOCIAL_ACCOUNT_DELETED'
 export const SOCIAL_ACCOUNT_SELECTED = 'SOCIAL_ACCOUNT_SELECTED'
 export const SOCIAL_ACCOUNT_UNSELECTED = 'SOCIAL_ACCOUNT_UNSELECTED'
+export const SOCIAL_ACCOUNT_SELECTED_RESET = 'SOCIAL_ACCOUNT_SELECTED_RESET'
 
 export const get = (mode = 'normal') => {
 
@@ -33,6 +34,13 @@ export const get = (mode = 'normal') => {
                     activeIndex: activeIndex
                 }
             })
+
+            if (activeIndex > -1) {
+                dispatch({
+                    type: SOCIAL_ACCOUNT_SELECTED,
+                    data: response.data.items[activeIndex]
+                })
+            }
         }).catch((response) => {
             dispatch({
                 type: SOCIAL_ACCOUNTS_LOADED,
@@ -46,11 +54,19 @@ export const get = (mode = 'normal') => {
 
 export const switchSocialaccount = (index) => {
     return (dispatch, getState) => {
+        const state = getState()
+        dispatch({
+            type: SOCIAL_ACCOUNT_SELECTED_RESET
+        })
         dispatch({
             type: SOCIAL_ACCOUNTS_LOADED,
             data: {
                 activeIndex: index
             }
+        })
+        dispatch({
+            type: SOCIAL_ACCOUNT_SELECTED,
+            data: state.socialaccount.data.items[index]
         })
 
         return dispatch(postActions.get())
@@ -120,6 +136,29 @@ export const remove = () => {
 export const selectSocialAccount = (index) => {
 
     return (dispatch, getState) => {
+        const state = getState()
+        const selected = state.socialaccount.data.items[index]
+        let isAdded = state.socialaccount.selectedSocialaccounts.indexOf(selected.id)
+
+        let actionType = SOCIAL_ACCOUNT_SELECTED
+
+        if (isAdded > -1) {
+            actionType = SOCIAL_ACCOUNT_UNSELECTED
+        }
+
+        if (actionType == SOCIAL_ACCOUNT_UNSELECTED && state.socialaccount.selectedSocialaccounts.length <= 1) {
+            notification.alert('You have to choose at least one social account!')
+
+        } else {
+
+            dispatch({
+                type: actionType,
+                data: selected
+            })
+        }
+
+
+
 
 
     }
