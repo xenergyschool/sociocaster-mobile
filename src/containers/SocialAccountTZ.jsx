@@ -7,7 +7,7 @@ import * as socialaccountActions from '../actions/socialaccount'
 import { bindActionCreators } from 'redux'
 
 import TimeZoneList from '../components/TimeZoneList'
-import SearchTimeZoneForm from '../components/SearchTimeZoneForm'
+import SearchForm from '../components/SearchForm'
 import MenuContainer from './MenuContainer'
 import PreLoad from '../components/PreLoad'
 
@@ -107,9 +107,16 @@ class SocialAccountTZ extends Component {
                     renderToolbar={this.renderToolbar}
                     >
                     <div className='page-wrapper'>
-
-                        <SearchTimeZoneForm userTimezone={this.state.userTimezone} handleSearch={this.handleSearch} searchKeyword={this.state.searchKeyword} />
-                        <TimeZoneList handleChange={this.handleChange} timezone={timezone} filterTimezones={this.filterTimezones} />
+                        <SearchForm
+                            handleSearch={this.handleSearch}
+                            searchKeyword={this.state.searchKeyword}
+                            placeholder='Search a time zone...'
+                            />
+                        <TimeZoneList
+                            handleChange={this.handleChange}
+                            timezone={timezone}
+                            filterTimezones={this.filterTimezones}
+                            />
                     </div>
 
                 </Page>

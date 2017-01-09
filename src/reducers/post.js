@@ -9,7 +9,11 @@ const defaultState = {
     data: {},
     isFetching: false,
     isFetchingMore: false,
-    activeIndex: -1
+    activeIndex: -1,
+    activeItem: {
+        type: 'text',
+        message: ''
+    }
 };
 
 const post = (state = defaultState, action) => {
@@ -47,11 +51,11 @@ const post = (state = defaultState, action) => {
 
             data = {
                 ...state.data,
-                ...{items : items}
+                ...{ items: items }
             }
             return {
                 ...state,
-                ...{data : data}
+                ...{ data: data }
             }
         default: return state
     }

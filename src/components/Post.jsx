@@ -91,7 +91,7 @@ export default class Post extends Component {
             else {
                 items.push(
                     <div key='nopost' className='no-post'>
-                        <p className='no-post__msg'>You do not have any {post.filter} post yet.</p>
+                        <p className='no-post__msg'>You do not have any {post.filter} posts yet.</p>
                     </div>
                 )
             }
