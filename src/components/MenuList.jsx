@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 import { List, ListItem, ListHeader, Icon } from 'react-onsenui'
-import * as images from '../images'
+import * as helpers from '../helpers'
 import SocialAccountTZ from '../containers/SocialAccountTZ'
 export default class MenuList extends Component {
     constructor(props) {
@@ -42,17 +42,14 @@ export default class MenuList extends Component {
         this.setState({ mode: this.state.mode == 'socialaccount' ? 'setting' : 'socialaccount' })
     }
 
-    imageError(e) {
 
-        e.target.src = images.defaultAvatar
-    }
 
     renderSocialAccounts(data, index) {
         const {switchSocialaccount} = this.props
         return (
             <ListItem className='left-menu__list-item' key={data.id} data-index={index} onClick={switchSocialaccount} tappable>
                 <div className='left'>
-                    <img src={data.photoUrl} onError={this.imageError} className='list__item__thumbnail' />
+                    <img src={data.photoUrl} onError={helpers.avatarError} className='list__item__thumbnail' />
                 </div>
                 <div className='center'>
                     <span className='user__displayname'>{data.displayName}</span>

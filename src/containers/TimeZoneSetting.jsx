@@ -6,7 +6,7 @@ import * as authActions from '../actions/auth'
 import { bindActionCreators } from 'redux'
 import jstz from 'jstz'
 import TimeZoneList from '../components/TimeZoneList'
-import SearchTimeZoneForm from '../components/SearchTimeZoneForm'
+import SearchForm from '../components/SearchForm'
 import MenuContainer from './MenuContainer'
 import PreLoad from '../components/PreLoad'
 
@@ -93,8 +93,17 @@ class TimeZoneSetting extends Component {
                     >
                     <div className='page-wrapper'>
 
-                        <SearchTimeZoneForm userTimezone={this.state.userTimezone} handleSearch={this.handleSearch} searchKeyword={this.state.searchKeyword} />
-                        <TimeZoneList handleChange={this.handleChange} timezone={timezone} filterTimezones={this.filterTimezones} />
+                        <SearchForm
+                            userTimezone={this.state.userTimezone}
+                            handleSearch={this.handleSearch}
+                            searchKeyword={this.state.searchKeyword}
+                            placeholder='Search a time zone...'
+                            />
+                        <TimeZoneList
+                            handleChange={this.handleChange}
+                            timezone={timezone}
+                            filterTimezones={this.filterTimezones}
+                            />
                     </div>
 
                 </Page>

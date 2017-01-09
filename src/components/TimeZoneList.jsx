@@ -1,8 +1,9 @@
+
 import React, { Component } from 'react'
 import { LazyList, ListItem } from 'react-onsenui'
 import { platform } from 'onsenui'
 
-export default class ForgotPasswordForm extends Component {
+export default class TimeZoneList extends Component {
   constructor(props) {
     super(props)
     this.renderRow = this.renderRow.bind(this)
@@ -18,6 +19,7 @@ export default class ForgotPasswordForm extends Component {
       </ListItem>
     )
   }
+
   render() {
     const {filterTimezones, timezone} = this.props
     const filteredTimezones = timezone.data.filter(filterTimezones)

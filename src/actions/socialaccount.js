@@ -6,6 +6,8 @@ export const SOCIAL_ACCOUNTS_LOADED = 'SOCIAL_ACCOUNTS_LOADED'
 export const SOCIAL_ACCOUNTS_SWITCH = 'SOCIAL_ACCOUNTS_SWITCH'
 export const SOCIAL_SCHEDULETIME_UPDATED = 'SOCIAL_SCHEDULETIME_UPDATED'
 export const SOCIAL_ACCOUNT_DELETED = 'SOCIAL_ACCOUNT_DELETED'
+export const SOCIAL_ACCOUNT_SELECTED = 'SOCIAL_ACCOUNT_SELECTED'
+export const SOCIAL_ACCOUNT_UNSELECTED = 'SOCIAL_ACCOUNT_UNSELECTED'
 
 export const get = (mode = 'normal') => {
 
@@ -112,5 +114,13 @@ export const remove = () => {
             console.log(error)
             return Promise.reject(error)
         })
+    }
+}
+
+export const selectSocialAccount = (index) => {
+
+    return (dispatch, getState) => {
+
+
     }
 }

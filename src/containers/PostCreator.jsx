@@ -9,12 +9,14 @@ import { bindActionCreators } from 'redux';
 import Menu from '../components/Menu'
 import Post from '../components/Post'
 import MenuContainer from './MenuContainer'
+import SocialAccountSelector from './SocialAccountSelector'
 
 class PostCreator extends Component {
     constructor(props) {
         super(props)
         this.renderToolbar = this.renderToolbar.bind(this)
         this.loadMorePosts = this.loadMorePosts.bind(this)
+        this.openSocialAccountSelector = this.openSocialAccountSelector.bind(this)
         this.popPage = this.popPage.bind(this)
         this.logout = this.logout.bind(this)
     }
@@ -86,6 +88,13 @@ class PostCreator extends Component {
 
     }
 
+    openSocialAccountSelector(e) {
+        const {navigator} = this.props
+
+        navigator.pushPage({ component: SocialAccountSelector, key: 'SOCIAL_ACCOUNT_SELECTOR' })
+
+    }
+
     render() {
         const {navigator, post, socialaccount} = this.props
 
@@ -100,35 +109,17 @@ class PostCreator extends Component {
                         </div>
                         <div className='post-creator__account-wrapper'>
                             <div className='post-creator__account-list'>
-                                <div className='account-list__item icon__twitter'>
-                                    <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-1/p160x160/13932920_822573197842425_2459145338769991302_n.jpg?oh=2d157a08dfbc98aabbff29c4e7ed707a&oe=58DC42A7" className='account-list__image' alt="" />
-                                    <Icon className='account-list__icon' icon='fa-twitter' />
-                                </div>
-                                <div className='account-list__item icon__facebook'>
-                                    <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-1/p160x160/13932920_822573197842425_2459145338769991302_n.jpg?oh=2d157a08dfbc98aabbff29c4e7ed707a&oe=58DC42A7" className='account-list__image' alt="" />
-                                    <Icon className='account-list__icon' icon='fa-facebook-official' />
-                                </div>
-                                <div className='account-list__item  icon__googleplus'>
-                                    <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-1/p160x160/13932920_822573197842425_2459145338769991302_n.jpg?oh=2d157a08dfbc98aabbff29c4e7ed707a&oe=58DC42A7" className='account-list__image' alt="" />
-                                    <Icon className='account-list__icon' icon='fa-google-plus' />
-                                </div>
-                                <div className='account-list__item icon__pinterest'>
-                                    <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-1/p160x160/13932920_822573197842425_2459145338769991302_n.jpg?oh=2d157a08dfbc98aabbff29c4e7ed707a&oe=58DC42A7" className='account-list__image' alt="" />
-                                    <Icon className='account-list__icon' icon='fa-pinterest' />
-                                </div>
-                                <div className='account-list__item icon__linkedin'>
-                                    <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-1/p160x160/13932920_822573197842425_2459145338769991302_n.jpg?oh=2d157a08dfbc98aabbff29c4e7ed707a&oe=58DC42A7" className='account-list__image' alt="" />
-                                    <Icon className='account-list__icon' icon='fa-linkedin' />
-                                </div>
-                                <div className='account-list__item icon__instagram'>
-                                    <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-1/p160x160/13932920_822573197842425_2459145338769991302_n.jpg?oh=2d157a08dfbc98aabbff29c4e7ed707a&oe=58DC42A7" className='account-list__image' alt="" />
-                                    <Icon className='account-list__icon' icon='fa-instagram' />
-                                </div>
+                                {
+                                    <div className='account-list__item icon__twitter'>
+                                        <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-1/p160x160/13932920_822573197842425_2459145338769991302_n.jpg?oh=2d157a08dfbc98aabbff29c4e7ed707a&oe=58DC42A7" className='account-list__image' alt="" />
+                                        <Icon className='account-list__icon' icon='fa-twitter' />
+                                    </div>
+                                }
                             </div>
                         </div>
-                        <div className='account-list__add-account'>
-                                    <Icon className='add-account__icon' icon='fa-plus' />
-                                </div>
+                        <div className='account-list__add-account' onClick={this.openSocialAccountSelector}>
+                            <Icon className='add-account__icon' icon='fa-plus' />
+                        </div>
                         <div className='post-creator__content'>
 
                             <div className='post-creator__textarea' contentEditable></div>

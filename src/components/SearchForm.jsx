@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Icon } from 'react-onsenui'
 
-export default class ForgotPasswordForm extends Component {
+export default class SearchForm extends Component {
 
     render() {
-        const {handleSearch, userTimezone, searchKeyword} = this.props
+        const {handleSearch, searchKeyword, placeholder} = this.props
         return (
             <section style={{ textAlign: 'center' }}>
 
@@ -16,9 +16,8 @@ export default class ForgotPasswordForm extends Component {
                             value={searchKeyword}
                             onChange={handleSearch}
 
-                            id='timezone'
                             type='text'
-                            placeholder='Search a time zone...'
+                            placeholder={placeholder}
                             autoFocus
 
 
