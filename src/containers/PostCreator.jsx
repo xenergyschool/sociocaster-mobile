@@ -10,6 +10,7 @@ import Menu from '../components/Menu'
 import Post from '../components/Post'
 import MenuContainer from './MenuContainer'
 import SocialAccountSelector from './SocialAccountSelector'
+import * as helpers from '../helpers'
 
 class PostCreator extends Component {
     constructor(props) {
@@ -17,6 +18,7 @@ class PostCreator extends Component {
         this.renderToolbar = this.renderToolbar.bind(this)
         this.loadMorePosts = this.loadMorePosts.bind(this)
         this.openSocialAccountSelector = this.openSocialAccountSelector.bind(this)
+        this.onlySelected = this.onlySelected.bind(this)
         this.popPage = this.popPage.bind(this)
         this.logout = this.logout.bind(this)
     }
@@ -94,10 +96,19 @@ class PostCreator extends Component {
         navigator.pushPage({ component: SocialAccountSelector, key: 'SOCIAL_ACCOUNT_SELECTOR' })
 
     }
+    onlySelected(item) {
+        const {socialaccount} = this.props
+        let index = socialaccount.selectedSocialaccounts.indexOf(item.id)
+        if (index > -1) {
+            return true
+        } else {
+            return false
+        }
 
+    }
     render() {
         const {navigator, post, socialaccount} = this.props
-
+        const onlySelected = socialaccount.data.items.filter(this.onlySelected)
         return (
 
             <Page>
@@ -109,11 +120,16 @@ class PostCreator extends Component {
                         </div>
                         <div className='post-creator__account-wrapper'>
                             <div className='post-creator__account-list'>
-                                {
-                                    <div className='account-list__item icon__twitter'>
-                                        <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-1/p160x160/13932920_822573197842425_2459145338769991302_n.jpg?oh=2d157a08dfbc98aabbff29c4e7ed707a&oe=58DC42A7" className='account-list__image' alt="" />
-                                        <Icon className='account-list__icon' icon='fa-twitter' />
-                                    </div>
+                                {onlySelected.map((data, index) => {
+                                    return (
+
+                                        <div key={data.id} className={`account-list__item icon__${data.provider.toLowerCase()}`} >
+                                            <img src={data.photoUrl} onError={helpers.avatarError} className='account-list__image' alt={data.displayName} />
+                                            <Icon className='account-list__icon' icon={`fa-${data.provider.toLowerCase()}`} />
+                                        </div>
+                                    )
+                                })
+
                                 }
                             </div>
                         </div>

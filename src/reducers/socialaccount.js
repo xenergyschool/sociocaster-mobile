@@ -3,7 +3,8 @@ import {
     SOCIAL_SCHEDULETIME_UPDATED,
     SOCIAL_ACCOUNT_DELETED,
     SOCIAL_ACCOUNT_SELECTED,
-    SOCIAL_ACCOUNT_UNSELECTED
+    SOCIAL_ACCOUNT_UNSELECTED,
+    SOCIAL_ACCOUNT_SELECTED_RESET
 } from '../actions/socialaccount'
 
 const defaultState = {
@@ -82,6 +83,13 @@ const socialaccount = (state = defaultState, action) => {
                 }
             }
             return state
+        case SOCIAL_ACCOUNT_SELECTED_RESET:
+            return {
+                ...state,
+                ...{
+                    selectedSocialaccounts: []
+                }
+            }
         default: return state
     }
 };
