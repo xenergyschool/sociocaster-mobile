@@ -49,11 +49,11 @@ export default class UnreleasedPage extends Component {
 
         return (
             <Page
-
+                
                 renderToolbar={this.renderToolbar}
                 >
-                <section>
-                    <p>This feature is not available yet.</p>
+                <section className='page__unreleased'>
+                    <p className='unreleased__msg'>This feature is not available yet.</p>
                 </section>
             </Page>
         )
