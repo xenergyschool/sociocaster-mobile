@@ -40,7 +40,7 @@ export default class Menu extends Component {
                     onOpen={showMenu}
                     >
                     <Page
-                        lassName='left-menu'
+                        className='left-menu'
                         renderModal={() => (
                             <Modal
                                 isOpen={this.state.modalShown}
