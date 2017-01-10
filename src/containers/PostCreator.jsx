@@ -24,9 +24,15 @@ class PostCreator extends Component {
         this.hideDialogCamera = this.hideDialogCamera.bind(this)
         this.snapPicture = this.snapPicture.bind(this)
         this.choosePicture = this.choosePicture.bind(this)
+        this.setMessage = this.setMessage.bind(this)
         this.state = {
             dialogCameraShown: false,
-            picture: ''
+            postData: {
+                type: 'text',
+                message: '',
+                picture: '',
+                link: ''
+            }
         }
     }
     renderToolbar() {
@@ -91,7 +97,12 @@ class PostCreator extends Component {
         const {postActions} = this.props
         helpers.snapPicture().then((imageData) => {
             console.log(imageData)
-            this.setState({ picture: imageData })
+            this.setState({
+                postData: {
+                    ...this.state.postData,
+                    ...{ picture: imageData, type: 'picture' }
+                }
+            })
             postActions.uploadFile(imageData)
         }).catch((error) => {
 
@@ -102,14 +113,27 @@ class PostCreator extends Component {
         const {postActions} = this.props
         helpers.choosePicture().then((imageData) => {
             console.log(imageData)
-            this.setState({ picture: imageData })
+            this.setState({
+                postData: {
+                    ...this.state.postData,
+                    ...{ picture: imageData, type: 'picture' }
+                }
+            })
             postActions.uploadFile(imageData)
         }).catch((error) => {
 
         })
 
     }
-
+    setMessage(e) {
+        console.log(e.target.value)
+        this.setState({
+            postData: {
+                ...this.state.postData,
+                ...{ message: e.target.value }
+            }
+        })
+    }
     openSocialAccountSelector(e) {
         const {navigator} = this.props
 
@@ -128,6 +152,7 @@ class PostCreator extends Component {
     }
     render() {
         const {navigator, post, socialaccount} = this.props
+        const {postData} = this.state
         const onlySelected = socialaccount.data.items.filter(this.onlySelected)
         const dataDialogCamera = ['camera', 'album']
 
@@ -161,13 +186,13 @@ class PostCreator extends Component {
                         </div>
                         <div className='post-creator__content'>
 
-                            <Textarea className='post-creator__textarea' value={post.activeItem.message} placeholder='What would you like to share?'></Textarea>
-                            {post.activeItem.type == 'picture' &&
+                            <Textarea className='post-creator__textarea' value={postData.message} onChange={this.setMessage} placeholder='What would you like to share?'></Textarea>
+                            {postData.type == 'picture' &&
                                 <div className='post-creator__image-preview'>
-                                    <img src={this.state.picture} />
+                                    <img src={postData.picture} />
                                 </div>
                             }
-                            {post.activeItem.type == 'customlink' && <div className='post-creator__link-preview'> </div>}
+                            {postData.type == 'customlink' && <div className='post-creator__link-preview'> </div>}
                         </div>
                         <div className='post-creator__footer'>
                             <a href="#" className='post-creator__link' onClick={this.hideDialogCamera}><Icon icon='fa-camera' /></a>

@@ -79,17 +79,22 @@ export const upload = (uri, fileURL, options) => {
         /*
         ft.onprogress = (progressEvent) => {
             if (progressEvent.lengthComputable) {
-                //loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
+                loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total)
             } else {
-                // loadingStatus.increment();
+                loadingStatus.increment()
             }
         }
         */
+
         ft.upload(
             fileURL,
             uri,
             (r) => {
-                resolve(r)
+                if (r.response.success) {
+                    resolve(r.response)
+                } else {
+                    reject(r.response)
+                }
             },
             (error) => {
                 reject(error)
