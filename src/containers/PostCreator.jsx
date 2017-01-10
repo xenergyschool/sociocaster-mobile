@@ -22,7 +22,8 @@ class PostCreator extends Component {
         this.popPage = this.popPage.bind(this)
         this.logout = this.logout.bind(this)
         this.hideDialogCamera = this.hideDialogCamera.bind(this)
-
+        this.snapPicture = this.snapPicture.bind(this)
+        this.choosePicture = this.choosePicture.bind(this)
         this.state = {
             dialogCameraShown: false
         }
@@ -86,17 +87,23 @@ class PostCreator extends Component {
         }
     }
     snapPicture() {
-        navigator.camera.getPicture(
-            (imageData) => {
-                console.log(imageData);
-            },
-            (message) => {
-                console.log(message)
-            },
-            {
-                quality: 50,
-                destinationType: Camera.DestinationType.DATA_URL
-            })
+        const {postActions} = this.props
+        helpers.snapPicture().then((imageData) => {
+            console.log(imageData)
+            postActions.uploadFile(imageData)
+        }).catch((error) => {
+
+        })
+
+    }
+    choosePicture() {
+        const {postActions} = this.props
+        helpers.choosePicture().then((imageData) => {
+            console.log(imageData)
+            postActions.uploadFile(imageData)
+        }).catch((error) => {
+
+        })
 
     }
 
@@ -169,27 +176,32 @@ class PostCreator extends Component {
                         isOpen={this.state.dialogCameraShown}
                         isCancelable={true}
                         onCancel={this.hideDialogCamera}>
-                        <div className='post-filter'>
-                            <List
-                                dataSource={dataDialogCamera}
-                                renderRow={(data, index) => (
-                                    <ListItem
-                                        key={data}
-                                        data-filter={data}
-                                        onClick={(e) => {
-                                            //this.hideDialogCamera()
-                                            //changePostFilter(e.currentTarget.dataset.filter)
-                                        } }
-                                        tappable>
+                        <List
+                            dataSource={dataDialogCamera}
+                            renderRow={(data, index) => (
+                                <ListItem
+                                    key={data}
+                                    data-filter={data}
+                                    onClick={(e) => {
+                                        if (data == 'camera') {
+                                            this.snapPicture()
+                                        } else {
+                                            this.choosePicture()
+                                        }
+                                        this.hideDialogCamera()
+                                        //changePostFilter(e.currentTarget.dataset.filter)
+                                    } }
+                                    tappable>
+                                    <div className='left'>
+                                        <Icon icon={data == 'camera' ? 'fa-camera' : 'fa-photo'} />
+                                    </div>
+                                    <div className='center'>
                                         {helpers.capitalizeFirstLetter(data)}
-                                    </ListItem>
-                                )}
-                                renderHeader={() => (
-                                    <h3>Posts Filter</h3>
-                                )}
-                                />
+                                    </div>
+                                </ListItem>
+                            )}
 
-                        </div>
+                            />
                     </Dialog>
                 </section>
             </Page>

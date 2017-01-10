@@ -152,9 +152,16 @@ export const switchIndex = (index) => {
     }
 }
 
-export const uploadFile = () => {
+export const uploadFile = (fileURL) => {
 
     return (dispatch, getState) => {
-
+        let options = {
+            fileKey: 'UploadForm[imageFiles][]'
+        }
+        return api.upload(`${SC_API}/media/upload`, fileURL, options).then((response) => {
+            console.log(JSON.stringify(response))
+        }).catch((error) => {
+            console.log(JSON.stringify(error))
+        })
     }
 }

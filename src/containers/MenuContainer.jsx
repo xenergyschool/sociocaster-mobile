@@ -27,7 +27,7 @@ class MenuContainer extends Component {
         this.state = {
             isMenuOpen: false,
             menuPullState: 'initial',
-            index: 3
+            index: 2
         }
     }
     switchSocialaccount(e) {
@@ -90,12 +90,12 @@ class MenuContainer extends Component {
                 tab: <Tab icon='fa-feed' key={1} />,
             },
             {
-                content: <PostPage title='Posts' showMenu={showMenu} navigator={navigator} key={3} />,
-                tab: <Tab icon='fa-paper-plane' key={3} />,
+                content: <PostPage title='Posts' showMenu={showMenu} navigator={navigator} key={2} />,
+                tab: <Tab icon='fa-paper-plane' key={2} />,
             },
             {
-                content: <UnreleasedPage title='Content Boxes' authActions={authActions} showMenu={showMenu} navigator={navigator} key={4} />,
-                tab: <Tab icon='fa-cloud-download' key={4} />,
+                content: <UnreleasedPage title='Content Boxes' authActions={authActions} showMenu={showMenu} navigator={navigator} key={3} />,
+                tab: <Tab icon='fa-cloud-download' key={3} />,
             }
         ];
     }
