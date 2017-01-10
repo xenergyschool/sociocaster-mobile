@@ -231,7 +231,7 @@ class PostCreator extends Component {
 
                                     {this.state.isUploading &&
                                         <div className='loading-wrap'>
-                                            <ProgressCircular indeterminate />
+                                            <ProgressCircular className='loading-wrap__icon' indeterminate />
                                         </div>
                                     }
                                 </div>
