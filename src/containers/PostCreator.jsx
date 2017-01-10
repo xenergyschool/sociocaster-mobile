@@ -21,6 +21,11 @@ class PostCreator extends Component {
         this.onlySelected = this.onlySelected.bind(this)
         this.popPage = this.popPage.bind(this)
         this.logout = this.logout.bind(this)
+        this.hideDialogCamera = this.hideDialogCamera.bind(this)
+
+        this.state = {
+            dialogCameraShown: false
+        }
     }
     renderToolbar() {
         const {title, showMenu} = this.props
@@ -52,7 +57,12 @@ class PostCreator extends Component {
         navigator.resetPage({ component: MenuContainer, key: 'MENU_CONTAINER' })
     }
 
+    hideDialogCamera() {
 
+        this.setState({
+            dialogCameraShown: !this.state.dialogCameraShown
+        })
+    }
 
 
     componentWillMount() {
@@ -109,6 +119,9 @@ class PostCreator extends Component {
     render() {
         const {navigator, post, socialaccount} = this.props
         const onlySelected = socialaccount.data.items.filter(this.onlySelected)
+        const dataDialogCamera = ['camera', 'album']
+
+
         return (
 
             <Page>
@@ -142,7 +155,7 @@ class PostCreator extends Component {
 
                         </div>
                         <div className='post-creator__footer'>
-                            <a href="#" className='post-creator__link'><Icon icon='fa-camera' /></a>
+                            <a href="#" className='post-creator__link' onClick={this.hideDialogCamera}><Icon icon='fa-camera' /></a>
                             <a href="#" className='post-creator__link'><Icon icon='fa-link' /></a>
                             <span className='pull-right'>
                                 <a className='post-creator__link' href="#">Schedule</a>
@@ -152,6 +165,32 @@ class PostCreator extends Component {
                             </div>
                         </div>
                     </div>
+                    <Dialog
+                        isOpen={this.state.dialogCameraShown}
+                        isCancelable={true}
+                        onCancel={this.hideDialogCamera}>
+                        <div className='post-filter'>
+                            <List
+                                dataSource={dataDialogCamera}
+                                renderRow={(data, index) => (
+                                    <ListItem
+                                        key={data}
+                                        data-filter={data}
+                                        onClick={(e) => {
+                                            //this.hideDialogCamera()
+                                            //changePostFilter(e.currentTarget.dataset.filter)
+                                        } }
+                                        tappable>
+                                        {helpers.capitalizeFirstLetter(data)}
+                                    </ListItem>
+                                )}
+                                renderHeader={() => (
+                                    <h3>Posts Filter</h3>
+                                )}
+                                />
+
+                        </div>
+                    </Dialog>
                 </section>
             </Page>
 
