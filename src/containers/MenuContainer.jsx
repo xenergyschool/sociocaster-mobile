@@ -119,6 +119,7 @@ class MenuContainer extends Component {
                 >
                 <Page>
                     <Tabbar
+                        className='tab-menu'
                         index={this.state.index}
                         onPreChange={this.onPreChange}
                         renderTabs={this.renderTabs}
