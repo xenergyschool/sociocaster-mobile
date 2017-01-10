@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Page, Toolbar, ToolbarButton, Icon, Navigator, Dialog, List, ListItem } from 'react-onsenui'
+import { Page, Toolbar, ToolbarButton, Icon, Navigator, Dialog, List, ListItem, ProgressCircular } from 'react-onsenui'
 import Textarea from 'react-textarea-autosize'
 import * as authActions from '../actions/auth'
 import * as socialaccountActions from '../actions/socialaccount'
@@ -25,8 +25,10 @@ class PostCreator extends Component {
         this.snapPicture = this.snapPicture.bind(this)
         this.choosePicture = this.choosePicture.bind(this)
         this.setMessage = this.setMessage.bind(this)
+        this.removePic = this.removePic.bind(this)
         this.state = {
             dialogCameraShown: false,
+            isUploading: false,
             postData: {
                 type: 'text',
                 message: '',
@@ -98,12 +100,17 @@ class PostCreator extends Component {
         helpers.snapPicture().then((imageData) => {
             console.log(imageData)
             this.setState({
+                isUploading: true,
                 postData: {
                     ...this.state.postData,
                     ...{ picture: imageData, type: 'picture' }
                 }
             })
-            postActions.uploadFile(imageData)
+            postActions.uploadFile(imageData).then((response) => {
+                this.setState({
+                    isUploading: false
+                })
+            })
         }).catch((error) => {
 
         })
@@ -114,12 +121,17 @@ class PostCreator extends Component {
         helpers.choosePicture().then((imageData) => {
             console.log(imageData)
             this.setState({
+                isUploading: true,
                 postData: {
                     ...this.state.postData,
                     ...{ picture: imageData, type: 'picture' }
                 }
             })
-            postActions.uploadFile(imageData)
+            postActions.uploadFile(imageData).then((response) => {
+                this.setState({
+                    isUploading: false
+                })
+            })
         }).catch((error) => {
 
         })
@@ -131,6 +143,14 @@ class PostCreator extends Component {
             postData: {
                 ...this.state.postData,
                 ...{ message: e.target.value }
+            }
+        })
+    }
+    removePic(e) {
+        this.setState({
+            postData: {
+                ...this.state.postData,
+                ...{ type: 'text', picture: '' }
             }
         })
     }
@@ -187,18 +207,19 @@ class PostCreator extends Component {
                         <div className='post-creator__content'>
 
                             <Textarea className='post-creator__textarea' value={postData.message} onChange={this.setMessage} placeholder='What would you like to share?'></Textarea>
-                            
+
                             {postData.type == 'picture' &&
                                 <div className='post-creator__image-preview-wrap'>
                                     <img className='post-creator__image-preview' src={postData.picture} />
-                                    <a href="#" className='remove-pic'>
+                                    <a href="#" onClick={this.removePic} className='remove-pic'>
                                         <Icon className='remove-pic__icon' icon='fa-times-circle' />
                                     </a>
-                                    <div className='loading-wrap'>
-                                        <div className='loading-wrap__icon'>
-                                            <Icon className='fa-spin' icon='fa-spinner' />
+
+                                    {this.state.isUploading &&
+                                        <div className='loading-wrap'>
+                                            <ProgressCircular indeterminate />
                                         </div>
-                                    </div>
+                                    }
                                 </div>
                             }
                             {postData.type == 'customlink' && <div className='post-creator__link-preview'> </div>}
