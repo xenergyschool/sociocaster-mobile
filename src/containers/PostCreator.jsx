@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Page, Toolbar, ToolbarButton, Icon, Navigator, Dialog, List, ListItem } from 'react-onsenui'
-
+import Textarea from 'react-textarea-autosize'
 import * as authActions from '../actions/auth'
 import * as socialaccountActions from '../actions/socialaccount'
 import * as postActions from '../actions/post'
@@ -25,7 +25,8 @@ class PostCreator extends Component {
         this.snapPicture = this.snapPicture.bind(this)
         this.choosePicture = this.choosePicture.bind(this)
         this.state = {
-            dialogCameraShown: false
+            dialogCameraShown: false,
+            picture: ''
         }
     }
     renderToolbar() {
@@ -90,6 +91,7 @@ class PostCreator extends Component {
         const {postActions} = this.props
         helpers.snapPicture().then((imageData) => {
             console.log(imageData)
+            this.setState({ picture: imageData })
             postActions.uploadFile(imageData)
         }).catch((error) => {
 
@@ -100,6 +102,7 @@ class PostCreator extends Component {
         const {postActions} = this.props
         helpers.choosePicture().then((imageData) => {
             console.log(imageData)
+            this.setState({ picture: imageData })
             postActions.uploadFile(imageData)
         }).catch((error) => {
 
@@ -132,7 +135,7 @@ class PostCreator extends Component {
         return (
 
             <Page>
-                <section  className='page__post-creator'>
+                <section className='page__post-creator'>
                     <div className='post-creator'>
                         <div className='post-creator__header'>
                             <h3 className='post-creator__label'>Create Post</h3>
@@ -158,8 +161,13 @@ class PostCreator extends Component {
                         </div>
                         <div className='post-creator__content'>
 
-                            <div className='post-creator__textarea' contentEditable></div>
-
+                            <Textarea className='post-creator__textarea' value={post.activeItem.message} placeholder='What would you like to share?'></Textarea>
+                            {post.activeItem.type == 'picture' &&
+                                <div className='post-creator__image-preview'>
+                                    <img src={this.state.picture} />
+                                </div>
+                            }
+                            {post.activeItem.type == 'customlink' && <div className='post-creator__link-preview'> </div>}
                         </div>
                         <div className='post-creator__footer'>
                             <a href="#" className='post-creator__link' onClick={this.hideDialogCamera}><Icon icon='fa-camera' /></a>
