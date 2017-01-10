@@ -89,7 +89,7 @@ export const upload = (uri, fileURL, options) => {
         ft.upload(
             fileURL,
             uri,
-            (r) => {
+            function (r) {
                 console.log(JSON.stringify(r.response))
                 if (r.response.success) {
                     resolve(r.response)
@@ -97,7 +97,7 @@ export const upload = (uri, fileURL, options) => {
                     reject(r.response)
                 }
             },
-            (error) => {
+            function (error) {
                 console.log(error.code)
                 reject(error)
             },
