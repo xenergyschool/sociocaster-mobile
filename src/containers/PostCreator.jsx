@@ -29,6 +29,7 @@ class PostCreator extends Component {
         this.state = {
             dialogCameraShown: false,
             isUploading: false,
+            picturePreview: '',
             postData: {
                 type: 'text',
                 message: '',
@@ -101,14 +102,19 @@ class PostCreator extends Component {
             console.log(imageData)
             this.setState({
                 isUploading: true,
+                picturePreview: imageData,
                 postData: {
                     ...this.state.postData,
-                    ...{ picture: imageData, type: 'picture' }
+                    ...{ type: 'picture' }
                 }
             })
             postActions.uploadFile(imageData).then((response) => {
                 this.setState({
-                    isUploading: false
+                    isUploading: false,
+                    postData: {
+                        ...this.state.postData,
+                        ...{ picture: response.url }
+                    }
                 })
             })
         }).catch((error) => {
@@ -120,16 +126,24 @@ class PostCreator extends Component {
         const {postActions} = this.props
         helpers.choosePicture().then((imageData) => {
             console.log(imageData)
+            const d = new Date()
+            let timestamp = d.getTime()
             this.setState({
                 isUploading: true,
+                picturePreview: `${imageData}?v=${timestamp}`,
                 postData: {
                     ...this.state.postData,
-                    ...{ picture: imageData, type: 'picture' }
+                    ...{ type: 'picture' }
                 }
             })
             postActions.uploadFile(imageData).then((response) => {
+                console.log(response.url)
                 this.setState({
-                    isUploading: false
+                    isUploading: false,
+                    postData: {
+                        ...this.state.postData,
+                        ...{ picture: response.url }
+                    }
                 })
             })
         }).catch((error) => {
@@ -210,7 +224,7 @@ class PostCreator extends Component {
 
                             {postData.type == 'picture' &&
                                 <div className='post-creator__image-preview-wrap'>
-                                    <img className='post-creator__image-preview' src={postData.picture} />
+                                    <img className='post-creator__image-preview' src={this.state.picturePreview} />
                                     <a href="#" onClick={this.removePic} className='remove-pic'>
                                         <Icon className='remove-pic__icon' icon='fa-times-circle' />
                                     </a>
