@@ -137,6 +137,7 @@ class PostCreator extends Component {
                 }
             })
             postActions.uploadFile(imageData).then((response) => {
+                console.log('sampai sini gak sih dua')
                 console.log(response.url)
                 this.setState({
                     isUploading: false,

@@ -91,6 +91,7 @@ export const upload = (uri, fileURL, options) => {
             fileURL,
             uri,
             (r) => {
+                console.log(JSON.stringify(r.response))
                 if (r.response.success) {
                     resolve(r.response)
                 } else {
@@ -98,6 +99,7 @@ export const upload = (uri, fileURL, options) => {
                 }
             },
             (error) => {
+                console.log(JSON.stringify(error))
                 reject(error)
             },
             defaultOptions

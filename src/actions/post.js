@@ -160,9 +160,10 @@ export const uploadFile = (fileURL) => {
         }
         return api.upload(`${SC_API}/media/upload`, fileURL, options).then((response) => {
             console.log(JSON.stringify(response))
+            console.log(JSON.stringify(response.data))
             if (response.data[0] && response.data[0].success) {
-
-                return response.data[0]
+                console.log('sampai sini gak sih')
+                return Promise.resolve(response.data[0])
             } else {
                 return Promise.reject(response.data[0])
             }
