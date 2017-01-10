@@ -38,11 +38,11 @@ export const patch = (url, data = {}, config = {}) => {
     })
 }
 
-export const remove = (url, config={})=>{
-    return axios.delete(url,config).then((response) => {
-        if(response.status == 204){
-            return {success:true}
-        }else{
+export const remove = (url, config = {}) => {
+    return axios.delete(url, config).then((response) => {
+        if (response.status == 204) {
+            return { success: true }
+        } else {
             if (!response.data.success)
                 return Promise.reject(response.data)
             return response.data
@@ -60,4 +60,43 @@ export const setting = () => {
     console.log(authdata)
     axios.defaults.headers.common['Authorization'] = `Bearer ${authdata.jwt}`
     console.log(axios.defaults)
+}
+
+export const upload = (uri, fileURL, options) => {
+    return new Promise((resolve, reject) => {
+        uri = encodeURI(uri)
+        let defaultOptions = new FileUploadOptions();
+        defaultOptions.fileKey = options.fileKey;
+        let filename = fileURL.substr(fileURL.lastIndexOf('/') + 1)
+        defaultOptions.fileName = filename.indexOf('.jpg') > -1 || filename.indexOf('.png') || filename.indexOf('.gif') ? filename : `${filename}.jpg`
+
+
+        var headers = { 'Authorization': `Bearer ${authdata.jwt}` }
+
+        defaultOptions.headers = headers
+
+        let ft = new FileTransfer()
+        /*
+        ft.onprogress = (progressEvent) => {
+            if (progressEvent.lengthComputable) {
+                //loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
+            } else {
+                // loadingStatus.increment();
+            }
+        }
+        */
+        ft.upload(
+            fileURL,
+            uri,
+            (r) => {
+                resolve(r)
+            },
+            (error) => {
+                reject(error)
+            },
+            defaultOptions
+        )
+
+    })
+
 }
