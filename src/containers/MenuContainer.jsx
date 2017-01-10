@@ -90,10 +90,6 @@ class MenuContainer extends Component {
                 tab: <Tab icon='fa-feed' key={1} />,
             },
             {
-                content: <DateTimePicker key={2} />,
-                tab: <Tab icon='fa-plus-circle' onClick={openPostCreator} key={2} />
-            },
-            {
                 content: <PostPage title='Posts' showMenu={showMenu} navigator={navigator} key={3} />,
                 tab: <Tab icon='fa-paper-plane' key={3} />,
             },
@@ -107,7 +103,7 @@ class MenuContainer extends Component {
 
     render() {
 
-        const {navigator, socialaccountActions} = this.props
+        const {navigator, socialaccountActions, openPostCreator} = this.props
         return (
             <Menu
                 hideMenu={this.hideMenu}
@@ -128,6 +124,7 @@ class MenuContainer extends Component {
                         renderTabs={this.renderTabs}
                         position='bottom'
                         />
+                    <a className='new-post__trigger' href="#" onClick={openPostCreator}><Icon icon='fa-plus-circle' /></a>
                 </Page>
             </Menu>
         )
