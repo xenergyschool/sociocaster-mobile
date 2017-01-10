@@ -187,9 +187,16 @@ class PostCreator extends Component {
                         <div className='post-creator__content'>
 
                             <Textarea className='post-creator__textarea' value={postData.message} onChange={this.setMessage} placeholder='What would you like to share?'></Textarea>
+                            
                             {postData.type == 'picture' &&
-                                <div className='post-creator__image-preview'>
-                                    <img src={postData.picture} />
+                                <div className='post-creator__image-preview-wrap'>
+                                    <img className='post-creator__image-preview' src={postData.picture} />
+                                    <a href="#" className='remove-pic'>
+                                        <Icon className='remove-pic__icon' icon='fa-times-circle' />
+                                    </a>
+                                    <div className='loading-wrap'>
+                                        
+                                    </div>
                                 </div>
                             }
                             {postData.type == 'customlink' && <div className='post-creator__link-preview'> </div>}

@@ -221,7 +221,8 @@
     border-top: dashed 1px $color5
     height: calc(100% - 85px)
     position: relative
-    overflow: hidden
+    overflow-y: scroll
+    overflow-x: hidden
 
 .post-creator__textarea
     border: none
@@ -233,6 +234,36 @@
     // height: 87%
     display: block
     resize: none
+
+.post-creator__image-preview-wrap
+    width: 92%
+    display: block
+    margin: 5px auto 60px
+    position: relative
+
+.post-creator__image-preview
+    width: 100%
+    height: auto
+
+.remove-pic
+    position: absolute
+    top: 5px
+    right: 5px
+
+.remove-pic__icon
+    color:$color16
+    font-size: 16px
+
+.loading-wrap
+    width:30px
+    height:30px
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    margin: auto
+    display: block
 
 .post-creator__label
     margin: 0 0 15px
