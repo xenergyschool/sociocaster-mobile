@@ -195,7 +195,9 @@ class PostCreator extends Component {
                                         <Icon className='remove-pic__icon' icon='fa-times-circle' />
                                     </a>
                                     <div className='loading-wrap'>
-                                        
+                                        <div className='loading-wrap__icon'>
+                                            <Icon className='fa-spin' icon='fa-spinner' />
+                                        </div>
                                     </div>
                                 </div>
                             }
