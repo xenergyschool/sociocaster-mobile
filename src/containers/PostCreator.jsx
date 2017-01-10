@@ -228,6 +228,7 @@ class PostCreator extends Component {
                                     <a href="#" onClick={this.removePic} className='remove-pic'>
                                         <Icon className='remove-pic__icon' icon='fa-times-circle' />
                                     </a>
+
                                     {this.state.isUploading &&
                                         <div className='loading-wrap'>
                                             <ProgressCircular indeterminate />
