@@ -103,7 +103,7 @@ class MenuContainer extends Component {
 
     render() {
 
-        const {navigator, socialaccountActions, openPostCreator} = this.props
+        const {navigator, socialaccountActions} = this.props
         return (
             <Menu
                 hideMenu={this.hideMenu}
@@ -124,7 +124,7 @@ class MenuContainer extends Component {
                         renderTabs={this.renderTabs}
                         position='bottom'
                         />
-                    <a className='new-post__trigger' href="#" onClick={openPostCreator}><Icon icon='fa-plus-circle' /></a>
+                    <a className='new-post__trigger' href="#" onClick={this.openPostCreator}><Icon icon='fa-plus-circle' /></a>
                 </Page>
             </Menu>
         )

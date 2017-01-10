@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Page, Toolbar, ToolbarButton, Icon, Navigator } from 'react-onsenui'
+import { Page, Toolbar, ToolbarButton, Icon, Navigator, Dialog, List, ListItem } from 'react-onsenui'
 
 import * as authActions from '../actions/auth'
 import * as socialaccountActions from '../actions/socialaccount'
