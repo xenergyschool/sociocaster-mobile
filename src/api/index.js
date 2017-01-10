@@ -67,8 +67,9 @@ export const upload = (uri, fileURL, options) => {
         uri = encodeURI(uri)
         let defaultOptions = new FileUploadOptions();
         defaultOptions.fileKey = options.fileKey;
-        let filename = fileURL.substr(fileURL.lastIndexOf('/') + 1)
-        defaultOptions.fileName = filename.indexOf('.jpg') > -1 || filename.indexOf('.png') || filename.indexOf('.gif') ? filename : `${filename}.jpg`
+        const d = new Date()
+        let filename = d.getTime()
+        defaultOptions.fileName = `${filename}.jpg`
 
 
         var headers = { 'Authorization': `Bearer ${authdata.jwt}` }
