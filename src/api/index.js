@@ -86,7 +86,6 @@ export const upload = (uri, fileURL, options) => {
             }
         }
         */
-
         ft.upload(
             fileURL,
             uri,
@@ -99,11 +98,14 @@ export const upload = (uri, fileURL, options) => {
                 }
             },
             (error) => {
-                console.log(JSON.stringify(error))
+                console.log(error.code)
                 reject(error)
             },
-            defaultOptions
+            defaultOptions,
+            true
         )
+
+
 
     })
 
