@@ -1,3 +1,13 @@
+.page__post-creator
+    position: relative
+    width: 100%
+    height: 100%
+
+.post-creator
+    display: flex
+    flex-direction: column
+    height: 100%
+
 .pull-post
     background-color: darken($color7,10%)
     color: darken($color3,25%)
@@ -126,8 +136,8 @@
     text-align:center
 
 .account-list__item
-    width: 35px
-    height: 35px
+    width: 33px
+    height: 33px
     display: inline-block
     overflow: hidden
     border-radius: 100%
@@ -136,7 +146,7 @@
     border:solid 3px transparent
 
 .account-list__item:last-child
-    margin-right: 15px !important
+    margin-right: 10px !important
 
 .account-list__image
     width:100%
@@ -158,21 +168,21 @@
     bottom: -2px;
 
 .account-list__add-account 
-    padding: 10px 0
+    padding: 10px 0 7px
     background: $color9
     width: 70px
     height:50px
     position: absolute
-    top: 53px
+    top: 50px
     right: 0
     
 .add-account__icon
-    width: 44px
-    padding: 6px 0px 3px 0
+    width: 38px
+    padding: 3px 0px 3px 0
     border-radius: 100%
-    border: solid 1px $color1
+    border: solid 3px $color1
     margin: auto
-    font-size: 33px
+    font-size: 30px
     color: $color1
     text-align: center
     display: block
@@ -180,18 +190,24 @@
 .post-creator__header
     position: relative
     padding: 10px 15px
+    border-bottom: dashed 1px $color5
+    height: 30px
 
 .post-creator__close
     position: absolute
-    top: 5px
-    right: 5px
+    color: $color16
+    font-size: 20px;
+    top: 5px;
+    right: 5px;
+    padding: 11px;
 
 .post-creator__account-wrapper
     position: relative
-    width:84%
+    width:80%
     height:55px
     overflow-y: hidden
     overflow-x: auto
+    margin: 12px 10px 0
 
 .post-creator__account-list
     position: absolute
@@ -201,17 +217,25 @@
     height:50px
     white-space: nowrap
 
+.post-creator__content
+    border-top: dashed 1px $color5
+    height: calc(100% - 85px)
+    position: relative
+    overflow: hidden
+
 .post-creator__textarea
     border: none
     width:91.55%
-    max-height: 400px
-    padding:7px 15px
-    margin:10px 0
+    padding: 15px 15px 50px
+    margin:0
     color: $color3
     font-size: 16px
+    height: 87%
+    display: block
 
 .post-creator__label
     margin: 0 0 15px
+    font-weight: $bold
 
 .post-creator__link
     display: inline-block
@@ -219,6 +243,7 @@
     padding:13px 7px
 
 .post-creator__footer
+    background: $color9
     position: absolute
     left:0
     bottom:0

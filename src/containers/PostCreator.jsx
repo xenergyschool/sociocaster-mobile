@@ -125,11 +125,11 @@ class PostCreator extends Component {
         return (
 
             <Page>
-                <section>
+                <section  className='page__post-creator'>
                     <div className='post-creator'>
                         <div className='post-creator__header'>
                             <h3 className='post-creator__label'>Create Post</h3>
-                            <a href="#" className='post-creator__close' onClick={this.popPage}><Icon icon='fa-times' /></a>
+                            <a href="#" className='post-creator__close' onClick={this.popPage}><Icon icon='fa-times-circle' /></a>
                         </div>
                         <div className='post-creator__account-wrapper'>
                             <div className='post-creator__account-list'>
