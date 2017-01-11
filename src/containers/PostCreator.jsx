@@ -228,7 +228,7 @@ class PostCreator extends Component {
                                     <div className='post-box__link-wrap'>
                                         <img className='post-box__link-picture' src='http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg' alt='' />
                                         <div className='post-box__hover'>
-                                            <a className='post-box__hover-link' href="#"><Icon icon='fa-camera' /></a>
+                                            <a className='post-box__hover-link' href="#"><Icon icon='fa-camera' className='post-box__hover-icon' /></a>
                                         </div>
                                     </div>
                                     <input className='post-box__link-name' value='Fesbuk' />
