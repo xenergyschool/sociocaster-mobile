@@ -38,8 +38,8 @@ export default class PostItem extends Component {
                                 <img className='post-box__link-picture' src={postItem.linkpicture} alt="" />
                             </div>
                             <span className='post-box__link-name'>{postItem.linkname}</span>
-                            <span className='post-box__link-caption'> {postItem.linkcaption}</span>
                             <span className='post-box__link-description'> {postItem.linkdescription}</span>
+                            <span className='post-box__link-caption'> {postItem.linkcaption}</span>
                         </a>
                         <span className='post-box__time'>{time}</span>
                     </div>
