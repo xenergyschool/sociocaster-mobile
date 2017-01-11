@@ -83,9 +83,9 @@ class PostCreator extends Component {
 
 
     snapPicture() {
-        const {postActions, post} = this.props
+        let {postActions, post} = this.props
         helpers.snapPicture().then((imageData) => {
-            console.log(imageData)
+
             postActions.postDataChanged({
                 isUploading: true,
                 picturePreview: imageData,
@@ -95,6 +95,7 @@ class PostCreator extends Component {
                 }
             })
             postActions.uploadFile(imageData).then((response) => {
+                post = this.props.post
                 postActions.postDataChanged({
                     isUploading: false,
                     postData: {
@@ -109,9 +110,9 @@ class PostCreator extends Component {
 
     }
     choosePicture() {
-        const {postActions, post} = this.props
+        let {postActions, post} = this.props
         helpers.choosePicture().then((imageData) => {
-            console.log(imageData)
+
             const d = new Date()
             let timestamp = d.getTime()
             postActions.postDataChanged({
@@ -123,7 +124,7 @@ class PostCreator extends Component {
                 }
             })
             postActions.uploadFile(imageData).then((response) => {
-
+                post = this.props.post
                 postActions.postDataChanged({
                     isUploading: false,
                     postData: {
@@ -211,7 +212,7 @@ class PostCreator extends Component {
                 }
 
                 if (shouldAddLink) {
-                    postActions.getLinkPreview(data)
+                    postActions.getLinkPreview(data.trim())
                 }
             } else {
                 notification.alert('Please enter a valid url', { title: 'Ups!' })
