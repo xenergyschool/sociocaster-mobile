@@ -164,17 +164,21 @@
     height: 100%
 
 .unreleased__msg
-    background: $color9
-    position: absolute
-    top:0
-    left:0
-    right:0
-    bottom: 0
-    margin: auto
+    // background: $color9
+    @extend .absolute-center
     padding:13px
     width: 85%
     height: 17px
-    color: $color2
+    color: $color3
     font-size: 16px
     font-weight: $bold
     text-align: center
+
+.unreleased__icon
+    font-size: 60px
+    text-align: center
+    @extend .absolute-center
+    width: 50px
+    height: 65px
+    padding-bottom: 120px
+    color: $color3

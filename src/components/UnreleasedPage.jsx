@@ -53,6 +53,7 @@ export default class UnreleasedPage extends Component {
                 renderToolbar={this.renderToolbar}
                 >
                 <section className='page__unreleased'>
+                    <Icon className='unreleased__icon' icon='fa-hourglass-start' />
                     <p className='unreleased__msg'>This feature is not available yet.</p>
                 </section>
             </Page>

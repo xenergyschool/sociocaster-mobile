@@ -338,12 +338,7 @@
 .post-box__hover
     opacity: 0
     background-color:rgba($color17,.8)
-    position: absolute
-    top:0
-    left:0
-    right:0
-    bottom: 0
-    margin: auto
+    @extend .absolute-center
     width:100%
     height:100%
     z-index: 5
@@ -364,6 +359,8 @@
         border:none
         width: 100%
         resize: none
+    .post-box__link, .post-box__link-caption
+        margin-bottom: 0
 
 .post-box__link-wrap:active .post-box__hover
     opacity: 1
@@ -379,21 +376,11 @@
     display: block
     width: 100%
     height: 100%
-    margin: auto
-    position: absolute
-    top:0
-    left:0
-    right:0
-    bottom: 0
     color: $color9
+    @extend .absolute-center
 
 .post-box__hover-icon
     width: 32px
     height: 34px
-    margin: auto
-    position: absolute
-    top:0
-    left:0
-    right:0
-    bottom: 0
     display: block
+    @extend .absolute-center
