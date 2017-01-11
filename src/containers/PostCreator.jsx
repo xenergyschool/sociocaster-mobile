@@ -228,9 +228,9 @@ class PostCreator extends Component {
                                     <div className='post-box__link-wrap'>
                                         <img className='post-box__link-picture' src='http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg' alt='' />
                                     </div>
-                                    <span className='post-box__link-name'>Fesbuk</span>
-                                    <span className='post-box__link-description'> Search the world's information, including webpages, images, videos and more. Google has many special features to help you find exactly what you're looking for.</span>
-                                    <span className='post-box__link-caption'> facebook.com</span>
+                                    <input className='post-box__link-name' value='Fesbuk' />
+                                    <textarea className='post-box__link-description' >Search the worlds information, including webpages, images, videos and more. Google has many special features to help you find exactly what youre looking for.</textarea> 
+                                    <input className='post-box__link-caption' value='facebook.com' /> 
                                 </a>
                             </div>
 
