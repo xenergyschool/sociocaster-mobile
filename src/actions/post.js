@@ -212,6 +212,7 @@ export const getLinkPreview = (url) => {
                 type: POST_LOADED,
                 data: {
                     isUploading: false,
+                    linkPicturePreview: response.data.image,
                     postData: {
                         ...state.post.postData,
                         ...{
@@ -227,6 +228,19 @@ export const getLinkPreview = (url) => {
             return Promise.resolve(response)
 
         }).catch((error) => {
+            state = getState()
+            dispatch({
+                type: POST_LOADED,
+                data: {
+                    isUploading: false,
+                    postData: {
+                        ...state.post.postData,
+                        ...{
+                            type: 'text'
+                        }
+                    }
+                }
+            })
 
             return Promise.reject(error)
         })

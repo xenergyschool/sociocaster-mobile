@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { notification } from 'onsenui'
@@ -12,6 +13,8 @@ import Post from '../components/Post'
 import MenuContainer from './MenuContainer'
 import SocialAccountSelector from './SocialAccountSelector'
 import * as helpers from '../helpers'
+import DateTimePicker from './DateTimePicker'
+
 
 class PostCreator extends Component {
     constructor(props) {
@@ -24,21 +27,18 @@ class PostCreator extends Component {
         this.hideDialogCamera = this.hideDialogCamera.bind(this)
         this.snapPicture = this.snapPicture.bind(this)
         this.choosePicture = this.choosePicture.bind(this)
+        this.snapLinkPicture = this.snapLinkPicture.bind(this)
+        this.chooseLinkPicture = this.chooseLinkPicture.bind(this)
         this.setMessage = this.setMessage.bind(this)
         this.removePicLink = this.removePicLink.bind(this)
         this.addLink = this.addLink.bind(this)
         this.addPic = this.addPic.bind(this)
         this.changeLinkPreviewText = this.changeLinkPreviewText.bind(this)
+        this.changeLinkPicture = this.changeLinkPicture.bind(this)
+        this.openDateTime = this.openDateTime.bind(this)
         this.state = {
             dialogCameraShown: false,
-            isUploading: false,
-            picturePreview: '',
-            postData: {
-                type: 'text',
-                message: '',
-                picture: '',
-                link: ''
-            }
+            uploadMode: 'picture'
         }
     }
     renderToolbar() {
@@ -105,7 +105,14 @@ class PostCreator extends Component {
                 })
             })
         }).catch((error) => {
-
+            post = this.props.post
+            postActions.postDataChanged({
+                isUploading: false,
+                postData: {
+                    ...post.postData,
+                    ...{ type: 'text' }
+                }
+            })
         })
 
     }
@@ -134,7 +141,77 @@ class PostCreator extends Component {
                 })
             })
         }).catch((error) => {
+            post = this.props.post
+            postActions.postDataChanged({
+                isUploading: false,
+                postData: {
+                    ...post.postData,
+                    ...{ type: 'text' }
+                }
+            })
+        })
 
+    }
+
+    snapLinkPicture() {
+        let {postActions, post} = this.props
+        helpers.snapPicture().then((imageData) => {
+
+            postActions.postDataChanged({
+                isUploading: true,
+                linkPicturePreview: imageData
+            })
+            postActions.uploadFile(imageData).then((response) => {
+                post = this.props.post
+                postActions.postDataChanged({
+                    isUploading: false,
+                    postData: {
+                        ...post.postData,
+                        ...{ linkpicture: response.url }
+                    }
+                })
+            })
+        }).catch((error) => {
+            post = this.props.post
+            postActions.postDataChanged({
+                isUploading: false,
+                postData: {
+                    ...post.postData,
+                    ...{ type: 'text' }
+                }
+            })
+        })
+
+    }
+    chooseLinkPicture() {
+        let {postActions, post} = this.props
+        helpers.choosePicture().then((imageData) => {
+
+            const d = new Date()
+            let timestamp = d.getTime()
+            postActions.postDataChanged({
+                isUploading: true,
+                linkPicturePreview: `${imageData}?v=${timestamp}`
+            })
+            postActions.uploadFile(imageData).then((response) => {
+                post = this.props.post
+                postActions.postDataChanged({
+                    isUploading: false,
+                    postData: {
+                        ...post.postData,
+                        ...{ linkpicture: response.url }
+                    }
+                })
+            })
+        }).catch((error) => {
+            post = this.props.post
+            postActions.postDataChanged({
+                isUploading: false,
+                postData: {
+                    ...post.postData,
+                    ...{ type: 'text' }
+                }
+            })
         })
 
     }
@@ -168,7 +245,7 @@ class PostCreator extends Component {
 
     addPic(e) {
         const {postData} = this.props.post
-
+        this.setState({ uploadMode: 'picture' })
         if (postData.type == 'link' || postData.type == 'customlink') {
 
             notification.confirm('Are you sure want to replace the link attachment with a media?').then((c) => {
@@ -232,6 +309,15 @@ class PostCreator extends Component {
             }
         })
     }
+
+    changeLinkPicture(e) {
+        this.setState({
+            uploadMode: 'linkpicture'
+        })
+
+        this.hideDialogCamera()
+
+    }
     openSocialAccountSelector(e) {
         const {navigator} = this.props
 
@@ -247,6 +333,12 @@ class PostCreator extends Component {
             return false
         }
 
+    }
+
+    openDateTime(e) {
+        const {navigator} = this.props
+
+        navigator.pushPage({ component: DateTimePicker, key: 'DATE_TIME_PICKER' })
     }
     render() {
         const {navigator, post, socialaccount} = this.props
@@ -306,8 +398,8 @@ class PostCreator extends Component {
                                     <a href="#" className='post-box__close' onClick={this.removePicLink}><Icon icon='fa-times' /></a>
                                     <div className='post-box__link'>
                                         <div className='post-box__link-wrap'>
-                                            <img className='post-box__link-picture' src={postData.linkpicture} alt='' />
-                                            <div className='post-box__hover'>
+                                            <img className='post-box__link-picture' src={post.linkPicturePreview} alt='' />
+                                            <div className='post-box__hover' onClick={this.changeLinkPicture}>
                                                 <a className='post-box__hover-link' href="#"><Icon icon='fa-camera' className='post-box__hover-icon' /></a>
                                             </div>
                                         </div>
@@ -327,7 +419,7 @@ class PostCreator extends Component {
                         <div className='post-creator__footer'>
                             <a href="#" className='post-creator__link' onClick={this.addPic}><Icon icon='fa-camera' /></a>
                             <a href="#" className='post-creator__link' onClick={this.addLink}><Icon icon='fa-link' /></a>
-                            <a href="#" className='post-creator__link' onClick={this.addLink}><Icon icon='fa-calendar' /></a>
+                            <a href="#" className='post-creator__link' onClick={this.openDateTime}><Icon icon='fa-calendar' /></a>
                             <span className='pull-right'>
                                 <a className='post-creator__link' href="#">Schedule</a>
                                 <a className='post-creator__link' href="#">Post Now</a>
@@ -348,9 +440,15 @@ class PostCreator extends Component {
                                     data-filter={data}
                                     onClick={(e) => {
                                         if (data == 'camera') {
-                                            this.snapPicture()
+                                            if (this.state.uploadMode == 'picture')
+                                                this.snapPicture()
+                                            else
+                                                this.snapLinkPicture()
                                         } else {
-                                            this.choosePicture()
+                                            if (this.state.uploadMode == 'picture')
+                                                this.choosePicture()
+                                            else
+                                                this.chooseLinkPicture()
                                         }
                                         this.hideDialogCamera()
                                         //changePostFilter(e.currentTarget.dataset.filter)
