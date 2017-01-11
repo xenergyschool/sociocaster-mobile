@@ -92,11 +92,12 @@
 
 .post-box__link-caption
     color: $color15
+    padding-bottom: 15px
+    border-bottom: solid 1px $color5
 
 .post-box__link-description
-    color: $color15
-    border-bottom: solid 1px $color5
-    padding-bottom: 15px
+    color: $color13
+    
 
 .post-box__link
     color: $color1
@@ -332,3 +333,20 @@
     .account-list__icon
         background-color: $ig-color
         color: $color9
+
+.post-box__in-creator
+    position: relative
+    margin-bottom: 60px
+    padding: 15px
+    .post-box__link-caption
+        border-bottom: none
+        padding-bottom: 0
+    .post-box__link-name, .post-box__link-caption, .post-box__link-description
+        margin-bottom: 5px
+
+.post-box__close
+    position: absolute
+    top:3px
+    right: 3px
+    font-size: 12px
+    color: $color3

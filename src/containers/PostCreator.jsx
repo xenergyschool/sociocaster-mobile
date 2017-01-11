@@ -222,6 +222,18 @@ class PostCreator extends Component {
 
                             <Textarea className='post-creator__textarea' value={postData.message} onChange={this.setMessage} placeholder='What would you like to share?'></Textarea>
 
+                             <div className='post-box post-box__in-creator'>
+                                <a href="#" className='post-box__close'><Icon icon='fa-times' /></a>
+                                <a href='#' className='post-box__link'>
+                                    <div className='post-box__link-wrap'>
+                                        <img className='post-box__link-picture' src='http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg' alt='' />
+                                    </div>
+                                    <span className='post-box__link-name'>Fesbuk</span>
+                                    <span className='post-box__link-description'> Search the world's information, including webpages, images, videos and more. Google has many special features to help you find exactly what you're looking for.</span>
+                                    <span className='post-box__link-caption'> facebook.com</span>
+                                </a>
+                            </div>
+
                             {postData.type == 'picture' &&
                                 <div className='post-creator__image-preview-wrap'>
                                     <img className='post-creator__image-preview' src={this.state.picturePreview} />
