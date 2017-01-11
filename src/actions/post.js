@@ -6,7 +6,7 @@ import { Promise } from 'es6-promise'
 export const POST_LOADED = 'POST_LOADED';
 export const POST_MORE_LOADED = 'POST_MORE_LOADED'
 export const POST_DELETED = 'POST_DELETED'
-
+export const POST_DATA_CHANGED = 'POST_DATA_CHANGED'
 let CancelToken = axios.CancelToken;
 let source = CancelToken.source();
 
@@ -171,5 +171,20 @@ export const uploadFile = (fileURL) => {
 
             return Promise.reject(error)
         })
+    }
+}
+
+export const updatePostData = () => {
+    return (dispatch, getState) => {
+
+    }
+}
+
+export const postDataChanged = (data) => {
+    return {
+        type: POST_LOADED,
+        data: {
+            ...data
+        }
     }
 }

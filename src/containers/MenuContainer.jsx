@@ -4,6 +4,7 @@ import { Page, Toolbar, ToolbarButton, Icon, Navigator, Tabbar, Tab } from 'reac
 
 import * as authActions from '../actions/auth'
 import * as socialaccountActions from '../actions/socialaccount'
+import * as postActions from '../actions/post'
 import { bindActionCreators } from 'redux';
 import Menu from '../components/Menu'
 import PostPage from './PostPage'
@@ -72,8 +73,15 @@ class MenuContainer extends Component {
     }
     openPostCreator(e) {
         console.log(e)
-        const {navigator} = this.props
-        navigator.pushPage({ component: PostCreator, key: 'POST_CREATOR' })
+        const {navigator, postActions} = this.props
+        navigator.pushPage({ component: PostCreator, key: 'POST_CREATOR' }, {
+            onPrePush: () => {
+                postActions.postDataChanged({
+                    type: 'text',
+                    message: ''
+                })
+            }
+        })
     }
     renderTabs() {
 
@@ -140,7 +148,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     authActions: bindActionCreators(authActions, dispatch),
-    socialaccountActions: bindActionCreators(socialaccountActions, dispatch)
+    socialaccountActions: bindActionCreators(socialaccountActions, dispatch),
+    postActions: bindActionCreators(postActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuContainer);

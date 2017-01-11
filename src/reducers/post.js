@@ -1,7 +1,8 @@
 import {
     POST_LOADED,
     POST_MORE_LOADED,
-    POST_DELETED
+    POST_DELETED,
+    POST_DATA_CHANGED
 } from '../actions/post'
 
 const defaultState = {
@@ -10,14 +11,14 @@ const defaultState = {
     isFetching: false,
     isFetchingMore: false,
     activeIndex: -1,
-    activeItem: {
+    postData: {
         type: 'text',
         message: ''
     }
 };
 
 const post = (state = defaultState, action) => {
-    let data, items, _links, _meta
+    let data, items, _links, _meta, postData
     switch (action.type) {
         case POST_LOADED:
             return {
@@ -56,6 +57,17 @@ const post = (state = defaultState, action) => {
             return {
                 ...state,
                 ...{ data: data }
+            }
+        case POST_DATA_CHANGED:
+            postData = {
+                ...state.postData,
+                ...action.data
+            }
+            return {
+                ...state,
+                ...{
+                    postData: postData
+                }
             }
         default: return state
     }

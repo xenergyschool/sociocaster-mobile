@@ -144,7 +144,7 @@ class PostCreator extends Component {
                 this.setState({
                     isUploading: false,
                     postData: {
-                        ...this.state.postData,
+                        ...this.props.post.postData,
                         ...{ picture: response.url }
                     }
                 })
@@ -237,7 +237,7 @@ class PostCreator extends Component {
     }
     render() {
         const {navigator, post, socialaccount} = this.props
-        const {postData} = this.state
+        const {postData} = post
         const onlySelected = socialaccount.data.items.filter(this.onlySelected)
         const dataDialogCamera = ['camera', 'album']
 
@@ -273,15 +273,15 @@ class PostCreator extends Component {
 
                             <Textarea className='post-creator__textarea' value={postData.message} onChange={this.setMessage} placeholder='What would you like to share?'></Textarea>
 
-                             <div className='post-box post-box__in-creator'>
+                            <div className='post-box post-box__in-creator'>
                                 <a href="#" className='post-box__close'><Icon icon='fa-times' /></a>
                                 <a href='#' className='post-box__link'>
                                     <div className='post-box__link-wrap'>
                                         <img className='post-box__link-picture' src='http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg' alt='' />
                                     </div>
                                     <input className='post-box__link-name' value='Fesbuk' />
-                                    <textarea className='post-box__link-description' >Search the worlds information, including webpages, images, videos and more. Google has many special features to help you find exactly what youre looking for.</textarea> 
-                                    <input className='post-box__link-caption' value='facebook.com' /> 
+                                    <textarea className='post-box__link-description' >Search the worlds information, including webpages, images, videos and more. Google has many special features to help you find exactly what youre looking for.</textarea>
+                                    <input className='post-box__link-caption' value='facebook.com' />
                                 </a>
                             </div>
 
