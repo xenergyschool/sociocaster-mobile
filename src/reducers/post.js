@@ -13,7 +13,14 @@ const defaultState = {
     activeIndex: -1,
     postData: {
         type: 'text',
-        message: ''
+        message: '',
+        picture: '',
+        link: '',
+        linkname: '',
+        linkdescription: '',
+        linkcaption: '',
+        linkpicture: '',
+
     }
 };
 

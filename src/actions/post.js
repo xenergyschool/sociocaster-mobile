@@ -188,3 +188,47 @@ export const postDataChanged = (data) => {
         }
     }
 }
+
+export const getLinkPreview = (url) => {
+    return (dispatch, getState) => {
+        let state = getState()
+        dispatch({
+            type: POST_LOADED,
+            data: {
+                isUploading: true,
+                postData: {
+                    ...state.post.postData,
+                    ...{
+                        link: url,
+                        type: 'customlink'
+                    }
+                }
+            }
+        })
+
+        return api.get(`/posts/linkpreview?url=${url}`).then((response) => {
+            state = getState()
+            dispatch({
+                type: POST_LOADED,
+                data: {
+                    isUploading: false,
+                    postData: {
+                        ...state.post.postData,
+                        ...{
+                            linkname: response.data.title,
+                            linkdescription: response.data.description,
+                            linkpicture: response.data.image,
+                            linkcaption: response.data.canonicalUrl
+                        }
+                    }
+                }
+            })
+
+            return Promise.resolve(response)
+
+        }).catch((error) => {
+
+            return Promise.reject(error)
+        })
+    }
+}

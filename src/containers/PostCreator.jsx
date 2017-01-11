@@ -17,7 +17,6 @@ class PostCreator extends Component {
     constructor(props) {
         super(props)
         this.renderToolbar = this.renderToolbar.bind(this)
-        this.loadMorePosts = this.loadMorePosts.bind(this)
         this.openSocialAccountSelector = this.openSocialAccountSelector.bind(this)
         this.onlySelected = this.onlySelected.bind(this)
         this.popPage = this.popPage.bind(this)
@@ -26,9 +25,10 @@ class PostCreator extends Component {
         this.snapPicture = this.snapPicture.bind(this)
         this.choosePicture = this.choosePicture.bind(this)
         this.setMessage = this.setMessage.bind(this)
-        this.removePic = this.removePic.bind(this)
+        this.removePicLink = this.removePicLink.bind(this)
         this.addLink = this.addLink.bind(this)
         this.addPic = this.addPic.bind(this)
+        this.changeLinkPreviewText = this.changeLinkPreviewText.bind(this)
         this.state = {
             dialogCameraShown: false,
             isUploading: false,
@@ -79,43 +79,26 @@ class PostCreator extends Component {
     }
 
 
-    componentWillMount() {
 
 
-        const {postActions, socialaccount} = this.props
-        if (socialaccount.activeIndex > -1) {
-            console.log('righ here')
-            postActions.get()
-        }
 
-
-    }
-
-    loadMorePosts() {
-        const {post, postActions} = this.props
-        console.log('here')
-        if (!post.isFetchingMore && typeof post.data._links.next !== 'undefined') {
-            console.log('inside')
-            postActions.getMore()
-        }
-    }
     snapPicture() {
-        const {postActions} = this.props
+        const {postActions, post} = this.props
         helpers.snapPicture().then((imageData) => {
             console.log(imageData)
-            this.setState({
+            postActions.postDataChanged({
                 isUploading: true,
                 picturePreview: imageData,
                 postData: {
-                    ...this.state.postData,
+                    ...post.postData,
                     ...{ type: 'picture' }
                 }
             })
             postActions.uploadFile(imageData).then((response) => {
-                this.setState({
+                postActions.postDataChanged({
                     isUploading: false,
                     postData: {
-                        ...this.state.postData,
+                        ...post.postData,
                         ...{ picture: response.url }
                     }
                 })
@@ -126,25 +109,25 @@ class PostCreator extends Component {
 
     }
     choosePicture() {
-        const {postActions} = this.props
+        const {postActions, post} = this.props
         helpers.choosePicture().then((imageData) => {
             console.log(imageData)
             const d = new Date()
             let timestamp = d.getTime()
-            this.setState({
+            postActions.postDataChanged({
                 isUploading: true,
                 picturePreview: `${imageData}?v=${timestamp}`,
                 postData: {
-                    ...this.state.postData,
+                    ...post.postData,
                     ...{ type: 'picture' }
                 }
             })
             postActions.uploadFile(imageData).then((response) => {
 
-                this.setState({
+                postActions.postDataChanged({
                     isUploading: false,
                     postData: {
-                        ...this.props.post.postData,
+                        ...post.postData,
                         ...{ picture: response.url }
                     }
                 })
@@ -155,25 +138,35 @@ class PostCreator extends Component {
 
     }
     setMessage(e) {
-        console.log(e.target.value)
-        this.setState({
+
+        const {postActions, post} = this.props
+        postActions.postDataChanged({
             postData: {
-                ...this.state.postData,
+                ...post.postData,
                 ...{ message: e.target.value }
             }
         })
     }
-    removePic(e) {
-        this.setState({
+    removePicLink(e) {
+        const {postActions, post} = this.props
+        postActions.postDataChanged({
             postData: {
                 ...this.state.postData,
-                ...{ type: 'text', picture: '' }
+                ...{
+                    type: 'text',
+                    picture: '',
+                    link: '',
+                    linkname: '',
+                    linkdescription: '',
+                    linkcaption: '',
+                    linkpicture: ''
+                }
             }
         })
     }
 
     addPic(e) {
-        const {postData} = this.state
+        const {postData} = this.props.post
 
         if (postData.type == 'link' || postData.type == 'customlink') {
 
@@ -189,7 +182,8 @@ class PostCreator extends Component {
     }
 
     addLink(e) {
-        const {postData} = this.state
+        const {postActions, post} = this.props
+        const {postData} = post
         notification.prompt('Add a link attachment', {
             title: '',
             placeholder: 'https://sociocaster.com',
@@ -198,24 +192,42 @@ class PostCreator extends Component {
         }).then((data) => {
             console.log(data)
             if (data && (data.indexOf('http://') > -1 || data.indexOf('https://') > -1)) {
+                let shouldAddLink = false
                 if (postData.type == 'picture') {
                     notification.confirm('Are you sure want to replace the media with this link attachment?').then((c) => {
                         if (c > 0) {
-
+                            shouldAddLink = true
                         }
                     })
                 } else if (postData.type == 'link' || postData.type == 'customlink') {
                     notification.confirm('Are you sure want to replace your current link attachment with this one?').then((c) => {
                         if (c > 0) {
-
+                            shouldAddLink = true
                         }
                     })
                 } else {
+                    shouldAddLink = true
 
+                }
 
+                if (shouldAddLink) {
+                    postActions.getLinkPreview(data)
                 }
             } else {
                 notification.alert('Please enter a valid url', { title: 'Ups!' })
+            }
+        })
+    }
+
+    changeLinkPreviewText(e) {
+        const {postActions, post} = this.props
+        let data = {}
+        data[e.target.id] = e.target.value
+
+        postActions.postDataChanged({
+            postData: {
+                ...post.postData,
+                ...data
             }
         })
     }
@@ -273,36 +285,43 @@ class PostCreator extends Component {
 
                             <Textarea className='post-creator__textarea' value={postData.message} onChange={this.setMessage} placeholder='What would you like to share?'></Textarea>
 
-                            <div className='post-box post-box__in-creator'>
-                                <a href="#" className='post-box__close'><Icon icon='fa-times' /></a>
-                                <a href='#' className='post-box__link'>
-                                    <div className='post-box__link-wrap'>
-                                        <img className='post-box__link-picture' src='http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg' alt='' />
-                                        <div className='post-box__hover'>
-                                            <a className='post-box__hover-link' href="#"><Icon icon='fa-camera' className='post-box__hover-icon' /></a>
-                                        </div>
-                                    </div>
-                                    <input className='post-box__link-name' value='Fesbuk' />
-                                    <textarea className='post-box__link-description' >Search the worlds information, including webpages, images, videos and more. Google has many special features to help you find exactly what youre looking for.</textarea>
-                                    <input className='post-box__link-caption' value='facebook.com' />
-                                </a>
-                            </div>
 
                             {postData.type == 'picture' &&
                                 <div className='post-creator__image-preview-wrap'>
-                                    <img className='post-creator__image-preview' src={this.state.picturePreview} />
-                                    <a href="#" onClick={this.removePic} className='remove-pic'>
+                                    <img className='post-creator__image-preview' src={post.picturePreview} />
+                                    <a href="#" onClick={this.removePicLink} className='remove-pic'>
                                         <Icon className='remove-pic__icon' icon='fa-times-circle' />
                                     </a>
 
-                                    {this.state.isUploading &&
+                                    {post.isUploading &&
                                         <div className='loading-wrap'>
                                             <ProgressCircular className='loading-wrap__icon' indeterminate />
                                         </div>
                                     }
                                 </div>
                             }
-                            {postData.type == 'customlink' && <div className='post-creator__link-preview'> </div>}
+                            {postData.type == 'customlink' &&
+                                <div className='post-box post-box__in-creator'>
+                                    <a href="#" className='post-box__close' onClick={this.removePicLink}><Icon icon='fa-times' /></a>
+                                    <div className='post-box__link'>
+                                        <div className='post-box__link-wrap'>
+                                            <img className='post-box__link-picture' src={postData.linkpicture} alt='' />
+                                            <div className='post-box__hover'>
+                                                <a className='post-box__hover-link' href="#"><Icon icon='fa-camera' className='post-box__hover-icon' /></a>
+                                            </div>
+                                        </div>
+                                        <input className='post-box__link-name' id='linkname' onChange={this.changeLinkPreviewText} value={postData.linkname} />
+                                        <textarea className='post-box__link-description' id='linkdescription' onChange={this.changeLinkPreviewText} value={postData.linkdescription} ></textarea>
+                                        <input className='post-box__link-caption' id='linkcaption' onChange={this.changeLinkPreviewText} value={postData.linkcaption} />
+                                    </div>
+
+                                    {post.isUploading &&
+                                        <div className='loading-wrap'>
+                                            <ProgressCircular className='loading-wrap__icon' indeterminate />
+                                        </div>
+                                    }
+                                </div>
+                            }
                         </div>
                         <div className='post-creator__footer'>
                             <a href="#" className='post-creator__link' onClick={this.addPic}><Icon icon='fa-camera' /></a>
