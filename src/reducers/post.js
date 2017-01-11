@@ -4,7 +4,9 @@ import {
     POST_DELETED,
     POST_DATA_CHANGED
 } from '../actions/post'
+import moment from 'moment'
 
+const m = moment()
 const defaultState = {
     filter: 'scheduled',
     data: {},
@@ -20,6 +22,7 @@ const defaultState = {
         linkdescription: '',
         linkcaption: '',
         linkpicture: '',
+        datetime: m.format('YYYY-MM-DD HH:mm:ss')
 
     }
 };
