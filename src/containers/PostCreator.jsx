@@ -326,6 +326,7 @@ class PostCreator extends Component {
                         <div className='post-creator__footer'>
                             <a href="#" className='post-creator__link' onClick={this.addPic}><Icon icon='fa-camera' /></a>
                             <a href="#" className='post-creator__link' onClick={this.addLink}><Icon icon='fa-link' /></a>
+                            <a href="#" className='post-creator__link' onClick={this.addLink}><Icon icon='fa-calendar' /></a>
                             <span className='pull-right'>
                                 <a className='post-creator__link' href="#">Schedule</a>
                                 <a className='post-creator__link' href="#">Post Now</a>
