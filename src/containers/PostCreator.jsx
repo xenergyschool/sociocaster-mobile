@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { notification } from 'onsenui'
 import { Page, Toolbar, ToolbarButton, Icon, Navigator, Dialog, List, ListItem, ProgressCircular } from 'react-onsenui'
 import Textarea from 'react-textarea-autosize'
 import * as authActions from '../actions/auth'
@@ -26,6 +27,8 @@ class PostCreator extends Component {
         this.choosePicture = this.choosePicture.bind(this)
         this.setMessage = this.setMessage.bind(this)
         this.removePic = this.removePic.bind(this)
+        this.addLink = this.addLink.bind(this)
+        this.addPic = this.addPic.bind(this)
         this.state = {
             dialogCameraShown: false,
             isUploading: false,
@@ -137,8 +140,7 @@ class PostCreator extends Component {
                 }
             })
             postActions.uploadFile(imageData).then((response) => {
-                console.log('sampai sini gak sih dua')
-                console.log(response.url)
+
                 this.setState({
                     isUploading: false,
                     postData: {
@@ -166,6 +168,54 @@ class PostCreator extends Component {
             postData: {
                 ...this.state.postData,
                 ...{ type: 'text', picture: '' }
+            }
+        })
+    }
+
+    addPic(e) {
+        const {postData} = this.state
+
+        if (postData.type == 'link' || postData.type == 'customlink') {
+
+            notification.confirm('Are you sure want to replace the link attachment with a media?').then((c) => {
+                if (c > 0) {
+                    this.hideDialogCamera()
+                }
+            })
+        } else {
+
+            this.hideDialogCamera()
+        }
+    }
+
+    addLink(e) {
+        const {postData} = this.state
+        notification.prompt('Add a link attachment', {
+            title: '',
+            placeholder: 'https://sociocaster.com',
+            inputType: 'url',
+            defaultValue: ''
+        }).then((data) => {
+            console.log(data)
+            if (data && (data.indexOf('http://') > -1 || data.indexOf('https://') > -1)) {
+                if (postData.type == 'picture') {
+                    notification.confirm('Are you sure want to replace the media with this link attachment?').then((c) => {
+                        if (c > 0) {
+
+                        }
+                    })
+                } else if (postData.type == 'link' || postData.type == 'customlink') {
+                    notification.confirm('Are you sure want to replace your current link attachment with this one?').then((c) => {
+                        if (c > 0) {
+
+                        }
+                    })
+                } else {
+
+
+                }
+            } else {
+                notification.alert('Please enter a valid url', { title: 'Ups!' })
             }
         })
     }
@@ -240,8 +290,8 @@ class PostCreator extends Component {
                             {postData.type == 'customlink' && <div className='post-creator__link-preview'> </div>}
                         </div>
                         <div className='post-creator__footer'>
-                            <a href="#" className='post-creator__link' onClick={this.hideDialogCamera}><Icon icon='fa-camera' /></a>
-                            <a href="#" className='post-creator__link'><Icon icon='fa-link' /></a>
+                            <a href="#" className='post-creator__link' onClick={this.addPic}><Icon icon='fa-camera' /></a>
+                            <a href="#" className='post-creator__link' onClick={this.addLink}><Icon icon='fa-link' /></a>
                             <span className='pull-right'>
                                 <a className='post-creator__link' href="#">Schedule</a>
                                 <a className='post-creator__link' href="#">Post Now</a>

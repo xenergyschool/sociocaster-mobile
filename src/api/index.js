@@ -89,20 +89,25 @@ export const upload = (uri, fileURL, options) => {
         ft.upload(
             fileURL,
             uri,
-            function (r) {
-                console.log(JSON.stringify(r.response))
-                if (r.response.success) {
-                    resolve(r.response)
+            (r) => {
+                //console.log('win', JSON.stringify(r))
+                const response = JSON.parse(r.response)
+                if (response.success) {
+                    resolve(response)
                 } else {
-                    reject(r.response)
+                    reject(response)
                 }
             },
-            function (error) {
-                console.log(error.code)
-                reject(error)
+            (r) => {
+                // console.log('fail', JSON.stringify(r))
+                const response = JSON.parse(r.response)
+                if (response.success) {
+                    resolve(response)
+                } else {
+                    reject(response)
+                }
             },
-            defaultOptions,
-            true
+            defaultOptions
         )
 
 
