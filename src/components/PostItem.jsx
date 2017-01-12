@@ -46,18 +46,19 @@ export default class PostItem extends Component {
                 )
                 break
             case 'album':
+                let message = JSON.parse(postItem.message)
+                let pictures = JSON.parse(postItem.picture)
                 itemContent = (
                     <div className='post-box post-box__album' data-index={currentIndex} onClick={openActions}>
                         <div className='album-wrap'>
-                            <img className='album-wrap__image' src='https://s3-us-west-1.amazonaws.com/powr/defaults/image-slider2.jpg' alt="" />
+                            <img className='album-wrap__image' src={pictures[0].thumbnail} alt="" />
                             <div className='album-wrap__desc'>
                                 <p className='album-wrap__type'>Album</p>
                                 <span className='album-wrap__total'>+100</span>
                             </div>
                         </div>
-                        <p className='post-box__msg'>Mereka memang terlalu ke arab-araban, bicaranya aja antum, akhi, ukhti!
-Beda dengan kita yang sangat cinta Indonesia walau mengenakan pakaian berbahan jeans, bicara tentang audience, insight, copy writing, target market, save, download, copy, paste, btw, otw dan lain-lainnya.
-Bahkan walau kadang manggil koko dan cici pada sebagian dari saudara kami, itu tidak mempengaruhi kecintaan kami terhadap tanah air Indonesia.</p>
+                        <h3> {message.title}</h3>
+                        <p className='post-box__msg'>{message.description}</p>
                         <span className='post-box__time'>{time}</span>
                     </div>
                 )

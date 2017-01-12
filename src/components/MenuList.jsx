@@ -47,7 +47,7 @@ export default class MenuList extends Component {
     renderSocialAccounts(data, index) {
         const {switchSocialaccount} = this.props
         return (
-            <ListItem className='left-menu__list-item' key={data.id} data-index={index} onClick={switchSocialaccount} tappable>
+            <ListItem className='left-menu__list-item' key={data.id} data-id={data.id} onClick={switchSocialaccount} tappable>
                 <div className='left'>
                     <img src={data.photoUrl} onError={helpers.avatarError} className='list__item__thumbnail' />
                 </div>

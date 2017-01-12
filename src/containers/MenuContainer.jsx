@@ -32,8 +32,9 @@ class MenuContainer extends Component {
     }
     switchSocialaccount(e) {
         const {socialaccountActions, socialaccount} = this.props
-        const nextIndex = parseInt(e.currentTarget.dataset.index)
-        if (socialaccount.activeIndex !== nextIndex) {
+        const nextId = parseInt(e.currentTarget.dataset.id)
+        let nextIndex = socialaccount.data.items.findIndex((item) => (item.id == nextId))
+        if (socialaccount.data.items[socialaccount.activeIndex].id !== nextId) {
             socialaccountActions.switchSocialaccount(nextIndex)
             this.setState({ isMenuOpen: false })
         }
