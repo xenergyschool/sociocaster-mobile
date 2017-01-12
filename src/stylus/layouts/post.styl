@@ -384,3 +384,22 @@
     height: 34px
     display: block
     @extend .absolute-center
+
+.post-box__album
+    .album-wrap
+        width:100%
+        height: 150px
+        display: block
+        overflow: hidden
+        position: relative
+    .album-wrap__image
+        width:100%
+        height: auto
+        @extend .absolute-center
+    .album-wrap__desc
+        position: absolute
+        top: 0
+        right: -2px
+        background-color: rgba($color9,.8)
+        width:40%
+        height: 150px

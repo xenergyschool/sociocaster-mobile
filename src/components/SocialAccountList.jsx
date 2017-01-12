@@ -14,7 +14,7 @@ export default class SocialAccountList extends Component {
         const filteredSocialAccounts = socialaccount.data.items.filter(filterSocialAccounts)
         const renderedSocialAccount = filteredSocialAccounts[index]
         return (
-            <ListItem key={renderedSocialAccount.id} data-index={index} onClick={handleChange} tappable>
+            <ListItem key={renderedSocialAccount.id} data-index={index} onClick={handleChange} className={socialaccount.selectedSocialaccounts.indexOf(renderedSocialAccount.id) > -1 ? 'list-active' : ''} tappable>
                 <div className='left'>
                     <img src={renderedSocialAccount.photoUrl} onError={helpers.avatarError} className='list__item__thumbnail' />
                 </div>
@@ -23,7 +23,7 @@ export default class SocialAccountList extends Component {
                     <span className='user__provider'>{`${renderedSocialAccount.provider} ${renderedSocialAccount.type}`}</span>
                 </div>
                 {socialaccount.selectedSocialaccounts.indexOf(renderedSocialAccount.id) > -1 && <div className='right'>
-                    <Icon icon='fa-check' />
+                    <Icon className='checked' icon='fa-check' />
                 </div>}
 
             </ListItem>

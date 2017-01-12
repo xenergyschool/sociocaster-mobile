@@ -12,7 +12,7 @@ export default class PostItem extends Component {
         switch (postItem.type) {
             case 'picture':
                 itemContent = (
-                    <div className='post-box' data-index={currentIndex} onClick={openActions}>
+                    <div className='post-box post-box__picture' data-index={currentIndex} onClick={openActions}>
                         <p className='post-box__msg'>{postItem.message}</p>
                         <img className='post-box__picture' src={postItem.picture} alt="" />
 
@@ -22,7 +22,7 @@ export default class PostItem extends Component {
                 break
             case 'link':
                 itemContent = (
-                    <div className='post-box' data-index={currentIndex} onClick={openActions}>
+                    <div className='post-box post-box__links' data-index={currentIndex} onClick={openActions}>
                         <p className='post-box__link'> {postItem.link}</p>
                         <p className='post-box__msg'> {postItem.message}</p>
                         <span className='post-box__time'>{time}</span>
@@ -31,7 +31,7 @@ export default class PostItem extends Component {
                 break
             case 'customlink':
                 itemContent = (
-                    <div className='post-box' data-index={currentIndex} onClick={openActions}>
+                    <div className='post-box post-box__customlink' data-index={currentIndex} onClick={openActions}>
                         <p className='post-box__msg'> {postItem.message}</p>
                         <a href={postItem.link} className='post-box__link'>
                             <div className='post-box__link-wrap'>
@@ -47,8 +47,14 @@ export default class PostItem extends Component {
                 break
             case 'album':
                 itemContent = (
-                    <div className='post-box' data-index={currentIndex} onClick={openActions}>
-                        <p className='post-box__picture'> {postItem.picture}</p>
+                    <div className='post-box post-box__album' data-index={currentIndex} onClick={openActions}>
+                        <div className='album-wrap'>
+                            <img className='album-wrap__image' src='https://s3-us-west-1.amazonaws.com/powr/defaults/image-slider2.jpg' alt="" />
+                            <div className='album-wrap__desc'>
+                                <p>Type Album</p>
+                                <span>+100 images</span>
+                            </div>
+                        </div>
                         <p className='post-box__msg'> {postItem.message}</p>
                         <span className='post-box__time'>{time}</span>
                     </div>
@@ -57,7 +63,7 @@ export default class PostItem extends Component {
             case 'text':
             default:
                 itemContent = (
-                    <div className='post-box' data-index={currentIndex} onClick={openActions}>
+                    <div className='post-box post-box__text' data-index={currentIndex} onClick={openActions}>
                         <p className='post-box__msg'> {postItem.message}</p>
                         <span className='post-box__time'>{time}</span>
                     </div>
