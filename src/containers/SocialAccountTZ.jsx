@@ -78,7 +78,7 @@ class SocialAccountTZ extends Component {
                 <div className='left'>
 
                     <ToolbarButton onClick={this.popPage}>
-                        <Icon icon='fa-arrow-left'></Icon>
+                        <Icon icon='fa-chevron-left'></Icon>
                     </ToolbarButton>
                 </div>
                 <div className='center'>Set Time Zone</div>

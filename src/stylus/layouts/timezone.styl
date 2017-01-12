@@ -1,4 +1,6 @@
 .page-timezone
+    .page-wrapper
+        background: transparent
     .form-inputs
         width: 100%
         margin: 0 auto
@@ -7,6 +9,15 @@
     .sc-inputs
         width: 84%
     .list__item--material
+        border-bottom: solid 1px $color5 !important
+        background-image: none !important
         padding:0
+        background-color: transparent
+        opacity: .6
+        &.list-active
+            opacity: 1
     .list__item--material__center
         padding-left:10px
+    
+    .checked
+        color: $color1
