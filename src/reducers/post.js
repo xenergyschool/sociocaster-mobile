@@ -12,7 +12,10 @@ const defaultState = {
     data: {},
     isFetching: false,
     isFetchingMore: false,
+    isSomethingChange: false,
+    isScheduling: false,
     activeIndex: -1,
+    creatorMode: 'new',
     postData: {
         type: 'text',
         message: '',

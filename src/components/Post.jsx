@@ -10,6 +10,7 @@ import * as helpers from '../helpers'
 let currentDate = '1970-01-01'
 let itemHeights = []
 
+import PostCreator from '../containers/PostCreator'
 
 export default class Post extends Component {
     constructor(props) {
@@ -22,7 +23,7 @@ export default class Post extends Component {
         this.handleMenuPullChange = this.handleMenuPullChange.bind(this)
         this.handleMenuPullLoad = this.handleMenuPullLoad.bind(this)
         this.getMenuPullContent = this.getMenuPullContent.bind(this)
-
+        this.openPostCreator = this.openPostCreator.bind(this)
         this.state = {
             filter: 'scheduled',
             dialogShown: false,
@@ -65,7 +66,6 @@ export default class Post extends Component {
 
                     const timeString = m.format('HH:mm')
 
-                    console.log(dateString, renderDateRow)
 
 
                     if (renderDateRow) {
@@ -109,7 +109,7 @@ export default class Post extends Component {
     }
 
     handleScroll(e) {
-        console.log(e)
+
     }
     hideDialog() {
         this.setState({ dialogShown: !this.state.dialogShown })
@@ -138,6 +138,18 @@ export default class Post extends Component {
                 )
         }
     }
+    openPostCreator(e) {
+
+        const {navigator, postActions, post} = this.props
+        postActions.postDataChanged({
+            creatorMode: 'update',
+            isSomethingChange: false,
+            postData: {
+                ...post.data.items[post.activeIndex]
+            }
+        })
+        navigator.pushPage({ component: PostCreator, key: 'POST_CREATOR' })
+    }
     render() {
         const {renderToolbar, post, loadMorePosts, changePostFilter, postActions} = this.props
 
@@ -148,7 +160,10 @@ export default class Post extends Component {
             const items = this.renderItems()
 
             let dataFilter = ['scheduled', 'published', 'failed', 'queue']
-            let postItemActions = ['edit', 'delete']
+            let postItemActions = ['delete']
+            if (post.filter == 'scheduled')
+                postItemActions = ['edit', ...postItemActions]
+
             return (
                 <Page
                     className='post-page'
@@ -219,6 +234,9 @@ export default class Post extends Component {
                                                         postActions.remove().then((response) => {
                                                             this.setState({ modalShown: false, modalMessage: '' })
                                                         })
+                                                        break
+                                                    case 'edit':
+                                                        this.openPostCreator()
                                                         break
                                                 }
 

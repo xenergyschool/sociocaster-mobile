@@ -196,6 +196,7 @@ export const getLinkPreview = (url) => {
             type: POST_LOADED,
             data: {
                 isUploading: true,
+                isSomethingChange: true,
                 postData: {
                     ...state.post.postData,
                     ...{
@@ -242,6 +243,156 @@ export const getLinkPreview = (url) => {
                 }
             })
 
+            return Promise.reject(error)
+        })
+    }
+}
+
+export const schedule = (mode) => {
+
+    return (dispatch, getState) => {
+        let state = getState()
+        let params = {
+            ...state.post.postData,
+            ...{
+                mode: mode,
+                socialaccounts: JSON.stringify(state.socialaccount.selectedSocialaccounts)
+            }
+        }
+        let activeSocialaccount = state.socialaccount.data.items[state.socialaccount.activeIndex]
+        console.log(params)
+        dispatch({
+            type: POST_LOADED,
+            data: { isScheduling: true }
+        })
+
+        let url = `${SC_API}/posts`
+
+        return api.post(url, params).then((response) => {
+
+            dispatch({
+                type: POST_LOADED,
+                data: {
+                    isScheduling: false,
+                    isSomethingChange: false
+                }
+            })
+
+
+            let activeItem = response.data.find((item) => (item.socialaccount == activeSocialaccount.id))
+
+            if (activeItem) {
+                if ((state.post.filter == 'scheduled' && params.mode == 'schedule') || (state.post.filter == 'queue' && params.mode == 'now')) {
+
+                    let posts = [
+                        ...state.post.data.items,
+                        activeItem
+                    ]
+
+                    let sortedPosts = posts.sort((a, b) => (a.utc_datetime_int - b.utc_datetime_int))
+
+                    let data = {
+                        ...state.post.data,
+                        ...{
+                            items: sortedPosts
+                        }
+                    }
+                    dispatch({
+                        type: POST_LOADED,
+                        data: {
+                            data: data
+                        }
+                    })
+                }
+
+            }
+
+            return Promise.resolve(response)
+        }).catch((error) => {
+            dispatch({
+                type: POST_LOADED,
+                data: {
+                    isScheduling: false
+                }
+            })
+
+            if (error.data[0])
+                notification.alert(error.data[0].message, { title: 'Ups!' })
+            else
+                notification.alert(error.data.message, { title: 'Ups!' })
+
+            return Promise.reject(error)
+        })
+    }
+}
+
+export const update = () => {
+
+    return (dispatch, getState) => {
+        const state = getState()
+        let activePost = state.post.data.items[state.post.activeIndex]
+        dispatch({
+            type: POST_LOADED,
+            data: {
+                isScheduling: true
+            }
+        })
+
+        let data = state.post.postData
+
+        return api.patch(`/posts/${activePost.id}`, data).then((response) => {
+
+            dispatch({
+                type: POST_LOADED,
+                data: {
+                    isScheduling: false,
+                    isSomethingChange: false
+
+                }
+            })
+
+
+            if (state.post.filter == 'scheduled') {
+
+
+
+                let posts = state.post.data.items.map((item, index) => {
+                    if (activePost.id == item.id) {
+                        return {
+                            ...response.data
+                        }
+                    }
+                    return item
+                })
+
+                let sortedPosts = posts.sort((a, b) => (a.utc_datetime_int - b.utc_datetime_int))
+
+                let data = {
+                    ...state.post.data,
+                    ...{
+                        items: sortedPosts
+                    }
+                }
+                dispatch({
+                    type: POST_LOADED,
+                    data: {
+                        data: data
+                    }
+                })
+            }
+            return Promise.resolve(response)
+        }).catch((error) => {
+            if (error.data[0])
+                notification.alert(error.data[0].message, { title: 'Ups!' })
+            else
+                notification.alert(error.data.message, { title: 'Ups!' })
+            dispatch({
+                type: POST_LOADED,
+                data: {
+                    isScheduling: false,
+                    isSomethingChange: false
+                }
+            })
             return Promise.reject(error)
         })
     }

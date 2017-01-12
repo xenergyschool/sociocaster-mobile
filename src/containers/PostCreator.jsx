@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { notification } from 'onsenui'
-import { Page, Toolbar, ToolbarButton, Icon, Navigator, Dialog, List, ListItem, ProgressCircular } from 'react-onsenui'
+import { Page, Toolbar, ToolbarButton, Icon, Navigator, Dialog, List, ListItem, ProgressCircular, Modal } from 'react-onsenui'
 import Textarea from 'react-textarea-autosize'
 import * as authActions from '../actions/auth'
 import * as socialaccountActions from '../actions/socialaccount'
@@ -36,9 +36,12 @@ class PostCreator extends Component {
         this.changeLinkPreviewText = this.changeLinkPreviewText.bind(this)
         this.changeLinkPicture = this.changeLinkPicture.bind(this)
         this.openDateTime = this.openDateTime.bind(this)
+        this.sendPost = this.sendPost.bind(this)
         this.state = {
             dialogCameraShown: false,
-            uploadMode: 'picture'
+            uploadMode: 'picture',
+            modalShown: false,
+            modalMessage: ''
         }
     }
     renderToolbar() {
@@ -66,9 +69,19 @@ class PostCreator extends Component {
         authActions.logout(navigator)
     }
     popPage() {
-        const {navigator} = this.props
+        const {navigator, post} = this.props
+        let shouldClose = true
+        if (post.isSomethingChange) {
+            notification.confirm('You have unsaved changes, are you sure want to close this?').then((c) => {
+                if (c > 0) {
+                    navigator.resetPage({ component: MenuContainer, key: 'MENU_CONTAINER' })
+                }
+            })
+        } else {
+            navigator.resetPage({ component: MenuContainer, key: 'MENU_CONTAINER' })
+        }
 
-        navigator.resetPage({ component: MenuContainer, key: 'MENU_CONTAINER' })
+
     }
 
     hideDialogCamera() {
@@ -124,6 +137,7 @@ class PostCreator extends Component {
             let timestamp = d.getTime()
             postActions.postDataChanged({
                 isUploading: true,
+                isSomethingChange: true,
                 picturePreview: `${imageData}?v=${timestamp}`,
                 postData: {
                     ...post.postData,
@@ -158,6 +172,7 @@ class PostCreator extends Component {
         helpers.snapPicture().then((imageData) => {
 
             postActions.postDataChanged({
+                isSomethingChange: true,
                 isUploading: true,
                 linkPicturePreview: imageData
             })
@@ -190,6 +205,7 @@ class PostCreator extends Component {
             const d = new Date()
             let timestamp = d.getTime()
             postActions.postDataChanged({
+                isSomethingChange: true,
                 isUploading: true,
                 linkPicturePreview: `${imageData}?v=${timestamp}`
             })
@@ -219,6 +235,7 @@ class PostCreator extends Component {
 
         const {postActions, post} = this.props
         postActions.postDataChanged({
+            isSomethingChange: true,
             postData: {
                 ...post.postData,
                 ...{ message: e.target.value }
@@ -228,6 +245,7 @@ class PostCreator extends Component {
     removePicLink(e) {
         const {postActions, post} = this.props
         postActions.postDataChanged({
+            isSomethingChange: true,
             postData: {
                 ...this.state.postData,
                 ...{
@@ -268,7 +286,7 @@ class PostCreator extends Component {
             inputType: 'url',
             defaultValue: ''
         }).then((data) => {
-            console.log(data)
+
             if (data && (data.indexOf('http://') > -1 || data.indexOf('https://') > -1)) {
                 let shouldAddLink = false
                 if (postData.type == 'picture') {
@@ -303,6 +321,7 @@ class PostCreator extends Component {
         data[e.target.id] = e.target.value
 
         postActions.postDataChanged({
+            isSomethingChange: true,
             postData: {
                 ...post.postData,
                 ...data
@@ -340,6 +359,56 @@ class PostCreator extends Component {
 
         navigator.pushPage({ component: DateTimePicker, key: 'DATE_TIME_PICKER' })
     }
+
+
+    sendPost(e) {
+        let mode = e.currentTarget.dataset.mode
+        const {postActions, post} = this.props
+        if (post.postData.message.length > 0) {
+            if (mode !== 'update') {
+                this.setState({
+                    modalShown: true,
+                    modalMessage: mode == 'now' ? 'The content is being posted...' : 'The content is being scheduled...'
+                })
+
+                postActions.schedule(mode).then((response) => {
+                    this.setState({
+                        modalShown: false,
+                        modalMessage: ''
+                    })
+                    this.popPage()
+                }).catch((error) => {
+                    this.setState({
+                        modalShown: false,
+                        modalMessage: ''
+                    })
+                })
+            } else {
+                this.setState({
+                    modalShown: true,
+                    modalMessage: 'The content is being updated...'
+                })
+
+                postActions.update().then((response) => {
+                    this.setState({
+                        modalShown: false,
+                        modalMessage: ''
+                    })
+                    this.popPage()
+                }).catch((error) => {
+                    this.setState({
+                        modalShown: false,
+                        modalMessage: ''
+                    })
+                })
+
+
+            }
+        } else {
+            notification.alert('Message or text status can not be blank.', { title: 'Ups!' })
+        }
+
+    }
     render() {
         const {navigator, post, socialaccount} = this.props
         const {postData} = post
@@ -349,11 +418,24 @@ class PostCreator extends Component {
 
         return (
 
-            <Page>
+            <Page
+                renderModal={() => (
+                    <Modal
+                        isOpen={this.state.modalShown}
+                        >
+                        <section style={{ margin: '16px' }}>
+                            <p style={{ opacity: 0.6 }}>
+                                <ProgressCircular className='loading-wrap__icon' indeterminate />
+                                {this.state.modalMessage}
+                            </p>
+                        </section>
+                    </Modal>
+                )}
+                >
                 <section className='page__post-creator'>
                     <div className='post-creator'>
                         <div className='post-creator__header'>
-                            <h3 className='post-creator__label'>Create Post</h3>
+                            <h3 className='post-creator__label'>{post.creatorMode == 'new' ? 'Create Post' : 'Update Post'}</h3>
                             <a href="#" className='post-creator__close' onClick={this.popPage}><Icon icon='fa-times-circle' /></a>
                         </div>
                         <div className='post-creator__account-wrapper'>
@@ -415,15 +497,32 @@ class PostCreator extends Component {
                                     }
                                 </div>
                             }
+                            {postData.type == 'link' &&
+                                <div className='post-box post-box__in-creator'>
+                                    <a href="#" className='post-box__close' onClick={this.removePicLink}><Icon icon='fa-times' /></a>
+                                    <div className='post-box__link'>
+                                        <input className='post-box__link-caption' id='link' onChange={this.changeLinkPreviewText} value={postData.link} />
+                                    </div>
+                                </div>
+
+                            }
                         </div>
                         <div className='post-creator__footer'>
                             <a href="#" className='post-creator__link' onClick={this.addPic}><Icon icon='fa-camera' /></a>
                             <a href="#" className='post-creator__link' onClick={this.addLink}><Icon icon='fa-link' /></a>
                             <a href="#" className='post-creator__link' onClick={this.openDateTime}><Icon icon='fa-calendar' /></a>
-                            <span className='pull-right'>
-                                <a className='post-creator__link' href="#">Schedule</a>
-                                <a className='post-creator__link' href="#">Post Now</a>
-                            </span>
+                            {post.creatorMode == 'new' &&
+                                <span className='pull-right'>
+                                    <a className='post-creator__link' href="#" data-mode='schedule' onClick={this.sendPost}>Schedule</a>
+                                    <a className='post-creator__link' data-mode='now' onClick={this.sendPost} href="#">Post Now</a>
+                                </span>
+                            }
+                            {post.creatorMode == 'update' &&
+                                <span className='pull-right'>
+                                    <a className='post-creator__link' href="#" data-mode='update' onClick={this.sendPost}>Update Post</a>
+
+                                </span>
+                            }
                             <div className='clearfix'>
                             </div>
                         </div>

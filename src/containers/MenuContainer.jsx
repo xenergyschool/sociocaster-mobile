@@ -71,16 +71,20 @@ class MenuContainer extends Component {
         }
     }
     openPostCreator(e) {
-        console.log(e)
-        const {navigator, postActions} = this.props
-        navigator.pushPage({ component: PostCreator, key: 'POST_CREATOR' }, {
-            onPrePush: () => {
-                postActions.postDataChanged({
+
+        const {navigator, postActions, post} = this.props
+        postActions.postDataChanged({
+            creatorMode: 'new',
+            isSomethingChange: false,
+            postData: {
+                ...post.postData,
+                ...{
                     type: 'text',
                     message: ''
-                })
+                }
             }
         })
+        navigator.pushPage({ component: PostCreator, key: 'POST_CREATOR' })
     }
     renderTabs() {
 
@@ -142,7 +146,8 @@ class MenuContainer extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
     auth: state.auth,
-    socialaccount: state.socialaccount
+    socialaccount: state.socialaccount,
+    post: state.post
 });
 
 const mapDispatchToProps = (dispatch) => ({
