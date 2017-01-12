@@ -51,11 +51,13 @@ export default class PostItem extends Component {
                         <div className='album-wrap'>
                             <img className='album-wrap__image' src='https://s3-us-west-1.amazonaws.com/powr/defaults/image-slider2.jpg' alt="" />
                             <div className='album-wrap__desc'>
-                                <p>Type Album</p>
-                                <span>+100 images</span>
+                                <p className='album-wrap__type'>Album</p>
+                                <span className='album-wrap__total'>+100</span>
                             </div>
                         </div>
-                        <p className='post-box__msg'> {postItem.message}</p>
+                        <p className='post-box__msg'>Mereka memang terlalu ke arab-araban, bicaranya aja antum, akhi, ukhti!
+Beda dengan kita yang sangat cinta Indonesia walau mengenakan pakaian berbahan jeans, bicara tentang audience, insight, copy writing, target market, save, download, copy, paste, btw, otw dan lain-lainnya.
+Bahkan walau kadang manggil koko dan cici pada sebagian dari saudara kami, itu tidak mempengaruhi kecintaan kami terhadap tanah air Indonesia.</p>
                         <span className='post-box__time'>{time}</span>
                     </div>
                 )

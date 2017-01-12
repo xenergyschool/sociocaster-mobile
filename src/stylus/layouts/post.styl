@@ -47,17 +47,17 @@
     margin: 0 auto 20px
     border: solid 1px
     border-color: darken($color5,5%) darken($color5,7%) darken($color5,13%)
-    padding: 25px 15px
+    padding: 25px 15px 15px
     border-radius: 5px
 
 .post-box__msg
     color: darken($color3,10%)
-    margin: 0 0 20px
+    margin: 0 0 10px
     border-bottom: solid 1px $color5
-    padding-bottom: 20px
+    padding-bottom: 13px
     word-wrap: break-word
     font-size: 16px
-    line-height: 24px
+    line-height: 28px
     max-height: 105px
     overflow: hidden
 
@@ -392,6 +392,7 @@
         display: block
         overflow: hidden
         position: relative
+        margin-bottom: 10px
     .album-wrap__image
         width:100%
         height: auto
@@ -400,6 +401,17 @@
         position: absolute
         top: 0
         right: -2px
-        background-color: rgba($color9,.8)
+        background-color: rgba($color9,.85)
         width:40%
         height: 150px
+
+.album-wrap__type
+    font-size: 16px
+    text-align: center
+    margin: 50px auto 5px
+
+.album-wrap__total
+    font-size: 35px
+    display: block
+    text-align: center
+    font-weight: $bold
