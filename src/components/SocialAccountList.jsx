@@ -35,6 +35,7 @@ export default class SocialAccountList extends Component {
         const filteredSocialAccounts = socialaccount.data.items.filter(filterSocialAccounts)
         return (
             <LazyList
+                className='social-acc-list'
                 length={filteredSocialAccounts.length}
                 renderRow={this.renderRow}
                 calculateItemHeight={() => platform.isAndroid() ? 68 : 64}
