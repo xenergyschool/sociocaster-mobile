@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" id="com.sociocaster.app" version="1.0.0">
+<widget xmlns="http://www.w3.org/ns/widgets" id="com.sociocaster.app" version="1.0.0" >
   <name>Sociocaster</name>
   <description/>
   <author/>
@@ -109,4 +109,5 @@
   <platform name="chrome">
     <icon src="/platforms/chrome/icon.png" width="128" height="128"/>
   </platform>
+
 </widget>

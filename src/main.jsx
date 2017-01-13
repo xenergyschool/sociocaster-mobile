@@ -58,5 +58,4 @@ if (module.hot) {
 
 document.addEventListener("deviceready", function () {
   StatusBar.backgroundColorByHexString("#216694")
-  console.log(navigator.camera)
 }, false)

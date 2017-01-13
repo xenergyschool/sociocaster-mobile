@@ -24,6 +24,7 @@ export default class Post extends Component {
         this.handleMenuPullLoad = this.handleMenuPullLoad.bind(this)
         this.getMenuPullContent = this.getMenuPullContent.bind(this)
         this.openPostCreator = this.openPostCreator.bind(this)
+        this.getPublishedUrl = this.getPublishedUrl.bind(this)
         this.state = {
             filter: 'scheduled',
             dialogShown: false,
@@ -35,7 +36,7 @@ export default class Post extends Component {
     renderItems() {
 
         const {post, socialaccount, auth, postActions} = this.props
-
+        currentDate = '1970-01-01'
         let items = []
         itemHeights = []
         if (socialaccount.activeIndex > -1) {
@@ -65,7 +66,6 @@ export default class Post extends Component {
                     })
 
                     const timeString = m.format('HH:mm')
-
 
 
                     if (renderDateRow) {
@@ -100,6 +100,7 @@ export default class Post extends Component {
         return items
 
     }
+
 
     openActions(e) {
         const {postActions} = this.props
@@ -150,8 +151,35 @@ export default class Post extends Component {
         })
         navigator.pushPage({ component: PostCreator, key: 'POST_CREATOR' })
     }
+
+    getPublishedUrl() {
+
+        const {post, socialaccount} = this.props
+        let activeSocialaccount, activePost, publishedUrl
+        if (socialaccount.activeIndex > -1 && post.activeIndex > -1) {
+            activeSocialaccount = socialaccount.data.items[socialaccount.activeIndex]
+            activePost = post.data.items[post.activeIndex]
+
+            switch (activeSocialaccount.provider) {
+                case 'Facebook':
+                    return `https://facebook.com/${activePost.postid.replace('_', '/posts/')}`
+                case 'Twitter':
+                    return `https://twitter.com/${activeSocialaccount.displayName}/status/${activePost.postid}/`
+                case 'LinkedIn':
+                case 'Vk':
+                case 'Pinterest':
+                    return activePost.postid
+                case 'wordpress':
+                    return `${activeSocialaccount.profileUrl}?p=${activePost.postid}`
+                case 'Instagram':
+                    return `https://instagram.com/p/${activePost.postid}`
+
+            }
+        }
+    }
     render() {
-        const {renderToolbar, post, loadMorePosts, changePostFilter, postActions} = this.props
+        const {renderToolbar, post, loadMorePosts, changePostFilter, postActions, socialaccount} = this.props
+
 
 
 
@@ -163,6 +191,8 @@ export default class Post extends Component {
             let postItemActions = ['delete']
             if (post.filter == 'scheduled')
                 postItemActions = ['edit', ...postItemActions]
+            else if (post.filter == 'published')
+                postItemActions = ['view post', ...postItemActions]
 
             return (
                 <Page
@@ -237,6 +267,10 @@ export default class Post extends Component {
                                                         break
                                                     case 'edit':
                                                         this.openPostCreator()
+                                                        break
+                                                    case 'view post':
+                                                        let url = this.getPublishedUrl()
+                                                        window.open(url, '_system', '')
                                                         break
                                                 }
 

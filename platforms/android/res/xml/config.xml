@@ -18,6 +18,12 @@
     <feature name="FileTransfer">
         <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
     </feature>
+    <name>Sociocaster</name>
+    <description />
+    <author />
+    <access origin="*" />
+    <content src="index.html" />
+    <preference name="ErrorUrl" value="" />
     <icon density="ldpi" src="/res/android/icon/ldpi.png" />
     <icon density="mdpi" src="/res/android/icon/mdpi.png" />
     <icon density="hdpi" src="/res/android/icon/hdpi.png" />
@@ -30,16 +36,10 @@
     <splash density="port-xhdpi" src="/res/android/screen/splash-port-xhdpi.9.png" />
     <splash density="port-xxhdpi" src="/res/android/screen/splash-port-xxhdpi.9.png" />
     <splash density="port-xxxhdpi" src="/res/android/screen/splash-port-xxxhdpi.9.png" />
-    <name>Sociocaster</name>
-    <description />
-    <author />
-    <access origin="*" />
-    <content src="index.html" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="AndroidLaunchMode" value="singleTop" />
     <preference name="BackgroundColor" value="0x13bde2" />
     <preference name="DisallowOverscroll" value="true" />
-    <preference name="ErrorUrl" value="" />
     <preference name="Fullscreen" value="false" />
     <preference name="KeepRunning" value="true" />
     <preference name="monaca:WebViewEngine" value="default" />
@@ -64,6 +64,7 @@
     <preference name="PageLength" value="0" />
     <preference name="PaginationBreakingMode" value="page" />
     <preference name="PaginationMode" value="unpaginated" />
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <preference name="ios-XCBuildConfiguration-TARGETED_DEVICE_FAMILY" value="1,2" />
-    <preference name="StatusBarBackgroundColor" value="#2EB2FF" />
+    <preference name="StatusBarBackgroundColor" value="#216694" />
 </widget>
