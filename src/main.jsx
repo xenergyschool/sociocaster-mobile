@@ -58,12 +58,4 @@ if (module.hot) {
 
 document.addEventListener("deviceready", function () {
   StatusBar.backgroundColorByHexString("#216694")
-
-  window.plugins.webintent.getExtra(WebIntent.EXTRA_TEXT, function (url) {
-    // url is the value of EXTRA_TEXT 
-    console.log('dari web intent')
-    console.log(url)
-  }, function () {
-    // There was no extra supplied.
-  })
 }, false)
