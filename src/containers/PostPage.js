@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import Menu from '../components/Menu'
 import Post from '../components/Post'
 import MenuContainer from './MenuContainer'
-
+import UserSetting from './UserSetting'
 class PostPage extends Component {
     constructor(props) {
         super(props)
@@ -17,6 +17,7 @@ class PostPage extends Component {
         this.loadMorePosts = this.loadMorePosts.bind(this)
         this.logout = this.logout.bind(this)
         this.changePostFilter = this.changePostFilter.bind(this)
+        this.openUserSetting = this.openUserSetting.bind(this)
     }
     renderToolbar() {
         const {title, showMenu} = this.props
@@ -29,8 +30,8 @@ class PostPage extends Component {
                 </div>
                 <div className='center'>{title}</div>
                 <div className='right'>
-                    <ToolbarButton onClick={this.logout}>
-                        <Icon icon='fa-sign-out'></Icon>
+                    <ToolbarButton onClick={this.openUserSetting}>
+                        <Icon icon='fa-user'></Icon>
                     </ToolbarButton>
                 </div>
             </Toolbar>
@@ -43,6 +44,12 @@ class PostPage extends Component {
         authActions.logout(navigator)
     }
 
+    openUserSetting() {
+
+        const {navigator} = this.props
+
+        navigator.pushPage({ component: UserSetting, key: 'USER_SETTINGS' })
+    }
 
 
 
