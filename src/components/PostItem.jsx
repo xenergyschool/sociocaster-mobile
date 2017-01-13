@@ -12,7 +12,7 @@ export default class PostItem extends Component {
         switch (postItem.type) {
             case 'picture':
                 itemContent = (
-                    <div className='post-box post-box__picture' data-index={currentIndex} onClick={openActions}>
+                    <div className='post-box post-box__pictures' data-index={currentIndex} onClick={openActions}>
                         <p className='post-box__msg'>{postItem.message}</p>
                         <img className='post-box__picture' src={postItem.picture} alt="" />
 

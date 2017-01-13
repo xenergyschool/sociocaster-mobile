@@ -20,12 +20,17 @@
 
 .rdtPicker th.rdtSwitch
     color: $color2
+    padding:15px
+    font-size: 24px
+
+.rdtPicker th.rdtNext, .rdtPicker th.rdtPrev
+    padding: 15px
 
 .rdtPicker .rdtTimeToggle
-    padding: 25px 0
+    padding: 15px 0
     background: lighten($color2,25%)
     color: $color9
-    font-size: 40px
+    font-size: 24px
     font-weight: $bold
 
 .rdtPicker .dow
@@ -34,3 +39,34 @@
 .rdtDays
     tfoot
         border-top: 1px solid $color18
+
+.rdtCounter
+    width: 99px
+    height: 150px
+    .rdtCount
+        height: 40%
+        font-size: 40px
+        line-height: 60px
+        background: $color5
+        font-weight: $bold
+        color: $color3
+        border-radius: 5px
+    .rdtBtn
+        font-size: 30px
+        line-height: 60px
+        margin:2px 0
+        color:$color3
+
+    .rdtCounter:before:first-child .rdtBtn
+        content: "\f077"
+        font-family: "FontAwesome"
+        background: $color9
+        color: $color3
+        font-size: 30px
+        @extend .absolute-center
+        margin:auto
+
+.rdtCounterSeparator
+    line-height: 150px
+    color: $color9
+    width: 10px
