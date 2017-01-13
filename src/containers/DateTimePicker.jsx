@@ -65,19 +65,22 @@ class DateTimePicker extends Component {
         return (
             <Page
                 renderToolbar={this.renderToolbar}
+                className='datetime-picker'
                 >
 
-                <div>
-                    {minDate.format('MMM Do YYYY, HH:mm:ss')}
+                <div className='datetime-wrap'>
+                    <div className='datetime-current'>
+                        {minDate.format('MMM Do YYYY, HH:mm:ss')}
+                    </div>
+                    <Datetime
+                        input={false}
+                        defaultValue={minDate}
+                        dateFormat='MMM Do YYYY'
+                        timeFormat='HH:mm:ss'
+                        isValidDate={this.validateDate}
+                        onChange={this.onDateChange}
+                        />
                 </div>
-                <Datetime
-                    input={false}
-                    defaultValue={minDate}
-                    dateFormat='MMM Do YYYY'
-                    timeFormat='HH:mm:ss'
-                    isValidDate={this.validateDate}
-                    onChange={this.onDateChange}
-                    />
 
 
             </Page>

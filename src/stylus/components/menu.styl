@@ -30,8 +30,11 @@
         color: $color9
         font-size: 20px
         background: none !important
-    .user-displayname
-        color: $color1
+        .user__displayname
+            color: $color9
+            width: 160px
+            height: 21px
+            @extend .cut-text
 
 .left-menu__setting
     position: absolute
@@ -91,6 +94,9 @@
 .user__displayname
     font-size: 16px
     font-weight: $bold
+    @extend .cut-text
+    width:175px
+    height: 21px
 
 .user__provider
     font-size: 13px

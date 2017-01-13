@@ -424,10 +424,12 @@ class PostCreator extends Component {
                         isOpen={this.state.modalShown}
                         >
                         <section style={{ margin: '16px' }}>
-                            <p style={{ opacity: 0.6 }}>
+                            <div className='modal-box'>
                                 <ProgressCircular className='loading-wrap__icon' indeterminate />
-                                {this.state.modalMessage}
-                            </p>
+                                <p className='modal-msg'>
+                                   {this.state.modalMessage} 
+                                </p>
+                            </div>
                         </section>
                     </Modal>
                 )}
