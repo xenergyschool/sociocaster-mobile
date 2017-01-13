@@ -219,7 +219,7 @@ export default class Post extends Component {
                             isOpen={this.state.dialogPostShown}
                             isCancelable={true}
                             onCancel={this.hideDialogPost}>
-                            <div style={{ textAlign: 'center', margin: '20px' }}>
+                            <div className='post-filter'>
                                 <List
                                     dataSource={postItemActions}
                                     renderRow={(data, index) => (
