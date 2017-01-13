@@ -7,7 +7,7 @@ export default class UnreleasedPage extends Component {
     constructor(props) {
         super(props)
         this.renderToolbar = this.renderToolbar.bind(this)
-
+        this.openUserSetting = this.openUserSetting.bind(this)
         this.logout = this.logout.bind(this)
     }
 
@@ -20,6 +20,13 @@ export default class UnreleasedPage extends Component {
 
 
 
+    openUserSetting() {
+
+        const {navigator} = this.props
+
+        navigator.pushPage({ component: UserSetting, key: 'USER_SETTINGS' })
+    }
+
     renderToolbar() {
         const {title, showMenu} = this.props
         return (
@@ -31,8 +38,8 @@ export default class UnreleasedPage extends Component {
                 </div>
                 <div className='center'>{title}</div>
                 <div className='right'>
-                    <ToolbarButton onClick={this.logout}>
-                        <Icon icon='fa-sign-out'></Icon>
+                    <ToolbarButton onClick={this.openUserSetting}>
+                        <Icon icon='fa-user'></Icon>
                     </ToolbarButton>
                 </div>
             </Toolbar>
@@ -49,7 +56,7 @@ export default class UnreleasedPage extends Component {
 
         return (
             <Page
-                
+
                 renderToolbar={this.renderToolbar}
                 >
                 <section className='page__unreleased'>

@@ -54,7 +54,7 @@ export default class PostItem extends Component {
                             <img className='album-wrap__image' src={pictures[0].thumbnail} alt="" />
                             <div className='album-wrap__desc'>
                                 <p className='album-wrap__type'>Album</p>
-                                <span className='album-wrap__total'>+100</span>
+                                <span className='album-wrap__total'>+{pictures.length - 1}</span>
                             </div>
                         </div>
                         <h3> {message.title}</h3>
