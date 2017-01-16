@@ -14,6 +14,10 @@ export const avatarError = (e) => {
     e.target.src = images.defaultAvatar
 }
 
+export const imageError = (e) => {
+    e.target.src = images.unavailableImage
+}
+
 export const snapPicture = (options = {}) => {
 
     return new Promise((resolve, reject) => {

@@ -427,7 +427,7 @@ class PostCreator extends Component {
                             <div className='modal-box'>
                                 <ProgressCircular className='loading-wrap__icon' indeterminate />
                                 <p className='modal-msg'>
-                                   {this.state.modalMessage} 
+                                    {this.state.modalMessage}
                                 </p>
                             </div>
                         </section>
@@ -483,8 +483,8 @@ class PostCreator extends Component {
                                     <div className='post-box__link'>
                                         <div className='post-box__link-wrap'>
                                             <img className='post-box__link-picture' src={post.linkPicturePreview} alt='' />
-                                            <div className='post-box__hover' onClick={this.changeLinkPicture}>
-                                                <a className='post-box__hover-link' href="#"><Icon icon='fa-camera' className='post-box__hover-icon' /></a>
+                                            <div className='post-box__hover' >
+                                                <a className='post-box__hover-link' href="#" onClick={this.changeLinkPicture}><Icon icon='fa-camera' className='post-box__hover-icon' /></a>
                                             </div>
                                         </div>
                                         <input className='post-box__link-name' id='linkname' onChange={this.changeLinkPreviewText} value={postData.linkname} />
