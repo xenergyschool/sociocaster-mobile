@@ -24,6 +24,9 @@
         },
         "cordova-webintent": {
             "PACKAGE_NAME": "com.sociocaster.app"
+        },
+        "cordova-plugin-filepath": {
+            "PACKAGE_NAME": "com.sociocaster.app"
         }
     },
     "dependent_plugins": {

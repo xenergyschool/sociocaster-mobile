@@ -35,6 +35,10 @@
                         {
                             "xml": "<feature name=\"WebIntent\"><param name=\"android-package\" value=\"com.borismus.webintent.WebIntent\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"FilePath\"><param name=\"android-package\" value=\"com.hiddentao.cordova.filepath.FilePath\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -44,7 +48,11 @@
                     "/*": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-                            "count": 3
+                            "count": 4
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />",
+                            "count": 1
                         }
                     ],
                     "application": [
@@ -82,6 +90,9 @@
             "PACKAGE_NAME": "com.sociocaster.app"
         },
         "cordova-webintent": {
+            "PACKAGE_NAME": "com.sociocaster.app"
+        },
+        "cordova-plugin-filepath": {
             "PACKAGE_NAME": "com.sociocaster.app"
         }
     },
@@ -332,6 +343,14 @@
             "clobbers": [
                 "WebIntent"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-filepath/www/FilePath.js",
+            "id": "cordova-plugin-filepath.FilePath",
+            "pluginId": "cordova-plugin-filepath",
+            "clobbers": [
+                "window.FilePath"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -342,6 +361,7 @@
         "cordova-plugin-file": "4.3.1",
         "cordova-plugin-file-transfer": "1.6.1",
         "cordova-custom-config": "3.1.2",
-        "cordova-webintent": "1.0.0"
+        "cordova-webintent": "1.0.0",
+        "cordova-plugin-filepath": "1.0.2"
     }
 }
