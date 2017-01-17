@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.sociocaster.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets">
+<widget id="com.sociocaster.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android">
     <feature name="StatusBar">
         <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
         <param name="onload" value="true" />
@@ -18,12 +18,9 @@
     <feature name="FileTransfer">
         <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
     </feature>
-    <name>Sociocaster</name>
-    <description />
-    <author />
-    <access origin="*" />
-    <content src="index.html" />
-    <preference name="ErrorUrl" value="" />
+    <feature name="WebIntent">
+        <param name="android-package" value="com.borismus.webintent.WebIntent" />
+    </feature>
     <icon density="ldpi" src="/res/android/icon/ldpi.png" />
     <icon density="mdpi" src="/res/android/icon/mdpi.png" />
     <icon density="hdpi" src="/res/android/icon/hdpi.png" />
@@ -36,10 +33,27 @@
     <splash density="port-xhdpi" src="/res/android/screen/splash-port-xhdpi.9.png" />
     <splash density="port-xxhdpi" src="/res/android/screen/splash-port-xxhdpi.9.png" />
     <splash density="port-xxxhdpi" src="/res/android/screen/splash-port-xxxhdpi.9.png" />
+    <config-file mode="add" parent="./application/activity" target="AndroidManifest.xml">
+        <action android:name="android.intent.action.SEND" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="text/plain" />
+        <intent-filter>
+            <action android:name="android.intent.action.SEND" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <data android:mimeType="text/*" />
+            <data android:mimeType="image/*" />
+        </intent-filter>
+    </config-file>
+    <name>Sociocaster</name>
+    <description />
+    <author />
+    <access origin="*" />
+    <content src="index.html" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="AndroidLaunchMode" value="singleTop" />
     <preference name="BackgroundColor" value="0x13bde2" />
     <preference name="DisallowOverscroll" value="true" />
+    <preference name="ErrorUrl" value="" />
     <preference name="Fullscreen" value="false" />
     <preference name="KeepRunning" value="true" />
     <preference name="monaca:WebViewEngine" value="default" />

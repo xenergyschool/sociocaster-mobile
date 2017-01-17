@@ -237,6 +237,14 @@ module.exports = [
         "clobbers": [
             "window.FileTransfer"
         ]
+    },
+    {
+        "file": "plugins/cordova-webintent/www/webintent.js",
+        "id": "cordova-webintent.WebIntent",
+        "pluginId": "cordova-webintent",
+        "clobbers": [
+            "WebIntent"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -247,7 +255,9 @@ module.exports.metadata =
     "cordova-plugin-compat": "1.1.0",
     "cordova-plugin-camera": "2.3.1",
     "cordova-plugin-file": "4.3.1",
-    "cordova-plugin-file-transfer": "1.6.1"
+    "cordova-plugin-file-transfer": "1.6.1",
+    "cordova-custom-config": "3.1.2",
+    "cordova-webintent": "1.0.0"
 }
 // BOTTOM OF METADATA
 });

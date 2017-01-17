@@ -20,6 +20,12 @@
         },
         "cordova-plugin-file-transfer": {
             "PACKAGE_NAME": "com.sociocaster.app"
+        },
+        "cordova-custom-config": {
+            "PACKAGE_NAME": "com.sociocaster.app"
+        },
+        "cordova-webintent": {
+            "PACKAGE_NAME": "com.sociocaster.app"
         }
     },
     "dependent_plugins": {

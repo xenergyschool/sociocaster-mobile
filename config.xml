@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" id="com.sociocaster.app" version="1.0.0" >
+<widget 
+  xmlns="http://www.w3.org/ns/widgets" id="com.sociocaster.app" version="1.0.0" 
+  xmlns:android="http://schemas.android.com/apk/res/android">
   <name>Sociocaster</name>
   <description/>
   <author/>
   <access origin="*"/>
   <content src="index.html"/>
-
   <preference name="loglevel" value="DEBUG"/>
   <preference name="AndroidLaunchMode" value="singleTop"/>
   <preference name="BackgroundColor" value="0x13bde2"/>
@@ -20,11 +21,9 @@
   <preference name="monaca:DisableCookie" value="false"/>
   <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
   <preference name="android-minSdkVersion" value="14"/>
-
   <feature name="App">
     <param name="android-package" value="org.apache.cordova.App"/>
   </feature>
-
   <preference name="AllowInlineMediaPlayback" value="false"/>
   <preference name="AutoHideSplashScreen" value="true"/>
   <preference name="BackupWebStorage" value="cloud"/>
@@ -44,12 +43,10 @@
   <feature name="LocalStorage">
     <param name="ios-package" value="CDVLocalStorage"/>
   </feature>
-  
   <preference name="ios-XCBuildConfiguration-TARGETED_DEVICE_FAMILY" value="1,2"/>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true" />
   </feature>
-  
   <preference name="StatusBarBackgroundColor" value="#216694" />
   <platform name="ios">
     <icon src="/res/ios/icon/icon.png" width="57" height="57"/>
@@ -98,6 +95,14 @@
     <splash src="/res/android/screen/splash-port-xhdpi.9.png" density="port-xhdpi"/>
     <splash src="/res/android/screen/splash-port-xxhdpi.9.png" density="port-xxhdpi"/>
     <splash src="/res/android/screen/splash-port-xxxhdpi.9.png" density="port-xxxhdpi"/>
+    <config-file target="AndroidManifest.xml" parent="./application/activity" mode="add">
+      <intent-filter>
+        <action android:name="android.intent.action.SEND" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="text/plain" />
+        <data android:mimeType="image/*" />
+      </intent-filter>
+    </config-file>
   </platform>
   <platform name="windows">
     <icon src="/res/winrt/icon/package_logo_winrt.png" target="StoreLogo"/>
@@ -109,5 +114,4 @@
   <platform name="chrome">
     <icon src="/platforms/chrome/icon.png" width="128" height="128"/>
   </platform>
-
 </widget>

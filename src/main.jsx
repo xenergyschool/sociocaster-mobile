@@ -58,4 +58,22 @@ if (module.hot) {
 
 document.addEventListener("deviceready", function () {
   StatusBar.backgroundColorByHexString("#216694")
+
+  window.plugins.webintent.getExtra(window.plugins.webintent.EXTRA_TEXT, function (url) {
+    // url is the value of EXTRA_TEXT 
+    console.log(url)
+    alert(url)
+  }, function () {
+    // There was no extra supplied.
+    alert('no extra')
+  });
+
+  window.plugins.webintent.getExtra(window.plugins.webintent.EXTRA_STREAM, function (url) {
+    // url is the value of EXTRA_STREAM
+    console.log(url)
+    alert(url)
+  }, function () {
+    // There was no extra supplied.
+    alert('stream: no extra')
+  });
 }, false)
