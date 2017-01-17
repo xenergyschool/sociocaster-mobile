@@ -58,7 +58,7 @@
     "cordova-webintent": {
         "source": {
             "type": "git",
-            "url": "https://github.com/fluentstream/cordova-webintent.git",
+            "url": "https://github.com/ydatech/cordova-webintent.git",
             "subdir": "."
         },
         "is_top_level": true,

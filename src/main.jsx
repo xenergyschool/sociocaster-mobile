@@ -16,7 +16,7 @@ require('./stylus/index.styl');
 
 import App from './containers/App';
 import * as authActions from './actions/auth';
-
+import * as postActions from './actions/post';
 
 
 const logger = createLogger();
@@ -61,19 +61,57 @@ document.addEventListener("deviceready", function () {
 
   window.plugins.webintent.getExtra(window.plugins.webintent.EXTRA_TEXT, function (url) {
     // url is the value of EXTRA_TEXT 
-    console.log(url)
-    alert(url)
+
+    let state = store.getState()
+    if (url.includes('https://') || url.includes('http://')) {
+
+      store.dispatch(postActions.postDataChanged(
+        {
+          intentSharing: true,
+          postData: {
+            ...state.post.postData,
+            ...{
+              type: 'link',
+              link: url
+            }
+          }
+        }
+      ))
+
+    } else {
+
+      store.dispatch(postActions.postDataChanged(
+        {
+          intentSharing: true,
+          postData: {
+            ...state.post.postData,
+            ...{
+              type: 'text',
+              message: url
+            }
+          }
+        }
+      ))
+
+    }
   }, function () {
     // There was no extra supplied.
-    alert('no extra')
+
   });
 
   window.plugins.webintent.getExtra(window.plugins.webintent.EXTRA_STREAM, function (url) {
     // url is the value of EXTRA_STREAM
-    console.log(url)
-    alert(url)
+    let state = store.getState()
+    store.dispatch(postActions.postDataChanged({
+      intentSharing: true,
+      picturePreview: url,
+      postData: {
+        ...state.post.postData,
+        ...{ type: 'picture' }
+      }
+    }))
   }, function () {
     // There was no extra supplied.
-    alert('stream: no extra')
+
   });
 }, false)

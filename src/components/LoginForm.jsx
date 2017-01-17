@@ -14,6 +14,7 @@ export default class LoginForm extends Component {
                                 className='sc-inputs'
                                 value={username}
                                 onChange={handleChange}
+                                minLength='6'
                                 id='username'
                                 type='text'
                                 placeholder='Username'
@@ -28,6 +29,7 @@ export default class LoginForm extends Component {
                                 className='sc-inputs'
                                 value={password}
                                 onChange={handleChange}
+                                minLength='6'
                                 id='password'
                                 type='password'
                                 placeholder='Password'

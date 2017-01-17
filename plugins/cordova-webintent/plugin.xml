@@ -30,7 +30,7 @@
             		</intent-filter>
         	</receiver>
         </config-file>
-	-->
+	
 	<config-file target="AndroidManifest.xml" parent="/*/application/activity">
 		<intent-filter>
 			<action android:name="android.intent.action.MAIN" />
@@ -46,5 +46,6 @@
 		<uses-permission android:name="android.permission.CALL_PHONE" />
 		<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 	</config-file>
+	-->
     </platform>
 </plugin>

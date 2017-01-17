@@ -38,9 +38,10 @@
         <category android:name="android.intent.category.DEFAULT" />
         <data android:mimeType="text/plain" />
         <intent-filter>
+            <data android:mimeType="text/*" />
             <action android:name="android.intent.action.SEND" />
             <category android:name="android.intent.category.DEFAULT" />
-            <data android:mimeType="text/*" />
+            <data android:mimeType="text/plain" />
             <data android:mimeType="image/*" />
         </intent-filter>
     </config-file>

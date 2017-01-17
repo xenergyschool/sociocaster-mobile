@@ -53,26 +53,8 @@
                             "count": 1
                         }
                     ],
-                    "/*/application/activity": [
-                        {
-                            "xml": "<intent-filter><action android:name=\"android.intent.action.MAIN\" /><action android:name=\"android.intent.action.DIAL\" /><action android:name=\"android.intent.action.CALL\" /><action android:name=\"android.intent.action.CALL_BUTTON\" /><category android:name=\"android.intent.category.DEFAULT\" /><data android:scheme=\"tel\" /></intent-filter>",
-                            "count": 1
-                        }
-                    ],
-                    "/manifest": [
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.PROCESS_OUTGOING_CALLS\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.CALL_PHONE\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
-                            "count": 1
-                        }
-                    ]
+                    "/*/application/activity": [],
+                    "/manifest": []
                 }
             }
         }

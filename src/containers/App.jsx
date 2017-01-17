@@ -9,7 +9,10 @@ import TimeZoneSetting from './TimeZoneSetting'
 import NoSocialAccountsPage from '../components/NoSocialAccountsPage'
 import * as authActions from '../actions/auth'
 import * as socialaccountActions from '../actions/socialaccount'
+
 import { bindActionCreators } from 'redux'
+import PostCreator from './PostCreator'
+
 
 class App extends React.Component {
   constructor(props) {
@@ -42,7 +45,7 @@ class App extends React.Component {
   render() {
 
     const {isLoggedIn, isChecking, user} = this.props.auth
-    const {socialaccount, socialaccountActions, authActions} = this.props
+    const {socialaccount, socialaccountActions, authActions, post} = this.props
     if (isLoggedIn) {
       if (socialaccount.isFetching) {
         return (
@@ -62,16 +65,26 @@ class App extends React.Component {
         } else {
 
           if (socialaccount.data.items && socialaccount.data.items.length > 0) {
-            console.log('navigator', socialaccount)
-            return (
+            //console.log('navigator', socialaccount)
 
-              <Navigator
-                renderPage={this.renderPage}
-                initialRoute={{ component: MenuContainer, key: 'MENU_CONTAINER' }}
-                />
-            )
+            if (post.intentSharing) {
+              return (
+                <Navigator
+                  renderPage={this.renderPage}
+                  initialRoute={{ component: PostCreator, key: 'POST_CREATOR' }}
+                  />
+              )
+            } else {
+              return (
+
+                <Navigator
+                  renderPage={this.renderPage}
+                  initialRoute={{ component: MenuContainer, key: 'MENU_CONTAINER' }}
+                  />
+              )
+            }
           } else {
-            console.log('nosocial', socialaccount)
+            // console.log('nosocial', socialaccount)
             return (
               <NoSocialAccountsPage
                 reloadSocialaccounts={(e) => { socialaccountActions.get() } }
@@ -107,7 +120,7 @@ class App extends React.Component {
 }
 
 
-const mapStateToProps = (state, ownProps) => ({ auth: state.auth, socialaccount: state.socialaccount })
+const mapStateToProps = (state, ownProps) => ({ auth: state.auth, socialaccount: state.socialaccount, post: state.post })
 
 const mapDispatchToProps = (dispatch) => ({
   authActions: bindActionCreators(authActions, dispatch),

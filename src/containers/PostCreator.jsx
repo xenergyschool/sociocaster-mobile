@@ -409,6 +409,47 @@ class PostCreator extends Component {
         }
 
     }
+
+    componentDidMount() {
+
+        let {post, postActions} = this.props
+
+        if (post.intentSharing) {
+
+            if (post.postData.type == 'picture') {
+                postActions.postDataChanged({
+                    isUploading: true
+                })
+                postActions.uploadFile(post.picturePreview).then((response) => {
+                    post = this.props.post
+                    postActions.postDataChanged({
+                        isUploading: false,
+                        intentSharing: false,
+                        postData: {
+                            ...post.postData,
+                            ...{ picture: response.url }
+                        }
+                    })
+                }).catch((error) => {
+                    postActions.postDataChanged({
+                        intentSharing: false,
+                        isUploading: false
+                    })
+                })
+            } else if (post.postData.type == 'link') {
+                postActions.getLinkPreview(post.postData.link).then((response) => {
+                    postActions.postDataChanged({
+                        intentSharing: false
+                    })
+                }).catch((error) => {
+                    postActions.postDataChanged({
+                        intentSharing: false
+                    })
+                })
+            }
+        }
+    }
+
     render() {
         const {navigator, post, socialaccount} = this.props
         const {postData} = post
