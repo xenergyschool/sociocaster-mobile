@@ -411,7 +411,6 @@ class PostCreator extends Component {
     }
 
     componentDidMount() {
-
         let {post, postActions} = this.props
 
         if (post.intentSharing) {
