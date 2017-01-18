@@ -2,6 +2,7 @@ import axios from 'axios'
 import * as api from '../api'
 import { notification } from 'onsenui'
 import { Promise } from 'es6-promise'
+import * as mixpanel from '../helpers/mixpanel'
 
 export const POST_LOADED = 'POST_LOADED';
 export const POST_MORE_LOADED = 'POST_MORE_LOADED'
@@ -40,7 +41,7 @@ export const get = (mode = 'normal') => {
         }
 
         return api.get(`/posts?status=${state.post.filter}&socialaccount=${socialaccountId}`, config).then((response) => {
-
+            mixpanel.track('posts', { filter: state.post.filter })
             dispatch({
                 type: POST_LOADED,
                 data: {
@@ -120,7 +121,7 @@ export const remove = () => {
         let state = getState()
         let activeItem = state.post.data.items[state.post.activeIndex]
         return api.remove(`/posts/${activeItem.id}`).then((response) => {
-            console.log(response)
+            mixpanel.track('remove-post', { id: activeItem.id })
             dispatch({
                 type: POST_DELETED
             })
@@ -159,7 +160,7 @@ export const uploadFile = (fileURL) => {
             fileKey: 'UploadForm[imageFiles][]'
         }
         return api.upload(`${SC_API}/media/upload`, fileURL, options).then((response) => {
-
+            mixpanel.track('upload-file')
             if (response.data[0] && response.data[0].success) {
 
                 return Promise.resolve(response.data[0])
@@ -208,6 +209,7 @@ export const getLinkPreview = (url) => {
         })
 
         return api.get(`/posts/linkpreview?url=${url}`).then((response) => {
+            mixpanel.track('link-preview')
             state = getState()
             dispatch({
                 type: POST_LOADED,
@@ -269,7 +271,7 @@ export const schedule = (mode) => {
         let url = `${SC_API}/posts`
 
         return api.post(url, params).then((response) => {
-
+            mixpanel.track('create-post')
             dispatch({
                 type: POST_LOADED,
                 data: {
@@ -341,7 +343,7 @@ export const update = () => {
         let data = state.post.postData
 
         return api.patch(`/posts/${activePost.id}`, data).then((response) => {
-
+            mixpanel.track('update-post')
             dispatch({
                 type: POST_LOADED,
                 data: {

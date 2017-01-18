@@ -257,8 +257,7 @@ module.exports.metadata =
     "cordova-plugin-file": "4.3.1",
     "cordova-plugin-file-transfer": "1.6.1",
     "cordova-custom-config": "3.1.2",
-    "cordova-webintent": "1.0.0",
-    "cordova-plugin-filepath": "1.0.2"
+    "cordova-webintent": "1.0.0"
 }
 // BOTTOM OF METADATA
 });

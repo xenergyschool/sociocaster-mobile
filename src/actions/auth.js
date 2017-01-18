@@ -3,6 +3,7 @@ import { notification } from 'onsenui'
 import * as socialaccountActions from './socialaccount'
 import WelcomPage from '../containers/WelcomePage'
 import { Promise } from 'es6-promise'
+import * as mixpanel from '../helpers/mixpanel'
 
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAILED = 'AUTH_FAILED';
@@ -17,6 +18,14 @@ export const init = () => {
             if (localStorage.getItem('sc-auth')) {
                 jwt = JSON.parse(localStorage.getItem('sc-auth')).jwt
             }
+            let user = {
+                ...response.data,
+                ...{
+                    '$first_name': response.data.username,
+                    '$email': response.data.email
+                }
+            }
+            mixpanel.setUser(user)
             dispatch({
                 type: AUTH_SUCCESS,
                 data: {
@@ -28,7 +37,9 @@ export const init = () => {
                 }
             })
             dispatch(socialaccountActions.get())
+
         }).catch((response) => {
+            mixpanel.track('welcome-page')
             dispatch({
                 type: AUTH_SUCCESS,
                 data: {
@@ -56,7 +67,7 @@ export const login = (data) => {
         })
 
         api.post('/app/mobilelogin', data, config).then((response) => {
-            console.log(response)
+            mixpanel.track('login')
             localStorage.setItem('sc-auth', JSON.stringify(response.data))
 
             api.setting()
@@ -89,7 +100,7 @@ export const signup = (data) => {
         })
 
         return api.post('/users', data).then((response) => {
-            console.log(response)
+            mixpanel.track('signup')
             dispatch({
                 type: AUTH_SUCCESS,
                 data: {
@@ -121,6 +132,7 @@ export const logout = (navigator = 'normal') => {
     return (dispatch, getState) => {
         notification.confirm('Are you sure want to sign out?').then((response) => {
             if (response > 0) {
+                mixpanel.track('logout')
                 localStorage.removeItem('sc-auth')
                 if (navigator !== 'normal') {
                     navigator.pushPage({ component: WelcomPage, key: 'WELCOME_PAGE' })
@@ -150,8 +162,9 @@ export const resetPassword = (data) => {
             }
         })
 
+
         return api.post('/users/sendresetpasswordlink', data).then((response) => {
-            console.log(response)
+            mixpanel.track('reset-password')
             dispatch({
                 type: AUTH_SUCCESS,
                 data: {
@@ -189,6 +202,7 @@ export const update = (data) => {
         })
 
         return api.patch('/users', data).then((response) => {
+            mixpanel.track('update-user-info')
             dispatch({
                 type: AUTH_SUCCESS,
                 data: {

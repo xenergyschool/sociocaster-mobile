@@ -418,6 +418,7 @@ class PostCreator extends Component {
 
             if (post.postData.type == 'picture') {
                 postActions.postDataChanged({
+                    isSomethingChange: true,
                     isUploading: true
                 })
                 postActions.uploadFile(post.picturePreview).then((response) => {

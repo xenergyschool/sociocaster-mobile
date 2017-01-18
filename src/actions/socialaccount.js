@@ -1,6 +1,7 @@
 import * as api from '../api'
 import { notification } from 'onsenui'
 import * as postActions from './post'
+import * as mixpanel from '../helpers/mixpanel'
 
 export const SOCIAL_ACCOUNTS_LOADED = 'SOCIAL_ACCOUNTS_LOADED'
 export const SOCIAL_ACCOUNTS_SWITCH = 'SOCIAL_ACCOUNTS_SWITCH'
@@ -54,6 +55,7 @@ export const get = (mode = 'normal') => {
 
 export const switchSocialaccount = (index) => {
     return (dispatch, getState) => {
+        mixpanel.track('switch-socialaccount')
         const state = getState()
         dispatch({
             type: SOCIAL_ACCOUNT_SELECTED_RESET
@@ -86,6 +88,7 @@ export const updateScheduleTimes = (data) => {
         })
 
         return api.patch(`/scheduletimes/${activeId}`, data).then((response) => {
+            mixpanel.track('update-socialaccount-scheduletime')
             dispatch({
                 type: SOCIAL_SCHEDULETIME_UPDATED,
                 data: {
@@ -114,7 +117,7 @@ export const remove = () => {
         return notification.confirm(`Are you sure want to delete ${activeItem.displayName} (${activeItem.provider} ${activeItem.type}) from Sociocaster?`).then((response) => {
             if (response > 0) {
                 return api.remove(`/socialaccounts/${activeItem.id}`).then((response) => {
-                    console.log(response)
+                    mixpanel.track('remove-socialaccount')
                     dispatch({
                         type: SOCIAL_ACCOUNT_DELETED
                     })
@@ -136,6 +139,7 @@ export const remove = () => {
 export const selectSocialAccount = (index) => {
 
     return (dispatch, getState) => {
+        mixpanel.track('select-socialaccount')
         const state = getState()
         const selected = state.socialaccount.data.items[index]
         let isAdded = state.socialaccount.selectedSocialaccounts.indexOf(selected.id)

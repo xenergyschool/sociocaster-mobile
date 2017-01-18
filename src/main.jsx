@@ -101,21 +101,17 @@ document.addEventListener("deviceready", function () {
 
   window.plugins.webintent.getExtra(window.plugins.webintent.EXTRA_STREAM, function (url) {
 
-    window.FilePath.resolveNativePath(url, (realUri) => {
-      // url is the value of EXTRA_STREAM
-      let state = store.getState()
-      store.dispatch(postActions.postDataChanged({
-        intentSharing: true,
-        picturePreview: realUri,
-        postData: {
-          ...state.post.postData,
-          ...{ type: 'picture' }
-        }
-      }))
-    },
-      (error) => {
+    // url is the value of EXTRA_STREAM
+    let state = store.getState()
+    store.dispatch(postActions.postDataChanged({
+      intentSharing: true,
+      picturePreview: url,
+      postData: {
+        ...state.post.postData,
+        ...{ type: 'picture' }
+      }
+    }))
 
-      })
 
   }, function () {
     // There was no extra supplied.
