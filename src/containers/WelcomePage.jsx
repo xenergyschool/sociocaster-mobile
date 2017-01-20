@@ -37,15 +37,17 @@ class WelcomePage extends Component {
         const {messages, navigator} = this.props
         console.log(this.state)
         console.log(navigator)
-        return (<Page>
-            <WelcomeCarousel
-                messages={messages}
-                openLoginPage={this.openLoginPage}
-                openSignUpPage={this.openSignUpPage}
-                setIndex={this.setIndex}
-                activeIndex={this.state.index}
-                />
-        </Page>);
+        return (
+            <Page>
+                <WelcomeCarousel
+                    messages={messages}
+                    openLoginPage={this.openLoginPage}
+                    openSignUpPage={this.openSignUpPage}
+                    setIndex={this.setIndex}
+                    activeIndex={this.state.index}
+                    />
+            </Page>
+        )
     }
 
 }
