@@ -60,7 +60,9 @@ class UserSetting extends Component {
                         <a href="#" onClick={this.popPage}> <Icon icon='fa-times' /></a>
                         <h3> User Info </h3>
                         <ul>
+                            <li key='avatar'><img className='user-avatar' src={auth.user.avatar} alt="" /></li>
                             <li key='username'> Username :  {auth.user.username}</li>
+                            <li key='email'> Email :  {auth.user.email}</li>
                             <li key='logout'><a href="#" onClick={this.logout}> Sign Out </a></li>
                         </ul>
                     </div>
