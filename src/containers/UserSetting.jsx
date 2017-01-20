@@ -54,7 +54,7 @@ class UserSetting extends Component {
 
             return (
                 <Page
-                    className='page-timezone'
+                    className='page-user-setting'
                     >
                     <div className='page-wrapper'>
                         <div className='user-info'>
@@ -66,10 +66,22 @@ class UserSetting extends Component {
                                         <img className='user-info__avatar' src={`${SC_HOST}${auth.user.avatar}`} alt="" />
                                     </div>
                                 </li>
-                                 <li key='username' className='user-info__list-item'> Username :  {auth.user.username}</li>
-                                 <li key='email' className='user-info__list-item'> Email :  {auth.user.email}</li>
-                                 <li key='timezone' className='user-info__list-item'> Timezone :  {auth.user.timezone}</li>
-                                 <li key='logout' className='user-info__list-item'><a href="#" onClick={this.logout}> Sign Out </a></li>
+                                 <li key='username' className='user-info__list-item'>
+                                    <span className='user-info__list-label'>Username</span>
+                                    <span className='user-info__list-data'>{auth.user.username}</span>   
+                                 </li>
+                                 <li key='email' className='user-info__list-item'>
+                                    <span className='user-info__list-label'>Email</span>
+                                    <span className='user-info__list-data'>{auth.user.email}</span>
+                                 </li>
+                                 <li key='timezone' className='user-info__list-item'>
+                                    <span className='user-info__list-label'>Timezone</span>
+                                    <span className='user-info__list-data'>{auth.user.timezone}</span>
+                                 </li>
+                                 <li key='logout' className='user-info__list-item'>
+                                    <a className='logmeout' href="#" onClick={this.logout}> Sign Out </a>
+                                 </li>
+                                 <li className='user-info__list-item'><span className='user-info__list-data'>&copy; 2017 Sociocaster All rights Reserved</span></li>
                             </ul>  
                         </div>
                     </div>
