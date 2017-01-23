@@ -210,7 +210,7 @@ export const update = (data) => {
                     user: response.data
                 }
             })
-            return response
+            return Promise.resolve(response)
         }).catch((error) => {
             dispatch({
                 type: AUTH_SUCCESS,

@@ -127,8 +127,8 @@ export const remove = () => {
             })
             return response
         }).catch((response) => {
-            console.log(response)
-            Promise.reject(response)
+            //console.log(response)
+            return Promise.reject(response)
         })
     }
 }
@@ -262,7 +262,7 @@ export const schedule = (mode) => {
             }
         }
         let activeSocialaccount = state.socialaccount.data.items[state.socialaccount.activeIndex]
-        console.log(params)
+        //console.log(params)
         dispatch({
             type: POST_LOADED,
             data: { isScheduling: true }
