@@ -18,19 +18,24 @@ class TimeZoneSetting extends Component {
         this.handleSearch = this.handleSearch.bind(this)
         this.filterTimezones = this.filterTimezones.bind(this)
         this.renderToolbar = this.renderToolbar.bind(this)
-        const timezone = jstz.determine()
+        const tz = jstz.determine()
+        const timezone = props.auth.user.timezone ? props.auth.user.timezone : tz.name()
 
         this.state = {
-            userTimezone: timezone.name(),
-            searchKeyword: timezone.name()
+            userTimezone: timezone,
+            searchKeyword: timezone
         }
     }
     handleClick(e) {
 
         e.preventDefault()
-        const {authActions, navigator} = this.props
+        const {authActions, navigator, auth} = this.props
 
-        authActions.update({ timezone: this.state.userTimezone })
+        authActions.update({ timezone: this.state.userTimezone }).then((response) => {
+            if (auth.user.timezone) {
+                navigator.popPage()
+            }
+        })
         // navigator.popPage()
         //navigator.pushPage({ component: MenuContainer, key: 'MENU_CONTAINER_2' })
     }

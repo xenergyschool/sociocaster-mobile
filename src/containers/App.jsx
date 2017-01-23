@@ -44,8 +44,10 @@ class App extends React.Component {
 
   render() {
 
+    console.log('hello')
     const {isLoggedIn, isChecking, user} = this.props.auth
     const {socialaccount, socialaccountActions, authActions, post} = this.props
+    console.log('hello--sini')
     if (isLoggedIn) {
       if (socialaccount.isFetching) {
         return (

@@ -288,27 +288,25 @@ class PostCreator extends Component {
         }).then((data) => {
 
             if (data && (data.indexOf('http://') > -1 || data.indexOf('https://') > -1)) {
-                let shouldAddLink = false
+
                 if (postData.type == 'picture') {
                     notification.confirm('Are you sure want to replace the media with this link attachment?').then((c) => {
                         if (c > 0) {
-                            shouldAddLink = true
+                            postActions.getLinkPreview(data.trim())
                         }
                     })
                 } else if (postData.type == 'link' || postData.type == 'customlink') {
                     notification.confirm('Are you sure want to replace your current link attachment with this one?').then((c) => {
                         if (c > 0) {
-                            shouldAddLink = true
+                            postActions.getLinkPreview(data.trim())
                         }
                     })
                 } else {
-                    shouldAddLink = true
 
-                }
-
-                if (shouldAddLink) {
                     postActions.getLinkPreview(data.trim())
                 }
+
+
             } else {
                 notification.alert('Please enter a valid url', { title: 'Ups!' })
             }
